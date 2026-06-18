@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" fill="none">
+  <defs>
+    <linearGradient id="fhg" x1="0.3" y1="0" x2="0.7" y2="1">
+      <stop offset="0%" stop-color="#3DC76D"/>
+      <stop offset="100%" stop-color="#00B2CC"/>
+    </linearGradient>
+    <linearGradient id="fbg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#00CDD8"/>
+      <stop offset="100%" stop-color="#1045AA"/>
+    </linearGradient>
+    <linearGradient id="fdg" x1="0.3" y1="0" x2="0.5" y2="1">
+      <stop offset="0%" stop-color="#29B6F6"/>
+      <stop offset="100%" stop-color="#0D47A1"/>
+    </linearGradient>
+    <linearGradient id="flg" x1="0.5" y1="0" x2="0.5" y2="1">
+      <stop offset="0%" stop-color="#FFE040"/>
+      <stop offset="100%" stop-color="#FF8F00"/>
+    </linearGradient>
+  </defs>
+  <!-- Hand / care base -->
+  <path d="M19 70 Q13 53 20 45 Q28 35 39 45 Q50 93 61 45 Q72 35 80 45 Q87 53 81 70 Q68 96 50 97 Q32 96 19 70Z" fill="url(#fbg)"/>
+  <!-- House — white fill, green gradient outline -->
+  <path d="M50 12 L16 46 H26 V78 H74 V46 H84 Z" fill="white" stroke="url(#fhg)" stroke-width="5.5" stroke-linejoin="round"/>
+  <!-- Windows 2x2 -->
+  <rect x="36" y="53" width="11" height="11" rx="2.5" fill="#2DC76D"/>
+  <rect x="53" y="53" width="11" height="11" rx="2.5" fill="#2DC76D"/>
+  <rect x="36" y="66" width="11" height="11" rx="2.5" fill="#2DC76D"/>
+  <rect x="53" y="66" width="11" height="11" rx="2.5" fill="#2DC76D"/>
+  <!-- Water drop left -->
+  <path d="M22 62 Q14 50 22 41 Q29 32 37 41 Q45 50 37 62 Q30 69 22 62Z" fill="url(#fdg)"/>
+  <!-- Lightning bolt right -->
+  <path d="M78 18 L65 52 H74 L62 82 L88 48 H78 Z" fill="url(#flg)"/>
+</svg>

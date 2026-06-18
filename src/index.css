@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+@theme {
+  --color-green-brand:  #2DC76D;
+  --color-teal-brand:   #00B8A2;
+  --color-blue-brand:   #1565C0;
+  --color-blue-light:   #1E88E5;
+  --color-orange-brand: #F57C00;
+  --color-charcoal:     #1A2433;
+  --color-muted:        #546E7A;
+  --color-silver:       #90A4AE;
+  --font-display: 'Kanit', sans-serif;
+  --font-body:    'Sarabun', 'Segoe UI', system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
+body {
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  background: #ffffff;
+  color: #1A2433;
+  overflow-x: hidden;
+}
+#root { width: 100%; }
+
+/* transitions */
+.card-hover { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.card-hover:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,184,162,0.13); }
+
+.btn-orange {
+  background: linear-gradient(135deg, #FF9800, #F57C00);
+  color: #fff;
+  transition: filter 0.15s, transform 0.15s;
+  display: inline-flex; align-items: center;
+}
+.btn-orange:hover { filter: brightness(1.06); transform: translateY(-1px); }
+
+.btn-ghost-teal {
+  border: 1.5px solid #00B8A2;
+  color: #00B8A2;
+  background: transparent;
+  transition: background 0.15s, color 0.15s;
+  display: inline-flex; align-items: center;
+}
+.btn-ghost-teal:hover { background: #00B8A2; color: #fff; }
+
+.sidebar-item { transition: background 0.12s, color 0.12s; }
