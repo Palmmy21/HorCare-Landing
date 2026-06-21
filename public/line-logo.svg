@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <rect width="200" height="200" rx="44" fill="#06C755"/>
+  <!-- Tail drawn first so ellipse covers its base -->
+  <path d="M 58,126 L 36,170 L 84,140 Z" fill="white"/>
+  <!-- Bubble body -->
+  <ellipse cx="100" cy="82" rx="78" ry="60" fill="white"/>
+  <!-- LINE text centered in bubble -->
+  <text x="100" y="82"
+    text-anchor="middle"
+    dominant-baseline="middle"
+    fill="#06C755"
+    font-family="'Arial Black', 'Helvetica Neue', Arial, sans-serif"
+    font-weight="900"
+    font-size="46"
+    letter-spacing="-1">LINE</text>
+</svg>

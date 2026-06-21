@@ -2,6 +2,7 @@ import { useState } from 'react'
 import './App.css'
 
 const HORCARE_URL = 'https://hor-care.vercel.app/'
+const LINE_URL = 'https://lin.ee/9RxwIrM'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Reliable centered wrapper — uses inline styles to avoid Tailwind v4 quirks
@@ -37,6 +38,9 @@ const P = {
   star:    'M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z',
   headset: 'M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V20.25a.75.75 0 001.28.53l3.58-3.58A48.22 48.22 0 0011.75 17c2.463 0 4.882-.157 7.245-.46.992-.126 1.82-.696 2.255-1.479',
   wrench:  'M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75',
+  chat:    'M8.625 9.75a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 01.778-.332 48.294 48.294 0 005.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z',
+  exclaim: 'M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z',
+  mail:    'M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75',
 }
 
 // ── Logo mark ─────────────────────────────────────────────────────────────────
@@ -62,6 +66,7 @@ const NAV = [
   { label: 'ราคา',       href: '#pricing' },
   { label: 'FAQ',        href: '#faq' },
   { label: 'บทความ',    href: '#blog' },
+  { label: 'ติดต่อ',    href: '#contact' },
 ]
 
 function Navbar() {
@@ -156,11 +161,7 @@ function Hero() {
 
         <h1 style={{ fontFamily:'Kanit,sans-serif', fontWeight:700, lineHeight:1.18, marginBottom:18 }}>
           <span style={{ display:'block', fontSize:'clamp(2rem,4.5vw,3.4rem)', color:'white' }}>ระบบจัดการหอพัก</span>
-          <span style={{
-            display:'block', fontSize:'clamp(2rem,4.5vw,3.4rem)',
-            background:'linear-gradient(135deg,#2DC76D 0%,#00B8A2 100%)',
-            WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text',
-          }}>
+          <span style={{ display:'block', fontSize:'clamp(2rem,4.5vw,3.4rem)', color:'#2DC76D' }}>
             ครบ จบ ในระบบเดียว
           </span>
         </h1>
@@ -183,16 +184,19 @@ function Hero() {
           </a>
         </div>
 
-        {/* Stats */}
-        <div style={{ display:'flex', gap:48, justifyContent:'center', flexWrap:'wrap', paddingTop:32, borderTop:'1px solid rgba(255,255,255,0.08)' }}>
+        {/* Trust row */}
+        <div style={{ display:'flex', gap:0, justifyContent:'center', flexWrap:'wrap', paddingTop:28, borderTop:'1px solid rgba(255,255,255,0.08)' }}>
           {[
-            { v:'500+',  l:'หอพักที่ใช้งาน',   c:'#2DC76D' },
-            { v:'10K+',  l:'ผู้เช่าลงทะเบียน', c:'#00B8A2' },
-            { v:'99.9%', l:'Uptime',             c:'#FF9800' },
-          ].map(s => (
-            <div key={s.l}>
-              <div style={{ fontFamily:'Kanit,sans-serif', fontWeight:700, fontSize:28, color:s.c }}>{s.v}</div>
-              <div style={{ fontFamily:'Sarabun,sans-serif', fontSize:12, color:'rgba(255,255,255,0.42)', marginTop:3 }}>{s.l}</div>
+            { v:'500+', l:'หอพักที่ใช้งาน', c:'#2DC76D' },
+            { v:'10K+', l:'ผู้เช่าลงทะเบียน', c:'#00B8A2' },
+            { v:'99.9%', l:'Uptime', c:'#FF9800' },
+          ].map((s, i) => (
+            <div key={s.l} style={{ display:'flex', alignItems:'center', gap:0 }}>
+              {i > 0 && <span style={{ color:'rgba(255,255,255,0.18)', padding:'0 16px', fontFamily:'Sarabun,sans-serif' }}>·</span>}
+              <span style={{ fontFamily:'Sarabun,sans-serif', fontSize:13, color:'rgba(255,255,255,0.55)' }}>
+                <span style={{ fontFamily:'Kanit,sans-serif', fontWeight:700, color:s.c }}>{s.v}</span>
+                {' '}{s.l}
+              </span>
             </div>
           ))}
         </div>
@@ -218,8 +222,7 @@ function Features() {
     <section id="features" style={{ background:'#fff', padding:'80px 0' }}>
       <W>
         <div style={{ textAlign:'center', marginBottom:48 }}>
-          <Pill>คุณสมบัติเด่น</Pill>
-          <h2 style={{ fontFamily:'Kanit,sans-serif', fontWeight:700, fontSize:'clamp(1.6rem,2.5vw,2.2rem)', color:'#1A2433', marginTop:12, lineHeight:1.3 }}>
+          <h2 style={{ fontFamily:'Kanit,sans-serif', fontWeight:700, fontSize:'clamp(1.6rem,2.5vw,2.2rem)', color:'#1A2433', lineHeight:1.3 }}>
             ฟีเจอร์ครบ จบทุกการจัดการหอพัก
           </h2>
           <p style={{ fontFamily:'Sarabun,sans-serif', fontSize:15, color:'#546E7A', marginTop:10, maxWidth:480, margin:'10px auto 0' }}>
@@ -227,14 +230,14 @@ function Features() {
           </p>
         </div>
 
-        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(240px,1fr))', gap:16 }}>
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(240px,1fr))', gap:12 }}>
           {FEATURES.map(f => (
-            <div key={f.title} className="card-hover" style={{ background:'#fff', borderRadius:14, padding:'20px', border:'1px solid rgba(0,184,162,0.12)' }}>
-              <div style={{ width:40, height:40, borderRadius:10, display:'flex', alignItems:'center', justifyContent:'center', background:f.bg, marginBottom:12 }}>
-                <Ic d={f.icon} size={18} color={f.c} />
+            <div key={f.title} className="card-hover" style={{ background:'#fff', borderRadius:12, padding:'18px 20px', border:'1px solid rgba(0,184,162,0.1)' }}>
+              <div style={{ display:'flex', alignItems:'center', gap:8, marginBottom:8 }}>
+                <Ic d={f.icon} size={16} color={f.c} />
+                <h3 style={{ fontFamily:'Kanit,sans-serif', fontWeight:600, fontSize:14, color:'#1A2433', margin:0 }}>{f.title}</h3>
               </div>
-              <h3 style={{ fontFamily:'Kanit,sans-serif', fontWeight:600, fontSize:14, color:'#1A2433', marginBottom:6 }}>{f.title}</h3>
-              <p style={{ fontFamily:'Sarabun,sans-serif', fontSize:13, color:'#546E7A', lineHeight:1.6 }}>{f.desc}</p>
+              <p style={{ fontFamily:'Sarabun,sans-serif', fontSize:13, color:'#546E7A', lineHeight:1.65, paddingLeft:24 }}>{f.desc}</p>
             </div>
           ))}
         </div>
@@ -256,8 +259,7 @@ function HowToUse() {
     <section id="how-to-use" style={{ background:'linear-gradient(150deg,#E0FBF0,#C6EDE5 60%,#DDE8FB)', padding:'80px 0' }}>
       <W>
         <div style={{ textAlign:'center', marginBottom:48 }}>
-          <Pill>วิธีใช้งาน</Pill>
-          <h2 style={{ fontFamily:'Kanit,sans-serif', fontWeight:700, fontSize:'clamp(1.6rem,2.5vw,2.2rem)', color:'#1A2433', marginTop:12, lineHeight:1.3 }}>
+          <h2 style={{ fontFamily:'Kanit,sans-serif', fontWeight:700, fontSize:'clamp(1.6rem,2.5vw,2.2rem)', color:'#1A2433', lineHeight:1.3 }}>
             เริ่มใช้งานง่าย ไม่ต้องติดตั้งโปรแกรม
           </h2>
         </div>
@@ -306,8 +308,7 @@ function Pricing() {
     <section id="pricing" style={{ background:'#fff', padding:'80px 0' }}>
       <W>
         <div style={{ textAlign:'center', marginBottom:48 }}>
-          <Pill>ราคา</Pill>
-          <h2 style={{ fontFamily:'Kanit,sans-serif', fontWeight:700, fontSize:'clamp(1.6rem,2.5vw,2.2rem)', color:'#1A2433', marginTop:12 }}>
+          <h2 style={{ fontFamily:'Kanit,sans-serif', fontWeight:700, fontSize:'clamp(1.6rem,2.5vw,2.2rem)', color:'#1A2433' }}>
             เลือกแพ็กเกจให้เหมาะกับหอพักคุณ
           </h2>
           <p style={{ fontFamily:'Sarabun,sans-serif', fontSize:14, color:'#90A4AE', marginTop:6 }}>
@@ -336,13 +337,10 @@ function Pricing() {
                 }}>{p.badge === 'Premium' ? '★ Premium' : p.badge}</span>
               )}
 
-              {/* Icon */}
-              <div style={{ textAlign:'center', marginBottom:16 }}>
-                <div style={{ width:48, height:48, borderRadius:12, background:`${p.c}15`, display:'flex', alignItems:'center', justifyContent:'center', margin:'0 auto 10px' }}>
-                  <Ic d={P.home} size={22} color={p.c} />
-                </div>
+              {/* Plan name */}
+              <div style={{ marginBottom:16 }}>
                 <div style={{ fontFamily:'Kanit,sans-serif', fontWeight:700, fontSize:18, color:'#1A2433' }}>{p.name}</div>
-                <div style={{ fontFamily:'Sarabun,sans-serif', fontSize:12, color:'#90A4AE' }}>{p.size}</div>
+                <div style={{ fontFamily:'Sarabun,sans-serif', fontSize:12, color:'#90A4AE', marginTop:2 }}>{p.size}</div>
               </div>
 
               {/* Price */}
@@ -386,22 +384,12 @@ function Pricing() {
           ))}
         </div>
 
-        {/* Features highlight row */}
-        <div style={{ marginTop:48, display:'flex', gap:16, justifyContent:'center', flexWrap:'wrap' }}>
-          {[
-            { icon:P.card,    c:'#2DC76D', label:'ราคาพิเศษ',     sub:'คุ้มค่าที่สุด' },
-            { icon:P.chart,   c:'#1E88E5', label:'ระบบการเงิน',   sub:'รายรับ-รายจ่าย' },
-            { icon:P.doc,     c:'#9C27B0', label:'รายงาน',        sub:'ข้อมูลครบถ้วน' },
-            { icon:P.shield,  c:'#00B8A2', label:'ระบบเสถียร',   sub:'ปลอดภัยใช้งานได้จริง' },
-            { icon:P.headset, c:'#F57C00', label:'ซัพพอร์ตดูแล', sub:'ตลอดการใช้งาน' },
-          ].map(f => (
-            <div key={f.label} style={{ textAlign:'center', padding:'14px 18px', borderRadius:12, background:`${f.c}08`, border:`1px solid ${f.c}20`, minWidth:120 }}>
-              <div style={{ width:36, height:36, borderRadius:9, background:`${f.c}18`, display:'flex', alignItems:'center', justifyContent:'center', margin:'0 auto 8px' }}>
-                <Ic d={f.icon} size={16} color={f.c} />
-              </div>
-              <div style={{ fontFamily:'Kanit,sans-serif', fontWeight:600, fontSize:12, color:'#1A2433' }}>{f.label}</div>
-              <div style={{ fontFamily:'Sarabun,sans-serif', fontSize:10.5, color:'#90A4AE', marginTop:2 }}>{f.sub}</div>
-            </div>
+        {/* Trust footnote */}
+        <div style={{ marginTop:40, display:'flex', gap:24, justifyContent:'center', flexWrap:'wrap' }}>
+          {['ราคาโปร่งใส ไม่มีซ่อน','ไม่มีสัญญาผูกมัด','ซัพพอร์ตตลอดการใช้งาน','ระบบเสถียร Uptime 99.9%'].map(t => (
+            <span key={t} style={{ display:'flex', alignItems:'center', gap:6, fontFamily:'Sarabun,sans-serif', fontSize:13, color:'#90A4AE' }}>
+              <Ic d={P.check} size={13} color='#2DC76D' />{t}
+            </span>
           ))}
         </div>
       </W>
@@ -425,8 +413,7 @@ function FAQ() {
     <section id="faq" style={{ background:'linear-gradient(150deg,#E0FBF0,#C6EDE5 60%,#DDE8FB)', padding:'80px 0' }}>
       <W>
         <div style={{ textAlign:'center', marginBottom:40 }}>
-          <Pill>FAQ</Pill>
-          <h2 style={{ fontFamily:'Kanit,sans-serif', fontWeight:700, fontSize:'clamp(1.6rem,2.5vw,2.2rem)', color:'#1A2433', marginTop:12 }}>
+          <h2 style={{ fontFamily:'Kanit,sans-serif', fontWeight:700, fontSize:'clamp(1.6rem,2.5vw,2.2rem)', color:'#1A2433' }}>
             คำถามที่พบบ่อย
           </h2>
         </div>
@@ -478,8 +465,7 @@ function Blog() {
       <W>
         <div style={{ display:'flex', alignItems:'flex-end', justifyContent:'space-between', marginBottom:40, flexWrap:'wrap', gap:12 }}>
           <div>
-            <Pill>บทความ</Pill>
-            <h2 style={{ fontFamily:'Kanit,sans-serif', fontWeight:700, fontSize:'clamp(1.5rem,2.5vw,2.1rem)', color:'#1A2433', marginTop:10 }}>
+            <h2 style={{ fontFamily:'Kanit,sans-serif', fontWeight:700, fontSize:'clamp(1.5rem,2.5vw,2.1rem)', color:'#1A2433' }}>
               ความรู้สำหรับเจ้าของหอพัก
             </h2>
           </div>
@@ -507,6 +493,133 @@ function Blog() {
               </div>
             </article>
           ))}
+        </div>
+      </W>
+    </section>
+  )
+}
+
+// ── Contact ───────────────────────────────────────────────────────────────────
+function LineImg({ size = 32 }) {
+  return <img src="/line-logo.svg" width={size} height={size} alt="LINE" style={{ display: 'block' }} />
+}
+
+function Contact() {
+  return (
+    <section id="contact" style={{ background: '#F8FAFB', padding: '80px 0' }}>
+      <W>
+        <div style={{ textAlign: 'center', marginBottom: 48 }}>
+          <h2 style={{ fontFamily: 'Kanit,sans-serif', fontWeight: 700, fontSize: 'clamp(1.6rem,2.5vw,2.2rem)', color: '#1A2433', lineHeight: 1.3 }}>
+            พร้อมช่วยเหลือคุณเสมอ
+          </h2>
+          <p style={{ fontFamily: 'Sarabun,sans-serif', fontSize: 15, color: '#546E7A', marginTop: 10, maxWidth: 440, margin: '10px auto 0' }}>
+            มีคำถาม ต้องการสาธิต หรืออยากแจ้งปัญหา ทีมงานเราพร้อมดูแลทุกเรื่อง
+          </p>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(260px,1fr))', gap: 20, maxWidth: 880, margin: '0 auto' }}>
+
+          {/* LINE card */}
+          <div style={{
+            borderRadius: 16, padding: '32px 24px', textAlign: 'center',
+            background: '#fff',
+            border: '1px solid rgba(6,199,85,0.2)',
+            boxShadow: '0 4px 24px rgba(6,199,85,0.08)',
+            display: 'flex', flexDirection: 'column', alignItems: 'center',
+          }}>
+            <div style={{ width: 60, height: 60, borderRadius: 16, background: '#06C755', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16, boxShadow: '0 4px 16px rgba(6,199,85,0.3)' }}>
+              <LineImg size={36} />
+            </div>
+            <h3 style={{ fontFamily: 'Kanit,sans-serif', fontWeight: 700, fontSize: 17, color: '#1A2433', marginBottom: 8 }}>ติดต่อผ่าน LINE</h3>
+            <p style={{ fontFamily: 'Sarabun,sans-serif', fontSize: 13.5, color: '#546E7A', lineHeight: 1.7, marginBottom: 20, flex: 1 }}>
+              สอบถามข้อมูล ขอราคา ทดสอบระบบ<br />หรือนัดสาธิตการใช้งานกับทีมงาน
+            </p>
+            <a href={LINE_URL} target="_blank" rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+                background: '#06C755', color: 'white', textDecoration: 'none',
+                fontFamily: 'Kanit,sans-serif', fontWeight: 600, fontSize: 14,
+                padding: '10px 28px', borderRadius: 100, width: '100%', boxSizing: 'border-box',
+                boxShadow: '0 3px 12px rgba(6,199,85,0.3)',
+                transition: 'filter 0.15s, transform 0.15s',
+              }}
+              onMouseEnter={e => { e.currentTarget.style.filter = 'brightness(1.08)'; e.currentTarget.style.transform = 'translateY(-1px)' }}
+              onMouseLeave={e => { e.currentTarget.style.filter = 'none'; e.currentTarget.style.transform = 'none' }}>
+              <LineImg size={16} />
+              เพิ่มเพื่อนใน LINE
+            </a>
+          </div>
+
+          {/* Complaint card */}
+          <div style={{
+            borderRadius: 16, padding: '32px 24px', textAlign: 'center',
+            background: '#fff',
+            border: '1px solid rgba(245,124,0,0.18)',
+            boxShadow: '0 4px 24px rgba(245,124,0,0.07)',
+            display: 'flex', flexDirection: 'column', alignItems: 'center',
+          }}>
+            <div style={{ width: 60, height: 60, borderRadius: 16, background: 'linear-gradient(135deg,#FF9800,#F57C00)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16, boxShadow: '0 4px 16px rgba(255,152,0,0.3)' }}>
+              <Ic d={P.exclaim} size={28} color="white" />
+            </div>
+            <h3 style={{ fontFamily: 'Kanit,sans-serif', fontWeight: 700, fontSize: 17, color: '#1A2433', marginBottom: 8 }}>แจ้งปัญหา / ร้องเรียน</h3>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 9, textAlign: 'left', marginBottom: 20, width: '100%', flex: 1 }}>
+              {['แจ้งบั๊กหรือข้อผิดพลาดของระบบ','ร้องเรียนการบริการ','ขอความช่วยเหลือเร่งด่วน','ให้ข้อเสนอแนะเพื่อพัฒนาระบบ'].map(item => (
+                <div key={item} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <div style={{ width: 18, height: 18, borderRadius: '50%', background: 'rgba(255,152,0,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <Ic d={P.check} size={10} color="#F57C00" />
+                  </div>
+                  <span style={{ fontFamily: 'Sarabun,sans-serif', fontSize: 13, color: '#546E7A' }}>{item}</span>
+                </div>
+              ))}
+            </div>
+            <a href={LINE_URL} target="_blank" rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+                background: '#F57C00', color: 'white', textDecoration: 'none',
+                fontFamily: 'Kanit,sans-serif', fontWeight: 600, fontSize: 14,
+                padding: '10px 28px', borderRadius: 100, width: '100%', boxSizing: 'border-box',
+                boxShadow: '0 3px 12px rgba(245,124,0,0.3)',
+                transition: 'filter 0.15s, transform 0.15s',
+              }}
+              onMouseEnter={e => { e.currentTarget.style.filter = 'brightness(1.08)'; e.currentTarget.style.transform = 'translateY(-1px)' }}
+              onMouseLeave={e => { e.currentTarget.style.filter = 'none'; e.currentTarget.style.transform = 'none' }}>
+              <Ic d={P.chat} size={15} color="white" />
+              แจ้งปัญหาผ่าน LINE
+            </a>
+          </div>
+
+          {/* Response time card */}
+          <div style={{
+            borderRadius: 16, padding: '32px 24px', textAlign: 'center',
+            background: '#fff',
+            border: '1px solid rgba(21,101,192,0.15)',
+            boxShadow: '0 4px 24px rgba(21,101,192,0.07)',
+            display: 'flex', flexDirection: 'column', alignItems: 'center',
+          }}>
+            <div style={{ width: 60, height: 60, borderRadius: 16, background: 'linear-gradient(135deg,#1E88E5,#1565C0)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16, boxShadow: '0 4px 16px rgba(30,136,229,0.3)' }}>
+              <Ic d={P.headset} size={28} color="white" />
+            </div>
+            <h3 style={{ fontFamily: 'Kanit,sans-serif', fontWeight: 700, fontSize: 17, color: '#1A2433', marginBottom: 8 }}>เวลาตอบกลับ</h3>
+            <p style={{ fontFamily: 'Sarabun,sans-serif', fontSize: 13.5, color: '#546E7A', lineHeight: 1.7, marginBottom: 20 }}>
+              ทีมงานพร้อมให้ความช่วยเหลือ<br />ในวันและเวลาทำการ
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10, width: '100%', flex: 1 }}>
+              {[
+                { label: 'จันทร์ – ศุกร์', val: '09:00 – 18:00 น.', c: '#1E88E5' },
+                { label: 'วันเสาร์',       val: '09:00 – 13:00 น.', c: '#00B8A2' },
+                { label: 'ตอบกลับภายใน',   val: '≤ 2 ชั่วโมง',     c: '#2DC76D' },
+              ].map(r => (
+                <div key={r.label} style={{
+                  display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                  background: '#F8FAFB', borderRadius: 10, padding: '10px 14px',
+                }}>
+                  <span style={{ fontFamily: 'Sarabun,sans-serif', fontSize: 13, color: '#546E7A' }}>{r.label}</span>
+                  <span style={{ fontFamily: 'Kanit,sans-serif', fontWeight: 600, fontSize: 13, color: r.c }}>{r.val}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
         </div>
       </W>
     </section>
@@ -640,6 +753,7 @@ export default function App() {
         <Pricing />
         <FAQ />
         <Blog />
+        <Contact />
         <CTABanner />
       </main>
       <Footer />
