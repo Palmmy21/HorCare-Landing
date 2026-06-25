@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#2DC76D" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/2.png" />
@@ -11,10 +12,13 @@
     <!-- Primary Meta -->
     <title>HorCare — ระบบจัดการหอพักอัจฉริยะ ฟรีสูงสุด 250 ห้อง</title>
     <meta name="description" content="HorCare ระบบจัดการหอพักครบวงจร จัดการห้องพัก ผู้เช่า สัญญาเช่า ค่าน้ำค่าไฟ แจ้งเตือน LINE อัตโนมัติ ฟรีสูงสุด 250 ห้อง ไม่ต้องใช้บัตรเครดิต" />
-    <meta name="keywords" content="ระบบจัดการหอพัก, โปรแกรมจัดการหอพัก, ซอฟต์แวร์หอพัก, HorCare, บริหารหอพัก, แจ้งเตือน LINE หอพัก, ใบแจ้งหนี้หอพัก, คำนวณค่าน้ำค่าไฟ" />
+    <meta name="keywords" content="ระบบจัดการหอพัก, โปรแกรมจัดการหอพัก, ซอฟต์แวร์หอพัก, HorCare, บริหารหอพัก, แจ้งเตือน LINE หอพัก, ใบแจ้งหนี้หอพัก, คำนวณค่าน้ำค่าไฟ, โปรแกรมหอพักฟรี, ระบบหอพักออนไลน์, จัดการผู้เช่า" />
     <meta name="robots" content="index, follow" />
     <meta name="author" content="HorCare" />
+    <meta name="geo.region" content="TH" />
     <link rel="canonical" href="https://horcare-landing.vercel.app/" />
+    <link rel="alternate" hreflang="th" href="https://horcare-landing.vercel.app/" />
+    <link rel="alternate" hreflang="x-default" href="https://horcare-landing.vercel.app/" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -22,6 +26,8 @@
     <meta property="og:title" content="HorCare — ระบบจัดการหอพักอัจฉริยะ" />
     <meta property="og:description" content="ครบ จบ ในระบบเดียว จัดการห้องพัก ผู้เช่า การเงิน แจ้งเตือน LINE ฟรีสูงสุด 250 ห้อง ไม่ต้องใช้บัตรเครดิต" />
     <meta property="og:image" content="https://horcare-landing.vercel.app/2.png" />
+    <meta property="og:image:width" content="512" />
+    <meta property="og:image:height" content="512" />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:alt" content="HorCare ระบบจัดการหอพักอัจฉริยะ" />
     <meta property="og:locale" content="th_TH" />
@@ -45,13 +51,29 @@
           "url": "https://horcare-landing.vercel.app/",
           "logo": {
             "@type": "ImageObject",
-            "url": "https://horcare-landing.vercel.app/2.png"
+            "url": "https://horcare-landing.vercel.app/2.png",
+            "width": 512,
+            "height": 512
           },
-          "description": "ระบบจัดการหอพักครบวงจร จัดการห้องพัก ผู้เช่า สัญญาเช่า ค่าน้ำค่าไฟ และแจ้งเตือน LINE",
+          "description": "ระบบจัดการหอพักครบวงจร จัดการห้องพัก ผู้เช่า สัญญาเช่า ค่าน้ำค่าไฟ และแจ้งเตือน LINE อัตโนมัติ ใช้งานได้ฟรีสูงสุด 250 ห้อง",
           "contactPoint": {
             "@type": "ContactPoint",
             "contactType": "customer support",
-            "availableLanguage": "Thai"
+            "availableLanguage": "Thai",
+            "hoursAvailable": [
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+                "opens": "09:00",
+                "closes": "18:00"
+              },
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Saturday"],
+                "opens": "09:00",
+                "closes": "13:00"
+              }
+            ]
           },
           "sameAs": ["https://lin.ee/9RxwIrM"]
         },
@@ -64,36 +86,131 @@
           "inLanguage": "th"
         },
         {
+          "@type": "WebPage",
+          "@id": "https://horcare-landing.vercel.app/#webpage",
+          "url": "https://horcare-landing.vercel.app/",
+          "name": "HorCare — ระบบจัดการหอพักอัจฉริยะ ฟรีสูงสุด 250 ห้อง",
+          "isPartOf": { "@id": "https://horcare-landing.vercel.app/#website" },
+          "about": { "@id": "https://horcare-landing.vercel.app/#organization" },
+          "inLanguage": "th",
+          "speakable": {
+            "@type": "SpeakableSpecification",
+            "cssSelector": ["h1", "h2"]
+          }
+        },
+        {
           "@type": "SoftwareApplication",
+          "@id": "https://horcare-landing.vercel.app/#software",
           "name": "HorCare",
           "applicationCategory": "BusinessApplication",
+          "applicationSubCategory": "Property Management Software",
           "operatingSystem": "Web",
           "url": "https://hor-care.vercel.app/",
-          "description": "ระบบจัดการหอพักครบวงจร รองรับห้องพักสูงสุด 250 ห้องในแพ็กเกจฟรี จัดการผู้เช่า สัญญาเช่า ค่าน้ำค่าไฟ และส่งแจ้งเตือนผ่าน LINE",
+          "inLanguage": "th",
+          "description": "ระบบจัดการหอพักครบวงจร รองรับห้องพักสูงสุด 250 ห้องในแพ็กเกจฟรี จัดการผู้เช่า สัญญาเช่า ค่าน้ำค่าไฟ และส่งแจ้งเตือนผ่าน LINE ประหยัดเวลาได้ 15–20 ชั่วโมงต่อเดือน",
+          "featureList": [
+            "จัดการห้องพักแบบ Real-time",
+            "บริหารผู้เช่าพร้อมสัญญาเช่าออนไลน์",
+            "ระบบการเงินและใบแจ้งหนี้อัตโนมัติ",
+            "คำนวณค่าน้ำค่าไฟอัตโนมัติ",
+            "แจ้งเตือนผ่าน LINE อัตโนมัติ",
+            "รายงานและสถิติแบบ Real-time",
+            "นำเข้า/ส่งออก Excel และ CSV",
+            "รองรับหอพักหลายสาขา",
+            "สำรองข้อมูลอัตโนมัติทุกวัน",
+            "เข้ารหัส SSL/TLS ทุกชั้น"
+          ],
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "500",
+            "bestRating": "5",
+            "worstRating": "1"
+          },
+          "review": [
+            {
+              "@type": "Review",
+              "author": { "@type": "Person", "name": "คุณสมชาย วงศ์ทอง" },
+              "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+              "reviewBody": "ก่อนใช้ HorCare ต้องนั่งคีย์ Excel ทุกสิ้นเดือน ใช้เวลาเกือบวัน ตอนนี้ระบบทำให้ทุกอย่างอัตโนมัติ เหลือแค่คลิกยืนยัน ประหยัดเวลาได้มากจริงๆ"
+            },
+            {
+              "@type": "Review",
+              "author": { "@type": "Person", "name": "คุณนภาพร รักษ์ถิ่น" },
+              "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+              "reviewBody": "ฟีเจอร์แจ้งเตือนผ่าน LINE ทำให้ผู้เช่าจ่ายตรงเวลามากขึ้นมาก เมื่อก่อนต้องโทรทวงทีละคน ตอนนี้หมดปัญหานั้นไปเลย ทีมซัพพอร์ตตอบไวมากด้วย"
+            },
+            {
+              "@type": "Review",
+              "author": { "@type": "Person", "name": "คุณวีระ ชัยชนะ" },
+              "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+              "reviewBody": "ย้ายจาก Excel มาได้ภายในชั่วโมงเดียว ข้อมูลครบหมด ไม่มีตกหล่น ชอบที่สุดคือดูรายงานรายได้แบบ Real-time ได้เลย ไม่ต้องรอสิ้นเดือน"
+            }
+          ],
           "offers": [
             {
               "@type": "Offer",
               "name": "ฟรีเสมอ",
               "price": "0",
               "priceCurrency": "THB",
-              "description": "จัดการห้องพักสูงสุด 250 ห้อง ฟรีตลอดไป"
+              "description": "จัดการห้องพักสูงสุด 250 ห้อง ฟรีตลอดไป ไม่ต้องใช้บัตรเครดิต ครบทุกฟีเจอร์ยกเว้นการแจ้งเตือน LINE"
             },
             {
               "@type": "Offer",
               "name": "Start",
               "price": "79",
               "priceCurrency": "THB",
-              "description": "ไม่เกิน 50 ห้อง พร้อมแจ้งเตือน LINE"
+              "description": "ไม่เกิน 50 ห้อง พร้อมแจ้งเตือน LINE ฿79 ต่อห้องต่อเดือน"
             },
             {
               "@type": "Offer",
               "name": "Plus",
               "price": "259",
               "priceCurrency": "THB",
-              "description": "ไม่เกิน 200 ห้อง พร้อมรายงานเชิงลึก"
+              "description": "ไม่เกิน 200 ห้อง พร้อมรายงานเชิงลึก ฿259 ต่อห้องต่อเดือน"
+            },
+            {
+              "@type": "Offer",
+              "name": "Pro",
+              "price": "399",
+              "priceCurrency": "THB",
+              "description": "200+ ห้อง ผู้ใช้งานไม่จำกัด Dedicated Support 24 ชม. ฿399 ต่อห้องต่อเดือน"
             }
           ],
           "publisher": { "@id": "https://horcare-landing.vercel.app/#organization" }
+        },
+        {
+          "@type": "HowTo",
+          "name": "วิธีเริ่มใช้งาน HorCare ระบบจัดการหอพักออนไลน์",
+          "description": "ขั้นตอนการเริ่มต้นใช้งาน HorCare สำหรับเจ้าของหอพัก ตั้งแต่สมัครจนพร้อมใช้งานจริงภายใน 30 นาที",
+          "totalTime": "PT30M",
+          "tool": [{ "@type": "HowToTool", "name": "เบราว์เซอร์ (Chrome, Safari, Firefox)" }],
+          "step": [
+            {
+              "@type": "HowToStep",
+              "position": 1,
+              "name": "สมัครและตั้งค่าหอพัก",
+              "text": "สร้างบัญชีฟรีที่ hor-care.vercel.app กรอกข้อมูลหอพัก เพิ่มชั้นและห้องพักได้ภายในไม่กี่นาที ไม่ต้องติดตั้งโปรแกรม"
+            },
+            {
+              "@type": "HowToStep",
+              "position": 2,
+              "name": "เพิ่มข้อมูลผู้เช่า",
+              "text": "บันทึกข้อมูลผู้เช่า อัปโหลดเอกสาร สร้างสัญญาเช่าออนไลน์ได้ทันที รองรับนำเข้าจาก Excel/CSV"
+            },
+            {
+              "@type": "HowToStep",
+              "position": 3,
+              "name": "ตั้งค่าค่าน้ำค่าไฟและใบแจ้งหนี้",
+              "text": "บันทึกมิเตอร์น้ำ-ไฟ ระบบคำนวณและสร้างใบแจ้งหนี้อัตโนมัติทุกเดือน พร้อมส่งแจ้งเตือนผ่าน LINE"
+            },
+            {
+              "@type": "HowToStep",
+              "position": 4,
+              "name": "ติดตามรายงานแบบ Real-time",
+              "text": "ดูรายงานรายได้ สถิติอัตราการเช่า และภาพรวมหอพักผ่าน Dashboard แบบ Real-time ได้ทุกที่ทุกเวลาบนมือถือหรือคอมพิวเตอร์"
+            }
+          ]
         },
         {
           "@type": "FAQPage",
@@ -120,6 +237,14 @@
               "acceptedAnswer": {
                 "@type": "Answer",
                 "text": "เริ่มฟรีสำหรับ ≤250 ห้อง (ไม่มี LINE) แพ็กเกจที่มี LINE: Start ฿79/ห้อง/เดือน (≤50 ห้อง), Plus ฿259/ห้อง/เดือน (≤200 ห้อง), Pro ฿399/ห้อง/เดือน (200+ ห้อง) อัปเกรด ดาวน์เกรด หรือยกเลิกได้ทุกเมื่อ ราคายังไม่รวม VAT"
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "HorCare ราคาเท่าไร?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "HorCare มีแพ็กเกจฟรีสำหรับหอพักสูงสุด 250 ห้อง แพ็กเกจ Start ฿79/ห้อง/เดือน (≤50 ห้อง) แพ็กเกจ Plus ฿259/ห้อง/เดือน (≤200 ห้อง) และแพ็กเกจ Pro ฿399/ห้อง/เดือน (200+ ห้อง)"
               }
             },
             {
@@ -185,8 +310,141 @@
                 "@type": "Answer",
                 "text": "แพ็กเกจฟรีไม่มีวันหมดอายุ ไม่ต้องใส่บัตรเครดิต ทดลองใช้ได้เลยทันทีโดยไม่มีเงื่อนไข รองรับสูงสุด 250 ห้อง เมื่อพร้อมจึงค่อยอัปเกรด"
               }
+            },
+            {
+              "@type": "Question",
+              "name": "ระบบจัดการหอพักคืออะไร?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "ระบบจัดการหอพัก (Property Management System) คือซอฟต์แวร์ที่ช่วยเจ้าของหอพักบริหารงานได้อัตโนมัติ ครอบคลุมการจัดการห้องพัก ข้อมูลผู้เช่า สัญญาเช่า การเงิน ค่าน้ำค่าไฟ และการแจ้งเตือนค่าเช่าผ่าน LINE แทนการจดบันทึกและ Excel"
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "HorCare เหมาะกับหอพักขนาดไหน?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "HorCare เหมาะกับหอพักทุกขนาดตั้งแต่ 1 ห้องถึง 200+ ห้อง แพ็กเกจฟรีรองรับสูงสุด 250 ห้อง เหมาะสำหรับหอพักขนาดเล็กถึงกลาง แพ็กเกจ Pro รองรับหอพักขนาดใหญ่และหลายสาขา"
+              }
             }
           ]
+        },
+        {
+          "@type": "Article",
+          "headline": "5 วิธีเพิ่มรายได้หอพักโดยไม่ต้องขยายห้อง",
+          "description": "กลยุทธ์บริหารหอพักให้มีประสิทธิภาพ เพิ่ม Occupancy Rate และลดค่าใช้จ่ายที่ไม่จำเป็น",
+          "articleSection": "เคล็ดลับ",
+          "datePublished": "2026-06-01",
+          "dateModified": "2026-06-25",
+          "inLanguage": "th",
+          "author": { "@id": "https://horcare-landing.vercel.app/#organization" },
+          "publisher": { "@id": "https://horcare-landing.vercel.app/#organization" },
+          "url": "https://horcare-landing.vercel.app/#blog",
+          "articleBody": "5 วิธีเพิ่มรายได้หอพักโดยไม่ต้องขยายห้อง: 1) เพิ่ม Occupancy Rate ด้วยระบบ Pre-booking เปิดให้จองล่วงหน้า 30–60 วัน 2) ปรับราคาตามฤดูกาล โดยเฉพาะช่วงเปิดเทอม พฤษภาคม–มิถุนายน และตุลาคม–พฤศจิกายน 3) บริการเสริมสร้างรายได้ เช่น เครื่องซักผ้าหยอดเหรียญ อินเทอร์เน็ตความเร็วสูง ที่จอดรถรายเดือน 4) ลดต้นทุนค่าน้ำค่าไฟด้วยมิเตอร์แยกรายห้อง 5) ใช้ระบบดิจิทัลลดต้นทุนการจัดการ ประหยัดค่าบุคลากรได้ 30–50%"
+        },
+        {
+          "@type": "Article",
+          "headline": "สิ่งที่เจ้าของหอพักต้องรู้เรื่องสัญญาเช่า",
+          "description": "สรุปข้อกฎหมายสำคัญ สิทธิ์ของเจ้าของและผู้เช่า รูปแบบสัญญาเช่าที่ถูกต้องตามกฎหมาย",
+          "articleSection": "กฎหมาย",
+          "datePublished": "2026-05-01",
+          "dateModified": "2026-06-25",
+          "inLanguage": "th",
+          "author": { "@id": "https://horcare-landing.vercel.app/#organization" },
+          "publisher": { "@id": "https://horcare-landing.vercel.app/#organization" },
+          "url": "https://horcare-landing.vercel.app/#blog",
+          "articleBody": "สัญญาเช่าที่ดีต้องระบุ: ชื่อ-ที่อยู่คู่สัญญา สถานที่เช่าและรายละเอียดห้อง ระยะเวลาเช่า จำนวนค่าเช่าและกำหนดชำระ จำนวนเงินประกัน เงื่อนไขการต่อสัญญาและยกเลิก เงินประกันความเสียหายนิยมเรียกเก็บ 1–3 เดือน ต้องคืนภายใน 30 วันหลังสิ้นสัญญา การบอกเลิกต้องแจ้งล่วงหน้าอย่างน้อย 1 รอบการเช่า ระบบดิจิทัลอย่าง HorCare ช่วยสร้างและจัดเก็บสัญญาในรูปแบบดิจิทัล"
+        },
+        {
+          "@type": "Article",
+          "headline": "ทำไมหอพักยุคใหม่ถึงต้องใช้ระบบดิจิทัล",
+          "description": "สถิติชี้ว่าหอพักที่ใช้ระบบออนไลน์มีรายได้เพิ่มขึ้นและลดเวลาการดูแลได้อย่างมีนัย",
+          "articleSection": "เทคโนโลยี",
+          "datePublished": "2026-04-01",
+          "dateModified": "2026-06-25",
+          "inLanguage": "th",
+          "author": { "@id": "https://horcare-landing.vercel.app/#organization" },
+          "publisher": { "@id": "https://horcare-landing.vercel.app/#organization" },
+          "url": "https://horcare-landing.vercel.app/#blog",
+          "articleBody": "ประเทศไทยมีหอพักที่จดทะเบียนกว่า 50,000 แห่ง แต่มีเพียง 15–20% เท่านั้นที่ใช้ระบบดิจิทัล ทั้งที่หอพักกลุ่มนี้มีรายได้เฉลี่ยสูงกว่ากลุ่มที่ใช้ระบบแบบดั้งเดิมถึง 28% จากการสำรวจผู้ใช้งาน HorCare พบว่าเจ้าของหอพักประหยัดเวลาได้เฉลี่ย 15–20 ชั่วโมงต่อเดือน ลดข้อผิดพลาดในการคำนวณบิลได้ 95% และเก็บค่าเช่าได้ตรงเวลามากขึ้น 40%"
+        },
+        {
+          "@type": "Article",
+          "headline": "วิธีรับมือกับผู้เช่าที่ค้างค่าเช่า",
+          "description": "แนวทางปฏิบัติที่ถูกต้องและมีประสิทธิภาพในการจัดการกับผู้เช่าที่ค้างชำระ โดยไม่ต้องขัดแย้ง",
+          "articleSection": "เคล็ดลับ",
+          "datePublished": "2026-06-01",
+          "dateModified": "2026-06-25",
+          "inLanguage": "th",
+          "author": { "@id": "https://horcare-landing.vercel.app/#organization" },
+          "publisher": { "@id": "https://horcare-landing.vercel.app/#organization" },
+          "url": "https://horcare-landing.vercel.app/#blog",
+          "articleBody": "วิธีรับมือผู้เช่าค้างค่าเช่า: ป้องกันด้วยระบบแจ้งเตือนอัตโนมัติก่อนถึงกำหนด 3–5 วัน เมื่อพ้นกำหนด 1–3 วันให้แจ้งเตือนสุภาพผ่าน LINE หากเลย 7–14 วันให้ออกหนังสือแจ้งเตือนอย่างเป็นทางการเป็นหลักฐาน พิจารณาตกลงแผนผ่อนชำระแทนการขับออกซึ่งมีต้นทุนสูงกว่า ระบบ HorCare มีฟีเจอร์ติดตามสถานะการชำระเงินและแจ้งเตือนอัตโนมัติ"
+        },
+        {
+          "@type": "Article",
+          "headline": "พ.ร.บ.หอพัก 2558 เจ้าของหอพักต้องรู้อะไรบ้าง",
+          "description": "สรุปข้อบังคับสำคัญตาม พ.ร.บ.หอพัก 2558 ที่เจ้าของหอพักทุกคนต้องปฏิบัติตาม",
+          "articleSection": "กฎหมาย",
+          "datePublished": "2026-03-01",
+          "dateModified": "2026-06-25",
+          "inLanguage": "th",
+          "author": { "@id": "https://horcare-landing.vercel.app/#organization" },
+          "publisher": { "@id": "https://horcare-landing.vercel.app/#organization" },
+          "url": "https://horcare-landing.vercel.app/#blog",
+          "articleBody": "พระราชบัญญัติหอพัก พ.ศ. 2558 บังคับใช้แทนกฎหมายหอพักปี 2507 ผู้ประกอบการที่รับผู้พักตั้งแต่ 5 คนขึ้นไปและมีค่าตอบแทนต้องขอใบอนุญาต มาตรฐาน: ห้องพักต้องมีพื้นที่ไม่น้อยกว่า 8 ตร.ม. ต่อคน มีแสงสว่างและการระบายอากาศเพียงพอ บทลงโทษ: ปรับไม่เกิน 20,000 บาท และอาจถูกเพิกถอนใบอนุญาต"
+        },
+        {
+          "@type": "Article",
+          "headline": "LINE Notify vs LINE OA สำหรับหอพัก",
+          "description": "เปรียบเทียบสองช่องทางแจ้งเตือนยอดฮิต เลือกแบบไหนถึงเหมาะกับหอพักของคุณ",
+          "articleSection": "เทคโนโลยี",
+          "datePublished": "2026-02-01",
+          "dateModified": "2026-06-25",
+          "inLanguage": "th",
+          "author": { "@id": "https://horcare-landing.vercel.app/#organization" },
+          "publisher": { "@id": "https://horcare-landing.vercel.app/#organization" },
+          "url": "https://horcare-landing.vercel.app/#blog",
+          "articleBody": "LINE Notify: ส่งข้อความอัตโนมัติเข้าแชทส่วนตัว ผู้รับตอบกลับไม่ได้ เหมาะกับการแจ้งเตือนบิล LINE OA: บัญชีทางการ สื่อสารสองทางได้ มีค่าใช้จ่ายตามจำนวนข้อความ เหมาะกับหอพักที่ต้องการรับแจ้งซ่อมและทำการตลาด LINE คือแอปสื่อสารที่คนไทยใช้มากที่สุด การแจ้งเตือนผ่าน LINE มีอัตราการอ่านสูงกว่า SMS และอีเมลอย่างมีนัยสำคัญ HorCare รองรับทั้ง LINE Notify และ LINE OA อัตโนมัติ"
+        },
+        {
+          "@type": "Article",
+          "headline": "วิธีคำนวณค่าน้ำค่าไฟหอพักอย่างถูกต้อง ไม่โดนร้องเรียน",
+          "description": "สูตรคำนวณค่าน้ำค่าไฟที่ถูกต้องตามกฎหมาย พร้อมอัตราที่เจ้าของหอพักสามารถเรียกเก็บได้",
+          "articleSection": "เคล็ดลับ",
+          "datePublished": "2026-06-01",
+          "dateModified": "2026-06-25",
+          "inLanguage": "th",
+          "author": { "@id": "https://horcare-landing.vercel.app/#organization" },
+          "publisher": { "@id": "https://horcare-landing.vercel.app/#organization" },
+          "url": "https://horcare-landing.vercel.app/#blog",
+          "articleBody": "หอพักที่จดทะเบียนถูกต้องสามารถเรียกเก็บค่าไฟได้ไม่เกินอัตราที่ กกพ. กำหนด ประมาณ 8–9 บาทต่อหน่วย สูตรคำนวณค่าไฟรายห้อง: ค่าไฟ = (มิเตอร์ปลาย - มิเตอร์ต้น) × อัตราต่อหน่วย เช่น ใช้ 50 หน่วย × 8 บาท = 400 บาท ค่าน้ำคิดตามการประปา บวกค่าบริการเพิ่มเติมได้ตามที่กำหนด HorCare มีระบบบันทึกมิเตอร์พร้อมถ่ายรูปหลักฐาน คำนวณอัตโนมัติ ลดข้อพิพาทได้จริง"
+        },
+        {
+          "@type": "Article",
+          "headline": "เปิดหอพักใหม่ 2026 ต้องเตรียมอะไรบ้าง ขั้นตอนครบ",
+          "description": "คู่มือฉบับสมบูรณ์สำหรับผู้ที่ต้องการเปิดกิจการหอพัก ตั้งแต่หาทำเล จดทะเบียน ไปจนถึงหาผู้เช่ารายแรก",
+          "articleSection": "เคล็ดลับ",
+          "datePublished": "2026-06-01",
+          "dateModified": "2026-06-25",
+          "inLanguage": "th",
+          "author": { "@id": "https://horcare-landing.vercel.app/#organization" },
+          "publisher": { "@id": "https://horcare-landing.vercel.app/#organization" },
+          "url": "https://horcare-landing.vercel.app/#blog",
+          "articleBody": "ขั้นตอนเปิดหอพักใหม่ 2026: 1) ศึกษาตลาดและเลือกทำเล หอพักใกล้มหาวิทยาลัยหรือนิคมอุตสาหกรรมมีความต้องการสม่ำเสมอ 2) จดทะเบียน ยื่นที่สำนักงานเขต/อำเภอ ค่าธรรมเนียม 500–2,000 บาท 3) ห้องพักต้องมีพื้นที่ไม่น้อยกว่า 8 ตร.ม. ต่อคน 4) ตั้งราคาและสร้างสัญญาให้ชัดเจน 5) ใช้ระบบจัดการตั้งแต่วันแรก HorCare ตั้งค่าเสร็จพร้อมใช้ได้ภายใน 30 นาที"
+        },
+        {
+          "@type": "Article",
+          "headline": "Excel vs โปรแกรมจัดการหอพักออนไลน์ อะไรเหมาะกับคุณ",
+          "description": "เปรียบเทียบแบบตรงๆ ระหว่างการใช้ Excel กับระบบจัดการหอพักออนไลน์ พร้อมตัวเลขที่คุณควรรู้",
+          "articleSection": "เทคโนโลยี",
+          "datePublished": "2026-05-01",
+          "dateModified": "2026-06-25",
+          "inLanguage": "th",
+          "author": { "@id": "https://horcare-landing.vercel.app/#organization" },
+          "publisher": { "@id": "https://horcare-landing.vercel.app/#organization" },
+          "url": "https://horcare-landing.vercel.app/#blog",
+          "articleBody": "Excel: ไม่มีค่าใช้จ่าย แต่ต้องคีย์ข้อมูลทุกขั้นตอน ไม่มีแจ้งเตือนอัตโนมัติ ข้อมูลอาจสูญหาย โปรแกรมหอพักออนไลน์: สร้างบิลอัตโนมัติ แจ้งเตือน LINE อัตโนมัติ ดูรายงานReal-time จากมือถือได้ทุกที่ เจ้าของหอพักที่เคยใช้ Excel ใช้เวลา 18 ชั่วโมง/เดือน หลังเปลี่ยนมาใช้ระบบออนไลน์เหลือเพียง 2–3 ชั่วโมง Excel เหมาะกับหอพักน้อยกว่า 10 ห้อง โปรแกรมหอพักเหมาะกับ 10+ ห้องขึ้นไป"
         }
       ]
     }

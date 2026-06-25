@@ -2,3 +2,6 @@ User-agent: *
 Allow: /
 
 Sitemap: https://horcare-landing.vercel.app/sitemap.xml
+
+# Block common crawl traps
+Disallow: /*.json$
