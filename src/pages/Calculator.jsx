@@ -3,6 +3,25 @@ import { Link } from 'react-router-dom'
 
 const HORCARE_URL = 'https://hor-care.vercel.app/'
 
+const Ic = ({ d, size = 18, color = 'currentColor', style: s = {} }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
+    stroke={color} strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round"
+    style={{ flexShrink: 0, ...s }} aria-hidden="true">
+    <path d={d} />
+  </svg>
+)
+
+const ICON = {
+  settings: 'M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75',
+  chart:    'M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z',
+  link:     'M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244',
+  bolt:     'M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z',
+  droplet:  'M19.5 12c0 4.136-3.364 7.5-7.5 7.5S4.5 16.136 4.5 12C4.5 7.875 12 2.25 12 2.25S19.5 7.875 19.5 12z',
+  doc:      'M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25z',
+  wrench:   'M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75',
+  calc:     'M15.75 15.75V18m-7.5-6.75h.008v.008H8.25v-.008zm0 2.25h.008v.008H8.25V13.5zm0 2.25h.008v.008H8.25v-.008zm0 2.25h.008v.008H8.25V18zm2.498-6.75h.007v.008h-.007v-.008zm0 2.25h.007v.008h-.007V13.5zm0 2.25h.007v.008h-.007v-.008zm0 2.25h.007v.008h-.007V18zm2.504-6.75h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V13.5zm0 2.25h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V18zm2.498-6.75h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V13.5zM8.25 6h7.5v3h-7.5V6zM12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25z',
+}
+
 const ELECTRICITY_RATE = 8.0   // บาท/หน่วย (อัตราหอพักทั่วไป ไม่เกิน กกพ.)
 const WATER_RATE       = 18.0  // บาท/หน่วย (ลบ.ม.)
 
@@ -182,8 +201,8 @@ export default function Calculator() {
 
             {/* Rate settings */}
             <div style={{ background: '#fff', borderRadius: 14, padding: '20px', border: '1px solid rgba(0,184,162,0.12)' }}>
-              <h2 style={{ fontFamily: 'Kanit,sans-serif', fontWeight: 600, fontSize: 14, color: '#1A2433', marginBottom: 14 }}>
-                ⚙️ ตั้งค่าอัตราค่าน้ำค่าไฟ
+              <h2 style={{ fontFamily: 'Kanit,sans-serif', fontWeight: 600, fontSize: 14, color: '#1A2433', marginBottom: 14, display: 'flex', alignItems: 'center', gap: 8 }}>
+                <Ic d={ICON.settings} size={16} color="#00B8A2" /> ตั้งค่าอัตราค่าน้ำค่าไฟ
               </h2>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
                 <NumInput
@@ -222,8 +241,8 @@ export default function Calculator() {
           {/* Right — summary (sticky) */}
           <div style={{ position: 'sticky', top: 76 }}>
             <div style={{ background: '#fff', borderRadius: 16, padding: '22px', border: '1.5px solid rgba(0,184,162,0.22)', boxShadow: '0 4px 24px rgba(0,184,162,0.1)' }}>
-              <h2 style={{ fontFamily: 'Kanit,sans-serif', fontWeight: 700, fontSize: 15, color: '#1A2433', marginBottom: 14 }}>
-                📊 สรุปยอดรวมทุกห้อง
+              <h2 style={{ fontFamily: 'Kanit,sans-serif', fontWeight: 700, fontSize: 15, color: '#1A2433', marginBottom: 14, display: 'flex', alignItems: 'center', gap: 8 }}>
+                <Ic d={ICON.chart} size={16} color="#00B8A2" /> สรุปยอดรวมทุกห้อง
               </h2>
 
               <ResultRow label={`ค่าไฟรวม (${grand.elec.toFixed(0)} หน่วย)`}
@@ -265,10 +284,13 @@ export default function Calculator() {
 
             {/* Share note */}
             <div style={{ marginTop: 12, background: 'rgba(21,101,192,0.06)', border: '1px solid rgba(21,101,192,0.15)', borderRadius: 12, padding: '14px 16px' }}>
-              <p style={{ fontFamily: 'Sarabun,sans-serif', fontSize: 12, color: '#546E7A', lineHeight: 1.6, margin: 0 }}>
-                🔗 แชร์เครื่องคำนวณนี้ให้เพื่อนเจ้าของหอพัก<br />
-                <strong style={{ color: '#1565C0' }}>horcare-landing.vercel.app/calculator</strong>
-              </p>
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
+                <Ic d={ICON.link} size={14} color="#1565C0" style={{ marginTop: 2, flexShrink: 0 }} />
+                <p style={{ fontFamily: 'Sarabun,sans-serif', fontSize: 12, color: '#546E7A', lineHeight: 1.6, margin: 0 }}>
+                  แชร์เครื่องคำนวณนี้ให้เพื่อนเจ้าของหอพัก<br />
+                  <strong style={{ color: '#1565C0' }}>horcare-landing.vercel.app/calculator</strong>
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -281,28 +303,30 @@ export default function Calculator() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(260px,1fr))', gap: 20 }}>
             {[
               {
-                icon: '⚡',
+                icon: ICON.bolt, iconColor: '#FF9800', iconBg: 'rgba(255,152,0,0.1)',
                 title: 'สูตรคำนวณค่าไฟ',
                 body: 'ค่าไฟ = (มิเตอร์ปลาย − มิเตอร์ต้น) × อัตรา ตัวอย่าง: ใช้ 50 หน่วย × 8 บาท = 400 บาท กกพ. กำหนดอัตราสูงสุดสำหรับหอพักไว้ที่ประมาณ 8–9 บาทต่อหน่วย',
               },
               {
-                icon: '💧',
+                icon: ICON.droplet, iconColor: '#1E88E5', iconBg: 'rgba(30,136,229,0.1)',
                 title: 'สูตรคำนวณค่าน้ำ',
                 body: 'ค่าน้ำ = (มิเตอร์ปลาย − มิเตอร์ต้น) × อัตราต่อ ลบ.ม. ควรอิงตามอัตราการประปาในพื้นที่ บวกค่าบริการได้ไม่เกินที่กฎหมายกำหนด',
               },
               {
-                icon: '📄',
+                icon: ICON.doc, iconColor: '#1565C0', iconBg: 'rgba(21,101,192,0.08)',
                 title: 'ควรระบุในสัญญา',
                 body: 'ระบุอัตราค่าน้ำค่าไฟในสัญญาเช่าให้ชัดเจน เพื่อป้องกันข้อพิพาท ผู้เช่ามีสิทธิ์ขอดูหลักฐานการอ่านมิเตอร์ ควรถ่ายรูปมิเตอร์ทุกต้นเดือน',
               },
               {
-                icon: '🤖',
+                icon: ICON.wrench, iconColor: '#2DC76D', iconBg: 'rgba(45,199,109,0.1)',
                 title: 'ใช้ระบบช่วยคำนวณ',
                 body: 'HorCare มีระบบบันทึกมิเตอร์พร้อมถ่ายรูปหลักฐาน คำนวณค่าน้ำค่าไฟและสร้างใบแจ้งหนี้อัตโนมัติทุกเดือน ลดข้อผิดพลาดและข้อพิพาทกับผู้เช่า',
               },
-            ].map(({ icon, title, body }) => (
+            ].map(({ icon, iconColor, iconBg, title, body }) => (
               <div key={title}>
-                <div style={{ fontSize: 24, marginBottom: 8 }}>{icon}</div>
+                <div style={{ width: 40, height: 40, borderRadius: 10, background: iconBg, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 12 }}>
+                  <Ic d={icon} size={20} color={iconColor} />
+                </div>
                 <h3 style={{ fontFamily: 'Kanit,sans-serif', fontWeight: 600, fontSize: 15, color: '#1A2433', marginBottom: 8 }}>{title}</h3>
                 <p style={{ fontFamily: 'Sarabun,sans-serif', fontSize: 13.5, color: '#546E7A', lineHeight: 1.75, margin: 0 }}>{body}</p>
               </div>

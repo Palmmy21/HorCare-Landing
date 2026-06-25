@@ -165,14 +165,16 @@ function LogoText({ dark = true }) {
 }
 
 // ── Navbar ────────────────────────────────────────────────────────────────────
+const CALC_ICON = 'M15.75 15.75V18m-7.5-6.75h.008v.008H8.25v-.008zm0 2.25h.008v.008H8.25V13.5zm0 2.25h.008v.008H8.25v-.008zm0 2.25h.008v.008H8.25V18zm2.498-6.75h.007v.008h-.007v-.008zm0 2.25h.007v.008h-.007V13.5zm0 2.25h.007v.008h-.007v-.008zm0 2.25h.007v.008h-.007V18zm2.504-6.75h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V13.5zm0 2.25h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V18zm2.498-6.75h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V13.5zM8.25 6h7.5v3h-7.5V6zM12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25z'
+
 const NAV = [
-  { label: 'คุณสมบัติ',         href: '#features' },
-  { label: 'วิธีใช้งาน',        href: '#how-to-use' },
-  { label: 'ราคา',              href: '#pricing' },
-  { label: 'FAQ',               href: '#faq' },
-  { label: 'บทความ',           href: '#blog' },
-  { label: '🧮 คำนวณค่าน้ำค่าไฟ', href: '/calculator', external: false },
-  { label: 'ติดต่อ',           href: '#contact' },
+  { label: 'คุณสมบัติ',      href: '#features' },
+  { label: 'วิธีใช้งาน',     href: '#how-to-use' },
+  { label: 'ราคา',           href: '#pricing' },
+  { label: 'FAQ',            href: '#faq' },
+  { label: 'บทความ',        href: '#blog' },
+  { label: 'คำนวณค่าน้ำค่าไฟ', href: '/calculator', icon: CALC_ICON },
+  { label: 'ติดต่อ',        href: '#contact' },
 ]
 
 function Navbar() {
@@ -206,9 +208,11 @@ function Navbar() {
               <a key={n.href} href={n.href} style={{
                 fontFamily: 'Sarabun, sans-serif', fontSize: 14, fontWeight: 500,
                 color: '#546E7A', textDecoration: 'none', transition: 'color 0.15s',
+                display: 'flex', alignItems: 'center', gap: 5,
               }}
               onMouseEnter={e => e.currentTarget.style.color = '#00B8A2'}
               onMouseLeave={e => e.currentTarget.style.color = '#546E7A'}>
+                {n.icon && <Ic d={n.icon} size={13} color="currentColor" />}
                 {n.label}
               </a>
             ))}
@@ -234,7 +238,8 @@ function Navbar() {
           className="show-mobile">
           {NAV.map(n => (
             <a key={n.href} href={n.href} onClick={() => setOpen(false)}
-              style={{ display: 'block', padding: '10px 0', fontFamily: 'Sarabun, sans-serif', fontSize: 15, color: '#546E7A', textDecoration: 'none', borderBottom: '1px solid #f5f5f5' }}>
+              style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 0', fontFamily: 'Sarabun, sans-serif', fontSize: 15, color: '#546E7A', textDecoration: 'none', borderBottom: '1px solid #f5f5f5' }}>
+              {n.icon && <Ic d={n.icon} size={15} color="#00B8A2" />}
               {n.label}
             </a>
           ))}
