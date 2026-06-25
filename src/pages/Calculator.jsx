@@ -89,7 +89,7 @@ function RoomRow({ room, onUpdate, onRemove, index }) {
         )}
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(140px,1fr))', gap: 12 }}>
+      <div className="calc-room-grid">
         <NumInput label="เลขมิเตอร์ไฟ (ต้น)" unit="หน่วย" value={room.elecPrev}
           onChange={v => onUpdate({ ...room, elecPrev: v })} />
         <NumInput label="เลขมิเตอร์ไฟ (ปลาย)" unit="หน่วย" value={room.elecCurr}
@@ -163,25 +163,49 @@ export default function Calculator() {
 
   return (
     <div style={{ minHeight: '100vh', background: '#F8FAFB', fontFamily: 'Kanit,sans-serif' }}>
+      <style>{`
+        .calc-main-grid { display: grid; grid-template-columns: minmax(0,1fr) 300px; gap: 24px; align-items: start; }
+        .calc-sticky { position: sticky; top: 76px; }
+        .calc-rate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .calc-room-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(140px,1fr)); gap: 12px; }
+        .calc-info-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(240px,1fr)); gap: 20px; }
+        .calc-header { padding: 52px 24px 44px; }
+        .calc-seo { padding: 36px; }
+        .calc-cta-short { display: none; }
+        .calc-cta-long { display: inline; }
+        @media (max-width: 700px) {
+          .calc-main-grid { grid-template-columns: 1fr; }
+          .calc-sticky { position: static; }
+          .calc-header { padding: 36px 16px 30px; }
+          .calc-seo { padding: 24px 16px; }
+        }
+        @media (max-width: 480px) {
+          .calc-rate-grid { grid-template-columns: 1fr; }
+          .calc-room-grid { grid-template-columns: repeat(auto-fill,minmax(130px,1fr)); }
+          .calc-cta-long { display: none; }
+          .calc-cta-short { display: inline; }
+        }
+      `}</style>
 
       {/* Nav */}
-      <nav style={{ background: '#fff', borderBottom: '1px solid rgba(0,184,162,0.12)', padding: '0 24px', position: 'sticky', top: 0, zIndex: 50 }}>
-        <div style={{ maxWidth: 960, margin: '0 auto', height: 60, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none' }}>
+      <nav style={{ background: '#fff', borderBottom: '1px solid rgba(0,184,162,0.12)', padding: '0 16px', position: 'sticky', top: 0, zIndex: 50 }}>
+        <div style={{ maxWidth: 960, margin: '0 auto', height: 60, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+          <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none', flexShrink: 0 }}>
             <img src="/2.png" width={36} height={36} alt="HorCare" style={{ objectFit: 'contain' }} />
             <span style={{ fontFamily: 'Kanit,sans-serif', fontWeight: 700, fontSize: 18 }}>
               <span style={{ color: '#2DC76D' }}>Hor</span><span style={{ color: '#1565C0' }}>Care</span>
             </span>
           </Link>
           <a href={HORCARE_URL} target="_blank" rel="noopener noreferrer"
-            style={{ fontFamily: 'Kanit,sans-serif', fontWeight: 600, fontSize: 13, color: '#fff', background: 'linear-gradient(135deg,#2DC76D,#00B8A2)', padding: '8px 18px', borderRadius: 100, textDecoration: 'none' }}>
-            ใช้ฟรีในระบบ HorCare →
+            style={{ fontFamily: 'Kanit,sans-serif', fontWeight: 600, fontSize: 13, color: '#fff', background: 'linear-gradient(135deg,#2DC76D,#00B8A2)', padding: '8px 16px', borderRadius: 100, textDecoration: 'none', flexShrink: 0, whiteSpace: 'nowrap' }}>
+            <span className="calc-cta-long">ใช้ฟรีในระบบ HorCare →</span>
+            <span className="calc-cta-short">ใช้ฟรี →</span>
           </a>
         </div>
       </nav>
 
       {/* Header */}
-      <div style={{ background: 'linear-gradient(150deg,#0B1A27,#122338 55%,#0A1F14)', padding: '52px 24px 44px', textAlign: 'center' }}>
+      <div className="calc-header" style={{ background: 'linear-gradient(150deg,#0B1A27,#122338 55%,#0A1F14)', textAlign: 'center' }}>
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: 7, background: 'rgba(45,199,109,0.13)', border: '1px solid rgba(45,199,109,0.3)', borderRadius: 100, padding: '6px 16px', marginBottom: 20 }}>
           <span style={{ fontFamily: 'Sarabun,sans-serif', fontSize: 11.5, fontWeight: 600, color: '#2DC76D', letterSpacing: '0.1em', textTransform: 'uppercase' }}>เครื่องคำนวณ • ฟรี 100%</span>
         </div>
@@ -193,8 +217,8 @@ export default function Calculator() {
         </p>
       </div>
 
-      <div style={{ maxWidth: 960, margin: '0 auto', padding: '32px 20px 60px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr) 300px', gap: 24, alignItems: 'start' }}>
+      <div style={{ maxWidth: 960, margin: '0 auto', padding: '32px 16px 60px' }}>
+        <div className="calc-main-grid">
 
           {/* Left — inputs */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
@@ -204,7 +228,7 @@ export default function Calculator() {
               <h2 style={{ fontFamily: 'Kanit,sans-serif', fontWeight: 600, fontSize: 14, color: '#1A2433', marginBottom: 14, display: 'flex', alignItems: 'center', gap: 8 }}>
                 <Ic d={ICON.settings} size={16} color="#00B8A2" /> ตั้งค่าอัตราค่าน้ำค่าไฟ
               </h2>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+              <div className="calc-rate-grid">
                 <NumInput
                   label="อัตราค่าไฟ" unit="บาท/หน่วย"
                   value={elecRate} onChange={setElecRate}
@@ -238,8 +262,8 @@ export default function Calculator() {
             </button>
           </div>
 
-          {/* Right — summary (sticky) */}
-          <div style={{ position: 'sticky', top: 76 }}>
+          {/* Right — summary (sticky on desktop, static on mobile) */}
+          <div className="calc-sticky">
             <div style={{ background: '#fff', borderRadius: 16, padding: '22px', border: '1.5px solid rgba(0,184,162,0.22)', boxShadow: '0 4px 24px rgba(0,184,162,0.1)' }}>
               <h2 style={{ fontFamily: 'Kanit,sans-serif', fontWeight: 700, fontSize: 15, color: '#1A2433', marginBottom: 14, display: 'flex', alignItems: 'center', gap: 8 }}>
                 <Ic d={ICON.chart} size={16} color="#00B8A2" /> สรุปยอดรวมทุกห้อง
@@ -296,11 +320,11 @@ export default function Calculator() {
         </div>
 
         {/* SEO info section */}
-        <section style={{ marginTop: 52, padding: '36px', background: '#fff', borderRadius: 16, border: '1px solid rgba(0,184,162,0.1)' }}>
+        <section className="calc-seo" style={{ marginTop: 52, background: '#fff', borderRadius: 16, border: '1px solid rgba(0,184,162,0.1)' }}>
           <h2 style={{ fontFamily: 'Kanit,sans-serif', fontWeight: 700, fontSize: 'clamp(1.2rem,2vw,1.6rem)', color: '#1A2433', marginBottom: 20 }}>
             วิธีคำนวณค่าน้ำค่าไฟหอพักอย่างถูกต้อง
           </h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(260px,1fr))', gap: 20 }}>
+          <div className="calc-info-grid">
             {[
               {
                 icon: ICON.bolt, iconColor: '#FF9800', iconBg: 'rgba(255,152,0,0.1)',
