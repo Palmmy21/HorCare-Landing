@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 import './App.css'
 import Privacy from './pages/Privacy.jsx'
 import Terms from './pages/Terms.jsx'
+import Calculator from './pages/Calculator.jsx'
 
 const HORCARE_URL = 'https://hor-care.vercel.app/'
 const LINE_URL = 'https://lin.ee/9RxwIrM'
@@ -165,12 +166,13 @@ function LogoText({ dark = true }) {
 
 // ── Navbar ────────────────────────────────────────────────────────────────────
 const NAV = [
-  { label: 'คุณสมบัติ', href: '#features' },
-  { label: 'วิธีใช้งาน', href: '#how-to-use' },
-  { label: 'ราคา',       href: '#pricing' },
-  { label: 'FAQ',        href: '#faq' },
-  { label: 'บทความ',    href: '#blog' },
-  { label: 'ติดต่อ',    href: '#contact' },
+  { label: 'คุณสมบัติ',         href: '#features' },
+  { label: 'วิธีใช้งาน',        href: '#how-to-use' },
+  { label: 'ราคา',              href: '#pricing' },
+  { label: 'FAQ',               href: '#faq' },
+  { label: 'บทความ',           href: '#blog' },
+  { label: '🧮 คำนวณค่าน้ำค่าไฟ', href: '/calculator', external: false },
+  { label: 'ติดต่อ',           href: '#contact' },
 ]
 
 function Navbar() {
@@ -1253,6 +1255,7 @@ export default function App() {
       <Route path="/" element={<LandingPage />} />
       <Route path="/privacy" element={<Privacy />} />
       <Route path="/terms" element={<Terms />} />
+      <Route path="/calculator" element={<Calculator />} />
     </Routes>
   )
 }

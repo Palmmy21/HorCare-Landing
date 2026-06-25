@@ -24,9 +24,10 @@ const TEMPLATE   = resolve(DIST, 'index.html')
 const ENTRY      = resolve(ROOT, 'src', 'entry-server.jsx')
 
 const ROUTES = [
-  { path: '/',        out: 'index.html'          },
-  { path: '/privacy', out: 'privacy/index.html'  },
-  { path: '/terms',   out: 'terms/index.html'    },
+  { path: '/',            out: 'index.html'              },
+  { path: '/privacy',     out: 'privacy/index.html'      },
+  { path: '/terms',       out: 'terms/index.html'        },
+  { path: '/calculator',  out: 'calculator/index.html'   },
 ]
 
 // ── 1. Build SSR bundle ────────────────────────────────────────────────────────
