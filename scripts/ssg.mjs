@@ -24,6 +24,18 @@ const TEMPLATE   = resolve(DIST, 'index.html')
 const ENTRY      = resolve(ROOT, 'src', 'entry-server.jsx')
 const BASE_URL   = 'https://horcare-landing.vercel.app'
 
+const BLOG_ARTICLES = [
+  { slug: '5-ways-increase-dormitory-income',     title: '5 วิธีเพิ่มรายได้หอพักโดยไม่ต้องขยายห้อง',                     desc: 'กลยุทธ์บริหารหอพักให้มีประสิทธิภาพ เพิ่ม Occupancy Rate และลดค่าใช้จ่ายที่ไม่จำเป็น',                           dateISO: '2026-06-01' },
+  { slug: 'rental-contract-guide',                title: 'สิ่งที่เจ้าของหอพักต้องรู้เรื่องสัญญาเช่า',                    desc: 'สรุปข้อกฎหมายสำคัญ สิทธิ์ของเจ้าของและผู้เช่า รูปแบบสัญญาเช่าที่ถูกต้องตามกฎหมาย',                          dateISO: '2026-05-01' },
+  { slug: 'why-digital-dormitory-management',     title: 'ทำไมหอพักยุคใหม่ถึงต้องใช้ระบบดิจิทัล',                       desc: 'สถิติชี้ว่าหอพักที่ใช้ระบบออนไลน์มีรายได้เพิ่มขึ้นและลดเวลาการดูแลได้อย่างมีนัย',                              dateISO: '2026-04-01' },
+  { slug: 'handle-late-rent-payment',             title: 'วิธีรับมือกับผู้เช่าที่ค้างค่าเช่า',                           desc: 'แนวทางปฏิบัติที่ถูกต้องและมีประสิทธิภาพในการจัดการกับผู้เช่าที่ค้างชำระ โดยไม่ต้องขัดแย้ง',                  dateISO: '2026-06-01' },
+  { slug: 'dormitory-act-2558',                   title: 'พ.ร.บ.หอพัก 2558 เจ้าของหอพักต้องรู้อะไรบ้าง',                 desc: 'สรุปข้อบังคับสำคัญตาม พ.ร.บ.หอพัก 2558 ที่เจ้าของหอพักทุกคนต้องปฏิบัติตาม',                                 dateISO: '2026-03-01' },
+  { slug: 'line-notify-vs-line-oa',               title: 'LINE Notify vs LINE OA สำหรับหอพัก',                            desc: 'เปรียบเทียบสองช่องทางแจ้งเตือนยอดฮิต เลือกแบบไหนถึงเหมาะกับหอพักของคุณ',                                   dateISO: '2026-02-01' },
+  { slug: 'calculate-water-electricity-dormitory', title: 'วิธีคำนวณค่าน้ำค่าไฟหอพักอย่างถูกต้อง ไม่โดนร้องเรียน',      desc: 'สูตรคำนวณค่าน้ำค่าไฟที่ถูกต้องตามกฎหมาย พร้อมอัตราที่เจ้าของหอพักสามารถเรียกเก็บได้',                      dateISO: '2026-06-01' },
+  { slug: 'open-new-dormitory-2026',              title: 'เปิดหอพักใหม่ 2026 ต้องเตรียมอะไรบ้าง ขั้นตอนครบ',             desc: 'คู่มือฉบับสมบูรณ์สำหรับผู้ที่ต้องการเปิดกิจการหอพัก ตั้งแต่หาทำเล จดทะเบียน ไปจนถึงหาผู้เช่ารายแรก',      dateISO: '2026-06-01' },
+  { slug: 'excel-vs-dormitory-software',          title: 'Excel vs โปรแกรมจัดการหอพักออนไลน์ อะไรเหมาะกับคุณ',          desc: 'เปรียบเทียบแบบตรงๆ ระหว่างการใช้ Excel กับระบบจัดการหอพักออนไลน์ พร้อมตัวเลขที่คุณควรรู้',                    dateISO: '2026-05-01' },
+]
+
 const ROUTES = [
   {
     path: '/',
@@ -37,6 +49,22 @@ const ROUTES = [
     ogTitle: 'คำนวณค่าน้ำค่าไฟหอพัก ฟรี — HorCare',
     ogDescription: 'เครื่องคำนวณค่าน้ำค่าไฟห้องพักออนไลน์ฟรี รองรับการคำนวณตามมิเตอร์แยกรายห้อง',
   },
+  {
+    path: '/blog',
+    out: 'blog/index.html',
+    title: 'บทความสำหรับเจ้าของหอพัก — HorCare | ความรู้ กฎหมาย เทคนิค',
+    description: 'บทความความรู้สำหรับเจ้าของหอพัก ครอบคลุมกฎหมาย เทคนิคบริหาร และเทคโนโลยีดิจิทัล อัปเดตทุกเดือน',
+    ogTitle: 'บทความสำหรับเจ้าของหอพัก — HorCare',
+    ogDescription: 'ความรู้ กฎหมาย และเทคนิคบริหารหอพักยุคดิจิทัล อัปเดตทุกเดือน โดยทีม HorCare',
+  },
+  ...BLOG_ARTICLES.map(a => ({
+    path: `/blog/${a.slug}`,
+    out: `blog/${a.slug}/index.html`,
+    title: `${a.title} — HorCare บทความหอพัก`,
+    description: a.desc,
+    ogTitle: a.title,
+    ogDescription: a.desc,
+  })),
   {
     path: '/privacy',
     out: 'privacy/index.html',
