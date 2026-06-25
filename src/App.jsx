@@ -1,5 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { Routes, Route } from 'react-router-dom'
 import './App.css'
+import Privacy from './pages/Privacy.jsx'
+import Terms from './pages/Terms.jsx'
 
 const HORCARE_URL = 'https://hor-care.vercel.app/'
 const LINE_URL = 'https://lin.ee/9RxwIrM'
@@ -8,7 +11,7 @@ const LINE_URL = 'https://lin.ee/9RxwIrM'
 // Reliable centered wrapper — uses inline styles to avoid Tailwind v4 quirks
 // ─────────────────────────────────────────────────────────────────────────────
 const W = ({ children, style = {} }) => (
-  <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 2.5rem', ...style }}>
+  <div className="w-inner" style={{ maxWidth: 1100, margin: '0 auto', ...style }}>
     {children}
   </div>
 )
@@ -43,10 +46,111 @@ const P = {
   mail:    'M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75',
 }
 
+// ── Scroll reveal ─────────────────────────────────────────────────────────────
+function useReveal() {
+  useEffect(() => {
+    const els = document.querySelectorAll('.reveal')
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('revealed')
+          io.unobserve(e.target)
+        }
+      })
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' })
+    els.forEach(el => io.observe(el))
+    return () => io.disconnect()
+  }, [])
+}
+
+// ── Section pill label ────────────────────────────────────────────────────────
+function SectionPill({ icon, label, color = '#2DC76D' }) {
+  return (
+    <div style={{
+      display: 'inline-flex', alignItems: 'center', gap: 6, marginBottom: 14,
+      background: `${color}18`, border: `1px solid ${color}38`,
+      borderRadius: 100, padding: '5px 14px',
+    }}>
+      {icon && <Ic d={icon} size={11} color={color} />}
+      <span style={{ fontFamily: 'Kanit,sans-serif', fontSize: 11, fontWeight: 600, color, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+        {label}
+      </span>
+    </div>
+  )
+}
+
+// ── Dashboard preview (Hero) ──────────────────────────────────────────────────
+function DashboardPreview() {
+  const rooms = [
+    { id:'101', s:'occupied' }, { id:'102', s:'vacant'   }, { id:'103', s:'occupied' }, { id:'104', s:'repair'   },
+    { id:'201', s:'occupied' }, { id:'202', s:'occupied' }, { id:'203', s:'vacant'   }, { id:'204', s:'occupied' },
+  ]
+  const roomColor = s => s === 'occupied' ? '#2DC76D' : s === 'repair' ? '#FF9800' : '#546E7A'
+  const roomBg   = s => s === 'occupied' ? 'rgba(45,199,109,0.15)' : s === 'repair' ? 'rgba(255,152,0,0.15)' : 'rgba(84,110,122,0.1)'
+  const roomBdr  = s => s === 'occupied' ? 'rgba(45,199,109,0.28)' : s === 'repair' ? 'rgba(255,152,0,0.28)' : 'rgba(84,110,122,0.15)'
+
+  return (
+    <div className="float-anim" style={{
+      background: 'rgba(255,255,255,0.05)',
+      border: '1px solid rgba(255,255,255,0.12)',
+      borderRadius: 20, padding: '20px',
+      marginTop: 44, maxWidth: 440, margin: '44px auto 0',
+      backdropFilter: 'blur(16px)',
+      boxShadow: '0 32px 80px rgba(0,0,0,0.35)',
+    }}>
+      {/* Mini top bar */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+        <span style={{ fontFamily: 'Kanit,sans-serif', fontSize: 13, fontWeight: 600, color: 'rgba(255,255,255,0.85)' }}>ภาพรวมหอพัก</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+          <div className="pulse-dot" style={{ width: 7, height: 7, borderRadius: '50%', background: '#2DC76D' }} />
+          <span style={{ fontFamily: 'Sarabun,sans-serif', fontSize: 11, color: '#2DC76D', fontWeight: 600 }}>Real-time</span>
+        </div>
+      </div>
+
+      {/* Stats row */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 8, marginBottom: 16 }}>
+        {[
+          { label: 'ทั้งหมด', val: '12', c: 'rgba(255,255,255,0.9)' },
+          { label: 'มีผู้เช่า', val: '9',  c: '#2DC76D' },
+          { label: 'ว่าง',     val: '2',  c: '#00B8A2' },
+          { label: 'ซ่อม',     val: '1',  c: '#FF9800' },
+        ].map(s => (
+          <div key={s.label} style={{ background: 'rgba(255,255,255,0.07)', borderRadius: 10, padding: '10px 6px', textAlign: 'center' }}>
+            <div style={{ fontFamily: 'Kanit,sans-serif', fontWeight: 700, fontSize: 20, color: s.c }}>{s.val}</div>
+            <div style={{ fontFamily: 'Sarabun,sans-serif', fontSize: 10, color: 'rgba(255,255,255,0.45)', marginTop: 2 }}>{s.label}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* Room grid */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 7 }}>
+        {rooms.map(r => (
+          <div key={r.id} style={{
+            borderRadius: 8, padding: '8px 6px', textAlign: 'center',
+            background: roomBg(r.s), border: `1px solid ${roomBdr(r.s)}`,
+          }}>
+            <div style={{ fontFamily: 'Kanit,sans-serif', fontSize: 10, fontWeight: 600, color: roomColor(r.s) }}>{r.id}</div>
+            <div style={{ width: 4, height: 4, borderRadius: '50%', background: roomColor(r.s), margin: '3px auto 0' }} />
+          </div>
+        ))}
+      </div>
+
+      {/* Bottom legend */}
+      <div style={{ display: 'flex', gap: 14, marginTop: 14, paddingTop: 12, borderTop: '1px solid rgba(255,255,255,0.07)', justifyContent: 'center' }}>
+        {[['#2DC76D','มีผู้เช่า'],['#00B8A2','ว่าง'],['#FF9800','ซ่อมบำรุง']].map(([c,l]) => (
+          <span key={l} style={{ display: 'flex', alignItems: 'center', gap: 5, fontFamily: 'Sarabun,sans-serif', fontSize: 10, color: 'rgba(255,255,255,0.5)' }}>
+            <span style={{ width: 6, height: 6, borderRadius: '50%', background: c, flexShrink: 0 }} />{l}
+          </span>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 // ── Logo mark ─────────────────────────────────────────────────────────────────
 function Logo({ size = 32 }) {
   return (
-    <img src="/logo.png" width={size} height={size} alt="HorCare Logo"
+    <img src="/2.png" width={size} height={size} alt="HorCare Logo"
       style={{ objectFit: 'contain', display: 'block' }} />
   )
 }
@@ -71,15 +175,22 @@ const NAV = [
 
 function Navbar() {
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  useEffect(() => {
+    const fn = () => setScrolled(window.scrollY > 30)
+    window.addEventListener('scroll', fn, { passive: true })
+    return () => window.removeEventListener('scroll', fn)
+  }, [])
   return (
     <nav style={{
       position: 'fixed', inset: '0 0 auto 0', zIndex: 50,
-      background: 'rgba(255,255,255,0.97)',
-      borderBottom: '1px solid rgba(0,184,162,0.13)',
-      boxShadow: '0 1px 12px rgba(0,0,0,0.06)',
-      backdropFilter: 'blur(8px)',
+      background: scrolled ? 'rgba(255,255,255,0.98)' : 'rgba(255,255,255,0.92)',
+      borderBottom: scrolled ? '1px solid rgba(0,184,162,0.18)' : '1px solid rgba(0,184,162,0.08)',
+      boxShadow: scrolled ? '0 4px 24px rgba(0,0,0,0.09)' : '0 1px 4px rgba(0,0,0,0.04)',
+      backdropFilter: 'blur(12px)',
+      transition: 'background 0.25s, box-shadow 0.25s, border-color 0.25s',
     }}>
-      <W style={{ padding: '0 2.5rem' }}>
+      <W>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 64 }}>
           <a href="#" style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none' }}>
             <Logo size={48} />
@@ -117,7 +228,7 @@ function Navbar() {
 
       {/* Mobile menu */}
       {open && (
-        <div style={{ background: '#fff', borderTop: '1px solid rgba(0,184,162,0.1)', padding: '16px 40px 20px' }}
+        <div style={{ background: '#fff', borderTop: '1px solid rgba(0,184,162,0.1)', padding: '16px 20px 20px', flexDirection: 'column' }}
           className="show-mobile">
           {NAV.map(n => (
             <a key={n.href} href={n.href} onClick={() => setOpen(false)}
@@ -139,66 +250,70 @@ function Navbar() {
 // ── Hero ──────────────────────────────────────────────────────────────────────
 function Hero() {
   return (
-    <section style={{ background: 'linear-gradient(150deg,#0B1A27 0%,#122338 50%,#0A1F14 100%)', paddingTop: 120, paddingBottom: 88 }}>
+    <section className="hero-section" style={{ background: 'linear-gradient(150deg,#0B1A27 0%,#122338 55%,#0A1F14 100%)', paddingTop: 120, paddingBottom: 72 }}>
       <W style={{ textAlign:'center' }}>
 
         {/* Logo mark */}
         <div style={{ display:'flex', justifyContent:'center', marginBottom:20 }}>
-          <Logo size={120} />
+          <Logo size={108} />
         </div>
 
         {/* Badge */}
         <div style={{
-          display:'inline-flex', alignItems:'center', gap:7, marginBottom:22,
-          background:'rgba(45,199,109,0.14)', border:'1px solid rgba(45,199,109,0.32)',
-          borderRadius:100, padding:'6px 16px',
+          display:'inline-flex', alignItems:'center', gap:7, marginBottom:24,
+          background:'rgba(45,199,109,0.13)', border:'1px solid rgba(45,199,109,0.32)',
+          borderRadius:100, padding:'7px 18px',
         }}>
-          <span style={{ width:7, height:7, borderRadius:'50%', background:'#2DC76D', flexShrink:0 }}/>
-          <span style={{ fontFamily:'Sarabun,sans-serif', fontSize:11, fontWeight:600, color:'#2DC76D', letterSpacing:'0.1em', textTransform:'uppercase' }}>
+          <span className="pulse-dot" style={{ width:7, height:7, borderRadius:'50%', background:'#2DC76D', flexShrink:0 }}/>
+          <span style={{ fontFamily:'Sarabun,sans-serif', fontSize:11.5, fontWeight:600, color:'#2DC76D', letterSpacing:'0.1em', textTransform:'uppercase' }}>
             ระบบจัดการหอพักครบวงจร
           </span>
         </div>
 
-        <h1 style={{ fontFamily:'Kanit,sans-serif', fontWeight:700, lineHeight:1.18, marginBottom:18 }}>
-          <span style={{ display:'block', fontSize:'clamp(2rem,4.5vw,3.4rem)', color:'white' }}>ระบบจัดการหอพัก</span>
-          <span style={{ display:'block', fontSize:'clamp(2rem,4.5vw,3.4rem)', color:'#2DC76D' }}>
+        <h1 style={{ fontFamily:'Kanit,sans-serif', fontWeight:800, lineHeight:1.15, marginBottom:18 }}>
+          <span style={{ display:'block', fontSize:'clamp(2.1rem,4.8vw,3.6rem)', color:'white' }}>ระบบจัดการหอพัก</span>
+          <span style={{ display:'block', fontSize:'clamp(2.1rem,4.8vw,3.6rem)' }} className="gradient-text">
             ครบ จบ ในระบบเดียว
           </span>
         </h1>
 
-        <p style={{ fontFamily:'Sarabun,sans-serif', fontSize:16, color:'rgba(255,255,255,0.58)', lineHeight:1.8, maxWidth:500, margin:'0 auto 36px' }}>
-          คุ้มค่า ใช้ง่าย ดูแลให้ตลอดการใช้งาน — จากห้องพักถึงใบแจ้งหนี้<br/>
-          HorCare รวมทุกอย่างในระบบเดียว ลดภาระงานซ้ำซ้อน
+        <p style={{ fontFamily:'Sarabun,sans-serif', fontSize:16, color:'rgba(255,255,255,0.6)', lineHeight:1.85, maxWidth:510, margin:'0 auto 36px' }}>
+          คุ้มค่า ใช้ง่าย ดูแลให้ตลอดการใช้งาน จากห้องพักถึงใบแจ้งหนี้ HorCare รวมทุกอย่างในระบบเดียว ลดภาระงานซ้ำซ้อน
         </p>
 
-        <div style={{ display:'flex', gap:12, flexWrap:'wrap', justifyContent:'center', marginBottom:52 }}>
+        <div className="hero-btns" style={{ display:'flex', gap:12, flexWrap:'wrap', justifyContent:'center', marginBottom:44 }}>
           <a href={HORCARE_URL} target="_blank" rel="noopener noreferrer"
             className="btn-orange"
-            style={{ gap:8, padding:'13px 32px', borderRadius:100, fontSize:15, fontFamily:'Kanit,sans-serif', fontWeight:600, textDecoration:'none', boxShadow:'0 4px 20px rgba(255,152,0,0.4)' }}>
+            style={{ gap:8, padding:'14px 34px', borderRadius:100, fontSize:15, fontFamily:'Kanit,sans-serif', fontWeight:700, textDecoration:'none', boxShadow:'0 6px 24px rgba(255,152,0,0.45)' }}>
             เริ่มใช้งานฟรี <Ic d={P.arrow} size={16} color="white" />
           </a>
           <a href="#features"
             className="btn-ghost-teal"
-            style={{ gap:8, padding:'13px 32px', borderRadius:100, fontSize:15, fontFamily:'Kanit,sans-serif', fontWeight:600, textDecoration:'none' }}>
+            style={{ gap:8, padding:'14px 34px', borderRadius:100, fontSize:15, fontFamily:'Kanit,sans-serif', fontWeight:600, textDecoration:'none' }}>
             ดูคุณสมบัติ
           </a>
         </div>
 
         {/* Trust row */}
-        <div style={{ display:'flex', gap:0, justifyContent:'center', flexWrap:'wrap', paddingTop:28, borderTop:'1px solid rgba(255,255,255,0.08)' }}>
+        <div className="hero-stats" style={{ display:'flex', gap:0, justifyContent:'center', flexWrap:'wrap', paddingTop:24, borderTop:'1px solid rgba(255,255,255,0.08)', marginBottom:0 }}>
           {[
             { v:'500+', l:'หอพักที่ใช้งาน', c:'#2DC76D' },
             { v:'10K+', l:'ผู้เช่าลงทะเบียน', c:'#00B8A2' },
             { v:'99.9%', l:'Uptime', c:'#FF9800' },
           ].map((s, i) => (
             <div key={s.l} style={{ display:'flex', alignItems:'center', gap:0 }}>
-              {i > 0 && <span style={{ color:'rgba(255,255,255,0.18)', padding:'0 16px', fontFamily:'Sarabun,sans-serif' }}>·</span>}
+              {i > 0 && <span className="stat-sep" style={{ color:'rgba(255,255,255,0.15)', padding:'0 20px', fontFamily:'Sarabun,sans-serif' }}>|</span>}
               <span style={{ fontFamily:'Sarabun,sans-serif', fontSize:13, color:'rgba(255,255,255,0.55)' }}>
-                <span style={{ fontFamily:'Kanit,sans-serif', fontWeight:700, color:s.c }}>{s.v}</span>
+                <span style={{ fontFamily:'Kanit,sans-serif', fontWeight:700, fontSize:15, color:s.c }}>{s.v}</span>
                 {' '}{s.l}
               </span>
             </div>
           ))}
+        </div>
+
+        {/* Dashboard preview — hidden on small mobile via CSS */}
+        <div className="dashboard-wrap">
+          <DashboardPreview />
         </div>
       </W>
     </section>
@@ -219,25 +334,95 @@ const FEATURES = [
 
 function Features() {
   return (
-    <section id="features" style={{ background:'#fff', padding:'80px 0' }}>
+    <section id="features" style={{ background:'#fff', padding:'88px 0' }}>
       <W>
-        <div style={{ textAlign:'center', marginBottom:48 }}>
-          <h2 style={{ fontFamily:'Kanit,sans-serif', fontWeight:700, fontSize:'clamp(1.6rem,2.5vw,2.2rem)', color:'#1A2433', lineHeight:1.3 }}>
+        <div className="reveal" style={{ textAlign:'center', marginBottom:52 }}>
+          <SectionPill icon={P.bolt} label="คุณสมบัติ" color="#2DC76D" />
+          <h2 style={{ fontFamily:'Kanit,sans-serif', fontWeight:700, fontSize:'clamp(1.7rem,2.6vw,2.3rem)', color:'#1A2433', lineHeight:1.25 }}>
             ฟีเจอร์ครบ จบทุกการจัดการหอพัก
           </h2>
-          <p style={{ fontFamily:'Sarabun,sans-serif', fontSize:15, color:'#546E7A', marginTop:10, maxWidth:480, margin:'10px auto 0' }}>
+          <p style={{ fontFamily:'Sarabun,sans-serif', fontSize:15.5, color:'#546E7A', marginTop:12, maxWidth:480, margin:'12px auto 0', lineHeight:1.75 }}>
             ออกแบบมาเพื่อเจ้าของหอพักโดยเฉพาะ ใช้งานง่าย ไม่ต้องมีความรู้ด้าน IT
           </p>
         </div>
 
-        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(240px,1fr))', gap:12 }}>
-          {FEATURES.map(f => (
-            <div key={f.title} className="card-hover" style={{ background:'#fff', borderRadius:12, padding:'18px 20px', border:'1px solid rgba(0,184,162,0.1)' }}>
-              <div style={{ display:'flex', alignItems:'center', gap:8, marginBottom:8 }}>
-                <Ic d={f.icon} size={16} color={f.c} />
-                <h3 style={{ fontFamily:'Kanit,sans-serif', fontWeight:600, fontSize:14, color:'#1A2433', margin:0 }}>{f.title}</h3>
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(248px,1fr))', gap:14 }}>
+          {FEATURES.map((f, i) => (
+            <div key={f.title} className={`card-hover reveal reveal-d${Math.min(i % 4 + 1, 4)}`}
+              style={{ background:'#fff', borderRadius:14, padding:'22px 22px', border:'1px solid rgba(0,184,162,0.1)', boxShadow:'0 2px 8px rgba(0,0,0,0.03)' }}>
+              <div style={{ width:38, height:38, borderRadius:10, background:f.bg, display:'flex', alignItems:'center', justifyContent:'center', marginBottom:14 }}>
+                <Ic d={f.icon} size={18} color={f.c} />
               </div>
-              <p style={{ fontFamily:'Sarabun,sans-serif', fontSize:13, color:'#546E7A', lineHeight:1.65, paddingLeft:24 }}>{f.desc}</p>
+              <h3 style={{ fontFamily:'Kanit,sans-serif', fontWeight:600, fontSize:14.5, color:'#1A2433', marginBottom:7 }}>{f.title}</h3>
+              <p style={{ fontFamily:'Sarabun,sans-serif', fontSize:13, color:'#546E7A', lineHeight:1.7 }}>{f.desc}</p>
+            </div>
+          ))}
+        </div>
+      </W>
+    </section>
+  )
+}
+
+// ── Testimonials ─────────────────────────────────────────────────────────────
+const TESTIMONIALS = [
+  {
+    name: 'คุณสมชาย วงศ์ทอง',
+    role: 'เจ้าของหอพัก 45 ห้อง • จ.เชียงใหม่',
+    text: 'ก่อนใช้ HorCare ต้องนั่งคีย์ Excel ทุกสิ้นเดือน ใช้เวลาเกือบวัน ตอนนี้ระบบทำให้ทุกอย่างอัตโนมัติ เหลือแค่คลิกยืนยัน ประหยัดเวลาไปได้มากจริงๆ',
+    avatar: 'ส', color: '#2DC76D',
+  },
+  {
+    name: 'คุณนภาพร รักษ์ถิ่น',
+    role: 'เจ้าของหอพัก 120 ห้อง • กรุงเทพฯ',
+    text: 'ฟีเจอร์แจ้งเตือนผ่าน LINE ทำให้ผู้เช่าจ่ายตรงเวลามากขึ้นมาก เมื่อก่อนต้องโทรทวงทีละคน ตอนนี้หมดปัญหานั้นไปเลย ทีมซัพพอร์ตตอบไวมากด้วย',
+    avatar: 'น', color: '#00B8A2',
+  },
+  {
+    name: 'คุณวีระ ชัยชนะ',
+    role: 'เจ้าของหอพักนักศึกษา 80 ห้อง • จ.ขอนแก่น',
+    text: 'ย้ายจาก Excel มาได้ภายในชั่วโมงเดียว ข้อมูลครบหมด ไม่มีตกหล่น ชอบที่สุดคือดูรายงานรายได้แบบ Real-time ได้เลย ไม่ต้องรอสิ้นเดือน',
+    avatar: 'ว', color: '#1E88E5',
+  },
+]
+
+function Testimonials() {
+  return (
+    <section style={{ background: '#F8FAFB', padding: '88px 0' }}>
+      <W>
+        <div className="reveal" style={{ textAlign: 'center', marginBottom: 52 }}>
+          <SectionPill icon={P.star} label="รีวิวจากผู้ใช้จริง" color="#FF9800" />
+          <h2 style={{ fontFamily: 'Kanit,sans-serif', fontWeight: 700, fontSize: 'clamp(1.7rem,2.6vw,2.3rem)', color: '#1A2433', lineHeight: 1.25 }}>
+            เจ้าของหอพักทั่วไทยไว้วางใจ
+          </h2>
+          <p style={{ fontFamily: 'Sarabun,sans-serif', fontSize: 15.5, color: '#546E7A', marginTop: 12, lineHeight: 1.75 }}>
+            ความเชื่อมั่นจากผู้ใช้งานจริงคือสิ่งที่เราภูมิใจที่สุด
+          </p>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(min(290px,100%),1fr))', gap: 20 }}>
+          {TESTIMONIALS.map((t, i) => (
+            <div key={t.name} className={`card-hover reveal reveal-d${i + 1}`}
+              style={{ background: '#fff', borderRadius: 18, padding: '28px 26px', border: '1px solid rgba(0,184,162,0.1)', boxShadow: '0 2px 16px rgba(0,0,0,0.04)', display: 'flex', flexDirection: 'column', gap: 0 }}>
+              {/* Stars */}
+              <div style={{ display: 'flex', gap: 3, marginBottom: 16 }}>
+                {Array.from({ length: 5 }).map((_, j) => (
+                  <svg key={j} width="14" height="14" viewBox="0 0 24 24" fill="#FFB300" stroke="none" aria-hidden="true">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                  </svg>
+                ))}
+              </div>
+              <p style={{ fontFamily: 'Sarabun,sans-serif', fontSize: 14.5, color: '#374151', lineHeight: 1.8, flex: 1, marginBottom: 22 }}>
+                "{t.text}"
+              </p>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                <div style={{ width: 44, height: 44, borderRadius: '50%', background: `${t.color}1A`, border: `2px solid ${t.color}40`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <span style={{ fontFamily: 'Kanit,sans-serif', fontWeight: 700, fontSize: 17, color: t.color }}>{t.avatar}</span>
+                </div>
+                <div>
+                  <div style={{ fontFamily: 'Kanit,sans-serif', fontWeight: 600, fontSize: 14, color: '#1A2433' }}>{t.name}</div>
+                  <div style={{ fontFamily: 'Sarabun,sans-serif', fontSize: 12, color: '#90A4AE', marginTop: 2 }}>{t.role}</div>
+                </div>
+              </div>
             </div>
           ))}
         </div>
@@ -256,30 +441,35 @@ const STEPS = [
 
 function HowToUse() {
   return (
-    <section id="how-to-use" style={{ background:'linear-gradient(150deg,#E0FBF0,#C6EDE5 60%,#DDE8FB)', padding:'80px 0' }}>
+    <section id="how-to-use" style={{ background:'linear-gradient(150deg,#E0FBF0,#C8EEE7 60%,#DDE8FB)', padding:'88px 0' }}>
       <W>
-        <div style={{ textAlign:'center', marginBottom:48 }}>
-          <h2 style={{ fontFamily:'Kanit,sans-serif', fontWeight:700, fontSize:'clamp(1.6rem,2.5vw,2.2rem)', color:'#1A2433', lineHeight:1.3 }}>
+        <div className="reveal" style={{ textAlign:'center', marginBottom:56 }}>
+          <SectionPill icon={P.chart} label="วิธีใช้งาน" color="#00B8A2" />
+          <h2 style={{ fontFamily:'Kanit,sans-serif', fontWeight:700, fontSize:'clamp(1.7rem,2.6vw,2.3rem)', color:'#1A2433', lineHeight:1.25 }}>
             เริ่มใช้งานง่าย ไม่ต้องติดตั้งโปรแกรม
           </h2>
+          <p style={{ fontFamily:'Sarabun,sans-serif', fontSize:15.5, color:'#546E7A', marginTop:12, lineHeight:1.75 }}>
+            ตั้งค่าเสร็จพร้อมใช้งานได้ภายในไม่กี่นาที
+          </p>
         </div>
 
-        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(220px,1fr))', gap:24, marginBottom:40 }}>
-          {STEPS.map(s => (
-            <div key={s.n} style={{ textAlign:'center' }}>
-              <div style={{ width:44, height:44, borderRadius:'50%', background:`linear-gradient(135deg,${s.c},${s.c}99)`, display:'flex', alignItems:'center', justifyContent:'center', margin:'0 auto 16px', boxShadow:`0 6px 16px ${s.c}40` }}>
-                <span style={{ fontFamily:'Kanit,sans-serif', fontWeight:700, fontSize:14, color:'white' }}>{s.n}</span>
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(220px,1fr))', gap:32, marginBottom:48, position:'relative' }}>
+          {STEPS.map((s, i) => (
+            <div key={s.n} className={`reveal reveal-d${i + 1}`} style={{ textAlign:'center', position:'relative' }}>
+              {/* Step circle */}
+              <div style={{ width:56, height:56, borderRadius:'50%', background:`linear-gradient(135deg,${s.c},${s.c}BB)`, display:'flex', alignItems:'center', justifyContent:'center', margin:'0 auto 18px', boxShadow:`0 8px 24px ${s.c}40` }}>
+                <span style={{ fontFamily:'Kanit,sans-serif', fontWeight:700, fontSize:16, color:'white' }}>{s.n}</span>
               </div>
-              <h3 style={{ fontFamily:'Kanit,sans-serif', fontWeight:600, fontSize:15, color:'#1A2433', marginBottom:8 }}>{s.title}</h3>
-              <p style={{ fontFamily:'Sarabun,sans-serif', fontSize:13, color:'#546E7A', lineHeight:1.65 }}>{s.desc}</p>
+              <h3 style={{ fontFamily:'Kanit,sans-serif', fontWeight:600, fontSize:15.5, color:'#1A2433', marginBottom:10 }}>{s.title}</h3>
+              <p style={{ fontFamily:'Sarabun,sans-serif', fontSize:13.5, color:'#546E7A', lineHeight:1.7 }}>{s.desc}</p>
             </div>
           ))}
         </div>
 
-        <div style={{ textAlign:'center' }}>
+        <div className="reveal" style={{ textAlign:'center' }}>
           <a href={HORCARE_URL} target="_blank" rel="noopener noreferrer"
             className="btn-orange"
-            style={{ gap:8, padding:'13px 32px', borderRadius:100, fontSize:15, fontFamily:'Kanit,sans-serif', fontWeight:600, textDecoration:'none', boxShadow:'0 4px 16px rgba(255,152,0,0.3)' }}>
+            style={{ gap:8, padding:'14px 36px', borderRadius:100, fontSize:15, fontFamily:'Kanit,sans-serif', fontWeight:700, textDecoration:'none', boxShadow:'0 6px 20px rgba(255,152,0,0.35)' }}>
             เริ่มต้นได้เลย <Ic d={P.arrow} size={16} color="white" />
           </a>
         </div>
@@ -290,102 +480,161 @@ function HowToUse() {
 
 // ── Pricing ───────────────────────────────────────────────────────────────────
 const PLANS = [
-  { name:'หอเล็ก',  size:'ไม่เกิน 40 ห้อง', price:'79',  unit:'บาท / ห้อง / เดือน',
-    features:['ระบบจัดการหอพักครบวงจร','ผู้ใช้งานไม่เกิน 1 คน','ฟีเจอร์พื้นฐานครบครัน','ซัพพอร์ตผ่านระบบ','ไม่รองรับส่งบิลผ่าน LINE'],
-    cta:'เริ่มใช้งาน', hi:false, c:'#2DC76D' },
-  { name:'หอกลาง', size:'40–100 ห้อง', price:'259', unit:'บาท / ห้อง / เดือน',
+  {
+    name:'ฟรีเสมอ', size:'สูงสุด 250 ห้อง', price:'0', unit:'ไม่มีค่าใช้จ่าย',
+    badge:'ออกจาก Excel',
+    features:[
+      'จัดการห้องพักสูงสุด 250 ห้อง',
+      'บริหารผู้เช่าพร้อมสัญญาเช่า',
+      'คำนวณค่าน้ำค่าไฟอัตโนมัติ',
+      'ใบแจ้งหนี้ดิจิทัล',
+      'นำเข้า / ส่งออก Excel/CSV',
+      'ผู้ใช้งาน 1 คน',
+      'ไม่รองรับแจ้งเตือนผ่าน LINE',
+    ],
+    cta:'สมัครฟรี ไม่ต้องใช้บัตร', hi:false, c:'#546E7A', href:HORCARE_URL, ext:true,
+  },
+  {
+    name:'Start', size:'ไม่เกิน 50 ห้อง', price:'79', unit:'บาท / ห้อง / เดือน',
+    features:[
+      'ระบบจัดการหอพักครบวงจร',
+      'ผู้ใช้งานไม่เกิน 2 คน',
+      'ส่งบิลและแจ้งเตือนผ่าน LINE',
+      'ฟีเจอร์พื้นฐานครบครัน',
+      'ซัพพอร์ตผ่านระบบ',
+    ],
+    cta:'เริ่มใช้งาน', hi:false, c:'#2DC76D', href:HORCARE_URL, ext:true,
+  },
+  {
+    name:'Plus', size:'ไม่เกิน 200 ห้อง', price:'259', unit:'บาท / ห้อง / เดือน',
     badge:'ยอดนิยม',
-    features:['ระบบจัดการหอพักครบวงจร','ผู้ใช้งานไม่เกิน 5 คน','ฟีเจอร์ครบ + รายงานเชิงลึก','ไม่รองรับส่งบิลผ่าน LINE','ซัพพอร์ตแบบพรีเมียม'],
-    cta:'ทดลอง 30 วันฟรี', hi:true, c:'#00B8A2' },
-  { name:'หอใหญ่', size:'100+ ห้อง',   price:'399', unit:'บาท / ห้อง / เดือน',
+    features:[
+      'ระบบจัดการหอพักครบวงจร',
+      'ผู้ใช้งานไม่เกิน 5 คน',
+      'ส่งบิลและแจ้งเตือนผ่าน LINE',
+      'รายงานเชิงลึก',
+      'ซัพพอร์ตแบบพรีเมียม',
+    ],
+    cta:'เริ่มใช้งาน', hi:true, c:'#00B8A2', href:HORCARE_URL, ext:true,
+  },
+  {
+    name:'Pro', size:'200+ ห้อง', price:'399', unit:'บาท / ห้อง / เดือน',
     badge:'Premium',
-    features:['ระบบจัดการหอพักครบวงจร','ผู้ใช้งานไม่จำกัด','ฟีเจอร์ทุกฟังก์ชัน + API','ส่งบิลผ่าน LINE ปุ่มเดียว','รายงานเชิงลึก + Export ข้อมูล','Dedicated Support ตลอด 24 ชม.'],
-    cta:'ติดต่อทีมงาน', hi:false, c:'#F57C00' },
+    features:[
+      'ระบบจัดการหอพักครบวงจร',
+      'ผู้ใช้งานไม่จำกัด',
+      'ส่งบิลผ่าน LINE ปุ่มเดียว',
+      'ฟีเจอร์ทุกฟังก์ชัน + API',
+      'รายงานเชิงลึก + Export ข้อมูล',
+      'Dedicated Support ตลอด 24 ชม.',
+    ],
+    cta:'ติดต่อทีมงาน', hi:false, c:'#F57C00', href:'#contact', ext:false,
+  },
 ]
 
 function Pricing() {
   return (
-    <section id="pricing" style={{ background:'#fff', padding:'80px 0' }}>
+    <section id="pricing" style={{ background:'#fff', padding:'88px 0' }}>
       <W>
-        <div style={{ textAlign:'center', marginBottom:48 }}>
-          <h2 style={{ fontFamily:'Kanit,sans-serif', fontWeight:700, fontSize:'clamp(1.6rem,2.5vw,2.2rem)', color:'#1A2433' }}>
+        <div className="reveal" style={{ textAlign:'center', marginBottom:16 }}>
+          <SectionPill icon={P.card} label="ราคา" color="#1565C0" />
+          <h2 style={{ fontFamily:'Kanit,sans-serif', fontWeight:700, fontSize:'clamp(1.7rem,2.6vw,2.3rem)', color:'#1A2433' }}>
             เลือกแพ็กเกจให้เหมาะกับหอพักคุณ
           </h2>
-          <p style={{ fontFamily:'Sarabun,sans-serif', fontSize:14, color:'#90A4AE', marginTop:6 }}>
-            ราคายังไม่รวมภาษีมูลค่าเพิ่ม • ไม่มีสัญญาผูกมัด
+          <p style={{ fontFamily:'Sarabun,sans-serif', fontSize:14, color:'#90A4AE', marginTop:8 }}>
+            ราคายังไม่รวมภาษีมูลค่าเพิ่ม • ไม่มีสัญญาผูกมัด • ยกเลิกได้ทุกเมื่อ
           </p>
         </div>
 
-        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(280px,1fr))', gap:16, alignItems:'center', maxWidth:920, margin:'0 auto' }}>
+        {/* Excel conversion banner */}
+        <div style={{
+          display:'flex', alignItems:'center', gap:12, justifyContent:'center', flexWrap:'wrap',
+          background:'linear-gradient(135deg,rgba(45,199,109,0.07),rgba(0,184,162,0.07))',
+          border:'1px solid rgba(45,199,109,0.2)', borderRadius:12,
+          padding:'14px 24px', marginBottom:48,
+        }}>
+          <Ic d={P.doc} size={16} color='#2DC76D' />
+          <span style={{ fontFamily:'Sarabun,sans-serif', fontSize:14, color:'#1A2433' }}>
+            <strong style={{ fontFamily:'Kanit,sans-serif', color:'#2DC76D' }}>ใช้ Excel จัดการหอพักอยู่?</strong>
+            {' '}เปลี่ยนมาใช้ HorCare ได้เลย ฟรี — นำเข้าข้อมูลจาก Excel/CSV ได้ภายใน 15 นาที
+          </span>
+          <a href={HORCARE_URL} target="_blank" rel="noopener noreferrer"
+            style={{ fontFamily:'Kanit,sans-serif', fontWeight:600, fontSize:13, color:'#00B8A2', textDecoration:'none', whiteSpace:'nowrap', display:'flex', alignItems:'center', gap:4 }}>
+            เริ่มเลย <Ic d={P.arrow} size={12} color='#00B8A2' />
+          </a>
+        </div>
+
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(230px,1fr))', gap:16, alignItems:'center' }}>
           {PLANS.map(p => (
-            <div key={p.name} style={{
-              background:'#fff', borderRadius:16, padding:28, position:'relative',
-              border: p.hi ? `2px solid ${p.c}` : '1px solid rgba(0,184,162,0.15)',
-              boxShadow: p.hi ? `0 20px 48px ${p.c}22` : 'none',
-              transform: p.hi ? 'translateY(-8px)' : 'none',
-            }}>
+            <div key={p.name} className={p.hi ? 'pricing-featured' : ''}
+              style={{
+                background:'#fff', borderRadius:16, padding:24, position:'relative',
+                border: p.hi ? `2px solid ${p.c}` : '1px solid rgba(0,0,0,0.08)',
+                boxShadow: p.hi ? `0 20px 48px ${p.c}22` : '0 2px 12px rgba(0,0,0,0.04)',
+                transform: p.hi ? 'translateY(-8px)' : 'none',
+              }}>
               {p.badge && (
                 <span style={{
-                  position:'absolute', top:-14, left:'50%', transform:'translateX(-50%)',
+                  position:'absolute', top:-13, left:'50%', transform:'translateX(-50%)',
                   background: p.badge === 'Premium'
                     ? 'linear-gradient(135deg,#F57C00,#FFB300)'
+                    : p.badge === 'ออกจาก Excel'
+                    ? 'linear-gradient(135deg,#546E7A,#78909C)'
                     : 'linear-gradient(135deg,#2DC76D,#00B8A2)',
-                  color:'white',
-                  fontSize:11, fontFamily:'Kanit,sans-serif', fontWeight:700,
-                  padding:'4px 14px', borderRadius:100, whiteSpace:'nowrap',
-                  boxShadow: p.badge === 'Premium' ? '0 2px 8px rgba(245,124,0,0.4)' : 'none',
+                  color:'white', fontSize:10, fontFamily:'Kanit,sans-serif', fontWeight:700,
+                  padding:'3px 12px', borderRadius:100, whiteSpace:'nowrap',
                 }}>{p.badge === 'Premium' ? '★ Premium' : p.badge}</span>
               )}
 
-              {/* Plan name */}
-              <div style={{ marginBottom:16 }}>
-                <div style={{ fontFamily:'Kanit,sans-serif', fontWeight:700, fontSize:18, color:'#1A2433' }}>{p.name}</div>
+              <div style={{ marginBottom:14 }}>
+                <div style={{ fontFamily:'Kanit,sans-serif', fontWeight:700, fontSize:17, color:'#1A2433' }}>{p.name}</div>
                 <div style={{ fontFamily:'Sarabun,sans-serif', fontSize:12, color:'#90A4AE', marginTop:2 }}>{p.size}</div>
               </div>
 
-              {/* Price */}
-              <div style={{ textAlign:'center', marginBottom:20, padding:'16px 0', borderTop:'1px solid #f5f5f5', borderBottom:'1px solid #f5f5f5' }}>
+              <div style={{ textAlign:'center', marginBottom:18, padding:'14px 0', borderTop:'1px solid #f5f5f5', borderBottom:'1px solid #f5f5f5' }}>
                 <div style={{ display:'flex', alignItems:'baseline', justifyContent:'center', gap:2 }}>
-                  <span style={{ fontFamily:'Sarabun,sans-serif', fontSize:14, color:'#90A4AE' }}>฿</span>
-                  <span style={{ fontFamily:'Kanit,sans-serif', fontWeight:800, fontSize:38, color:p.c }}>{p.price}</span>
+                  {p.price !== '0' && <span style={{ fontFamily:'Sarabun,sans-serif', fontSize:13, color:'#90A4AE' }}>฿</span>}
+                  <span style={{ fontFamily:'Kanit,sans-serif', fontWeight:800, fontSize:36, color: p.price === '0' ? '#2DC76D' : p.c }}>
+                    {p.price === '0' ? 'ฟรี' : p.price}
+                  </span>
                 </div>
                 <div style={{ fontFamily:'Sarabun,sans-serif', fontSize:12, color:'#90A4AE' }}>{p.unit}</div>
               </div>
 
-              {/* Features */}
-              <ul style={{ listStyle:'none', marginBottom:20, display:'flex', flexDirection:'column', gap:10 }}>
+              <ul style={{ listStyle:'none', marginBottom:18, display:'flex', flexDirection:'column', gap:9 }}>
                 {p.features.map(f => {
                   const isNo = f.startsWith('ไม่รองรับ')
                   return (
-                  <li key={f} style={{ display:'flex', alignItems:'flex-start', gap:8, fontFamily:'Sarabun,sans-serif', fontSize:13, color: isNo ? '#90A4AE' : '#1A2433' }}>
-                    <div style={{ width:18, height:18, borderRadius:'50%', background: isNo ? 'rgba(229,57,53,0.1)' : `${p.c}18`, display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0, marginTop:1 }}>
-                      <Ic d={isNo ? P.close : P.check} size={10} color={isNo ? '#E53935' : p.c} />
-                    </div>
-                    {f}
-                  </li>
+                    <li key={f} style={{ display:'flex', alignItems:'flex-start', gap:8, fontFamily:'Sarabun,sans-serif', fontSize:12.5, color: isNo ? '#B0BEC5' : '#374151' }}>
+                      <div style={{ width:16, height:16, borderRadius:'50%', background: isNo ? 'rgba(0,0,0,0.04)' : `${p.price === '0' ? '#2DC76D' : p.c}18`, display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0, marginTop:2 }}>
+                        <Ic d={isNo ? P.close : P.check} size={9} color={isNo ? '#B0BEC5' : (p.price === '0' ? '#2DC76D' : p.c)} />
+                      </div>
+                      {f}
+                    </li>
                   )
                 })}
               </ul>
 
-              <a href={HORCARE_URL} target="_blank" rel="noopener noreferrer"
+              <a
+                href={p.href}
+                {...(p.ext ? { target:'_blank', rel:'noopener noreferrer' } : {})}
                 style={{
                   display:'block', textAlign:'center', padding:'11px 0', borderRadius:100,
-                  fontFamily:'Kanit,sans-serif', fontWeight:600, fontSize:14, textDecoration:'none',
+                  fontFamily:'Kanit,sans-serif', fontWeight:600, fontSize:13.5, textDecoration:'none',
                   background: p.hi ? `linear-gradient(135deg,#2DC76D,#00B8A2)` : 'transparent',
-                  color: p.hi ? 'white' : p.c,
-                  border: p.hi ? 'none' : `1.5px solid ${p.c}`,
+                  color: p.hi ? 'white' : (p.price === '0' ? '#546E7A' : p.c),
+                  border: p.hi ? 'none' : `1.5px solid ${p.price === '0' ? '#90A4AE' : p.c}`,
                   transition:'all 0.15s',
                 }}
-                onMouseEnter={e => { if (!p.hi) { e.currentTarget.style.background = p.c; e.currentTarget.style.color = 'white' }}}
-                onMouseLeave={e => { if (!p.hi) { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = p.c }}}>
+                onMouseEnter={e => { if (!p.hi) { e.currentTarget.style.background = p.price === '0' ? '#546E7A' : p.c; e.currentTarget.style.color = 'white'; e.currentTarget.style.borderColor = 'transparent' }}}
+                onMouseLeave={e => { if (!p.hi) { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = p.price === '0' ? '#546E7A' : p.c; e.currentTarget.style.borderColor = p.price === '0' ? '#90A4AE' : p.c }}}>
                 {p.cta}
               </a>
             </div>
           ))}
         </div>
 
-        {/* Trust footnote */}
-        <div style={{ marginTop:40, display:'flex', gap:24, justifyContent:'center', flexWrap:'wrap' }}>
+        <div style={{ marginTop:36, display:'flex', gap:24, justifyContent:'center', flexWrap:'wrap' }}>
           {['ราคาโปร่งใส ไม่มีซ่อน','ไม่มีสัญญาผูกมัด','ซัพพอร์ตตลอดการใช้งาน','ระบบเสถียร Uptime 99.9%'].map(t => (
             <span key={t} style={{ display:'flex', alignItems:'center', gap:6, fontFamily:'Sarabun,sans-serif', fontSize:13, color:'#90A4AE' }}>
               <Ic d={P.check} size={13} color='#2DC76D' />{t}
@@ -399,40 +648,45 @@ function Pricing() {
 
 // ── FAQ ───────────────────────────────────────────────────────────────────────
 const FAQS = [
-  { q:'HorCare เหมาะกับหอพักขนาดไหน?',       a:'รองรับทุกขนาด ตั้งแต่ 10 ห้องขึ้นไป มีแพ็กเกจแยกตามขนาด หอเล็ก / หอกลาง / หอใหญ่ เลือกได้ตามความต้องการ' },
-  { q:'คิดราคาอย่างไร?',                       a:'คิดตามจำนวนห้องพัก เริ่มต้น ฿79/ห้อง/เดือน (หอเล็ก) ฿259/ห้อง/เดือน (หอกลาง) และ ฿399/ห้อง/เดือน (หอใหญ่) ราคายังไม่รวม VAT' },
-  { q:'ข้อมูลของฉันปลอดภัยแค่ไหน?',           a:'ข้อมูลทุกอย่างเข้ารหัส SSL/TLS มีระบบสำรองข้อมูลอัตโนมัติทุกวัน ข้อมูลของคุณจะไม่ถูกแชร์หรือขายให้บุคคลที่สาม' },
-  { q:'ผู้เช่าต้องดาวน์โหลดแอปไหม?',         a:'ไม่จำเป็น ผู้เช่าเข้าถึงระบบผ่านเบราว์เซอร์บนมือถือหรือคอมพิวเตอร์ได้เลย ไม่ต้องติดตั้งอะไรเพิ่ม' },
-  { q:'นำเข้าข้อมูลจากระบบเก่าได้ไหม?',      a:'ได้เลย รองรับการนำเข้าจาก Excel/CSV และทีมงานพร้อมช่วย Migration ให้ฟรีสำหรับแพ็กเกจหอกลางขึ้นไป' },
-  { q:'ติดต่อซัพพอร์ตได้ทางไหน?',            a:'ติดต่อผ่าน LINE @horcare หรือ Facebook: HorCare ระบบจัดการหอพัก ทีมงานพร้อมดูแลตลอดการใช้งาน' },
+  { q:'มีแพ็กเกจฟรีจริงไหม? มีเงื่อนไขอะไรบ้าง?', a:'มีจริง ไม่มีวันหมดอายุ รองรับห้องพักได้ถึง 250 ห้อง ใช้งานได้ 1 บัญชี ครบทุกฟีเจอร์ที่ Excel ทำได้ ทั้งจัดการห้อง ผู้เช่า ค่าน้ำค่าไฟ ใบแจ้งหนี้ และสัญญาเช่า ข้อเดียวที่ไม่มีคือการแจ้งเตือนผ่าน LINE ไม่ต้องใช้บัตรเครดิต' },
+  { q:'ย้ายจาก Excel มาใช้ HorCare ได้เลยไหม?', a:'ได้เลย รองรับนำเข้าข้อมูลจาก Excel/CSV ทั้งข้อมูลผู้เช่า ห้องพัก และประวัติการชำระเงิน ทีมงานพร้อมช่วย Migration ฟรีสำหรับแพ็กเกจหอกลางขึ้นไป' },
+  { q:'คิดราคาอย่างไร? อัปเกรดหรือยกเลิกได้ไหม?', a:'เริ่มฟรีสำหรับ ≤250 ห้อง (ไม่มี LINE) แพ็กเกจที่มี LINE: Start ฿79/ห้อง/เดือน (≤50 ห้อง), Plus ฿259/ห้อง/เดือน (≤200 ห้อง), Pro ฿399/ห้อง/เดือน (200+ ห้อง) อัปเกรด ดาวน์เกรด หรือยกเลิกได้ทุกเมื่อ ราคายังไม่รวม VAT' },
+  { q:'ข้อมูลของฉันปลอดภัยแค่ไหน?', a:'ข้อมูลทุกอย่างเข้ารหัส SSL/TLS มีระบบสำรองข้อมูลอัตโนมัติทุกวัน ข้อมูลของคุณจะไม่ถูกแชร์หรือขายให้บุคคลที่สาม' },
+  { q:'ผู้เช่าต้องดาวน์โหลดแอปไหม?', a:'ไม่จำเป็น ผู้เช่าเข้าถึงระบบผ่านเบราว์เซอร์บนมือถือหรือคอมพิวเตอร์ได้เลย ไม่ต้องติดตั้งอะไรเพิ่ม' },
+  { q:'ติดต่อซัพพอร์ตได้ทางไหน?', a:'ติดต่อผ่าน LINE @horcare ทีมงานพร้อมตอบในวันจันทร์–ศุกร์ 09:00–18:00 น. และวันเสาร์ 09:00–13:00 น. ตอบกลับภายใน 2 ชั่วโมง' },
 ]
 
 function FAQ() {
   const [open, setOpen] = useState(null)
   return (
-    <section id="faq" style={{ background:'linear-gradient(150deg,#E0FBF0,#C6EDE5 60%,#DDE8FB)', padding:'80px 0' }}>
+    <section id="faq" style={{ background:'linear-gradient(150deg,#E0FBF0,#C8EEE7 60%,#DDE8FB)', padding:'88px 0' }}>
       <W>
-        <div style={{ textAlign:'center', marginBottom:40 }}>
-          <h2 style={{ fontFamily:'Kanit,sans-serif', fontWeight:700, fontSize:'clamp(1.6rem,2.5vw,2.2rem)', color:'#1A2433' }}>
-            คำถามที่พบบ่อย
+        <div className="reveal" style={{ textAlign:'center', marginBottom:48 }}>
+          <SectionPill icon={P.chat} label="คำถามที่พบบ่อย" color="#00B8A2" />
+          <h2 style={{ fontFamily:'Kanit,sans-serif', fontWeight:700, fontSize:'clamp(1.7rem,2.6vw,2.3rem)', color:'#1A2433' }}>
+            มีคำถาม? เราตอบได้
           </h2>
+          <p style={{ fontFamily:'Sarabun,sans-serif', fontSize:15.5, color:'#546E7A', marginTop:12, lineHeight:1.75 }}>
+            คำถามที่ผู้ใช้งานถามบ่อยที่สุด
+          </p>
         </div>
 
-        <div style={{ maxWidth:680, margin:'0 auto', display:'flex', flexDirection:'column', gap:10 }}>
+        <div style={{ maxWidth:700, margin:'0 auto', display:'flex', flexDirection:'column', gap:10 }}>
           {FAQS.map((f, i) => (
-            <div key={i} style={{
-              background:'#fff', borderRadius:12, overflow:'hidden',
-              border: open === i ? '1.5px solid #00B8A2' : '1px solid rgba(0,184,162,0.15)',
-              transition:'border-color 0.2s',
+            <div key={i} className="reveal" style={{
+              background:'#fff', borderRadius:14, overflow:'hidden',
+              border: open === i ? '1.5px solid #00B8A2' : '1px solid rgba(0,184,162,0.14)',
+              boxShadow: open === i ? '0 4px 20px rgba(0,184,162,0.1)' : '0 1px 4px rgba(0,0,0,0.03)',
+              transition:'border-color 0.22s, box-shadow 0.22s',
             }}>
               <button onClick={() => setOpen(open === i ? null : i)}
-                style={{ width:'100%', display:'flex', justifyContent:'space-between', alignItems:'center', padding:'14px 18px', gap:16, background:'none', border:'none', cursor:'pointer', textAlign:'left' }}>
-                <span style={{ fontFamily:'Kanit,sans-serif', fontWeight:500, fontSize:14.5, color:'#1A2433' }}>{f.q}</span>
+                style={{ width:'100%', display:'flex', justifyContent:'space-between', alignItems:'center', padding:'16px 20px', gap:16, background:'none', border:'none', cursor:'pointer', textAlign:'left' }}>
+                <span style={{ fontFamily:'Kanit,sans-serif', fontWeight:500, fontSize:15, color: open === i ? '#00B8A2' : '#1A2433', transition:'color 0.2s' }}>{f.q}</span>
                 <span style={{
-                  width:28, height:28, borderRadius:'50%', flexShrink:0,
+                  width:30, height:30, borderRadius:'50%', flexShrink:0,
                   display:'flex', alignItems:'center', justifyContent:'center',
                   background: open === i ? 'rgba(0,184,162,0.15)' : 'rgba(0,184,162,0.07)',
-                  color:'#00B8A2', transition:'transform 0.2s',
+                  color:'#00B8A2', transition:'transform 0.25s ease, background 0.2s',
                   transform: open === i ? 'rotate(45deg)' : 'rotate(0)',
                 }}>
                   <svg width="11" height="11" viewBox="0 0 10 10" fill="currentColor">
@@ -441,9 +695,9 @@ function FAQ() {
                   </svg>
                 </span>
               </button>
-              {open === i && (
-                <p style={{ padding:'0 18px 14px', fontFamily:'Sarabun,sans-serif', fontSize:13.5, color:'#546E7A', lineHeight:1.65 }}>{f.a}</p>
-              )}
+              <div className={`faq-body${open === i ? ' open' : ''}`}>
+                <p style={{ fontFamily:'Sarabun,sans-serif', fontSize:14, color:'#546E7A', lineHeight:1.75 }}>{f.a}</p>
+              </div>
             </div>
           ))}
         </div>
@@ -454,45 +708,206 @@ function FAQ() {
 
 // ── Blog ──────────────────────────────────────────────────────────────────────
 const ARTICLES = [
-  { cat:'เคล็ดลับ', cc:'#2DC76D', cb:'rgba(45,199,109,0.1)', grad:'linear-gradient(135deg,#E8FDF5,#B2EBF2)', title:'5 วิธีเพิ่มรายได้หอพักโดยไม่ต้องขยายห้อง',  desc:'กลยุทธ์บริหารหอพักให้มีประสิทธิภาพ เพิ่ม Occupancy Rate และลดค่าใช้จ่ายที่ไม่จำเป็น', date:'มิถุนายน 2026', min:'5' },
-  { cat:'กฎหมาย',  cc:'#1565C0', cb:'rgba(21,101,192,0.1)', grad:'linear-gradient(135deg,#E3F2FD,#BBDEFB)',  title:'สิ่งที่เจ้าของหอพักต้องรู้เรื่องสัญญาเช่า',  desc:'สรุปข้อกฎหมายสำคัญ สิทธิ์ของเจ้าของและผู้เช่า รูปแบบสัญญาเช่าที่ถูกต้องตามกฎหมาย', date:'พฤษภาคม 2026', min:'8' },
-  { cat:'เทคโนโลยี', cc:'#F57C00', cb:'rgba(245,124,0,0.1)', grad:'linear-gradient(135deg,#FFF8E1,#FFE0B2)', title:'ทำไมหอพักยุคใหม่ถึงต้องใช้ระบบดิจิทัล',        desc:'สถิติชี้ว่าหอพักที่ใช้ระบบออนไลน์มีรายได้เพิ่มขึ้นและลดเวลาการดูแลได้อย่างมีนัย',      date:'เมษายน 2026', min:'4' },
+  {
+    cat:'เคล็ดลับ', cc:'#2DC76D', cb:'rgba(45,199,109,0.1)', grad:'linear-gradient(135deg,#E8FDF5,#B2EBF2)',
+    title:'5 วิธีเพิ่มรายได้หอพักโดยไม่ต้องขยายห้อง',
+    desc:'กลยุทธ์บริหารหอพักให้มีประสิทธิภาพ เพิ่ม Occupancy Rate และลดค่าใช้จ่ายที่ไม่จำเป็น',
+    date:'มิถุนายน 2026', min:'5',
+    body:[
+      {h:'บทนำ', p:'หลายคนคิดว่าการเพิ่มรายได้จากหอพักต้องอาศัยการสร้างห้องเพิ่ม แต่ความจริงแล้วมีวิธีที่ชาญฉลาดกว่านั้น คือการบริหารจัดการสิ่งที่มีอยู่ให้มีประสิทธิภาพมากขึ้น'},
+      {h:'1. เพิ่ม Occupancy Rate ด้วยระบบ Pre-booking', p:'การเปิดให้จองล่วงหน้าผ่านระบบออนไลน์ช่วยลด vacancy rate ได้อย่างมีนัย เมื่อผู้เช่าย้ายออก ควรตั้งค่าระบบให้ประกาศห้องว่างอัตโนมัติ 30–60 วันล่วงหน้า เพื่อให้มีผู้เช่ารายใหม่เข้าต่อได้ทันที'},
+      {h:'2. ปรับราคาตามฤดูกาล', p:'ช่วงใกล้เปิดเทอม (พฤษภาคม–มิถุนายน และตุลาคม–พฤศจิกายน) คือจังหวะที่ความต้องการสูง สามารถปรับราคาให้สอดคล้องกับตลาดได้โดยไม่ต้องกังวลว่าจะเสียผู้เช่า'},
+      {h:'3. บริการเสริมสร้างรายได้', p:'เครื่องซักผ้าหยอดเหรียญ อินเทอร์เน็ตความเร็วสูง ที่จอดรถรายเดือน ล็อคเกอร์เก็บของ หรือบริการแม่บ้านพาร์ทไทม์ สิ่งเหล่านี้สามารถสร้างรายได้เสริมได้หลายพันบาทต่อเดือน โดยไม่ต้องลงทุนสูง'},
+      {h:'4. ลดต้นทุนค่าน้ำค่าไฟ', p:'การติดตั้งมิเตอร์น้ำและไฟฟ้าแยกรายห้อง พร้อมคิดราคาตามยูนิตที่ใช้จริง ช่วยให้ผู้เช่าระมัดระวังการใช้มากขึ้น ลดภาระค่าส่วนกลางที่เจ้าของต้องออก และทำให้การเก็บเงินโปร่งใสขึ้น'},
+      {h:'5. ใช้ระบบดิจิทัลลดต้นทุนการจัดการ', p:'การใช้ซอฟต์แวร์จัดการหอพักแทนการจ้างพนักงานเพิ่ม ช่วยลดค่าใช้จ่ายด้านบุคลากรได้ 30–50% โดยไม่ลดคุณภาพการบริการ งานซ้ำซ้อนอย่างการส่งแจ้งเตือนค่าเช่า การคำนวณบิล และการสร้างสัญญา ล้วนทำได้อัตโนมัติ'},
+      {h:'สรุป', p:'การเพิ่มรายได้จากหอพักไม่จำเป็นต้องลงทุนสร้างเพิ่ม การปรับกระบวนการทำงานและใช้เทคโนโลยีให้เป็นประโยชน์คือเส้นทางที่คุ้มค่าและยั่งยืนที่สุด'},
+    ]
+  },
+  {
+    cat:'กฎหมาย', cc:'#1565C0', cb:'rgba(21,101,192,0.1)', grad:'linear-gradient(135deg,#E3F2FD,#BBDEFB)',
+    title:'สิ่งที่เจ้าของหอพักต้องรู้เรื่องสัญญาเช่า',
+    desc:'สรุปข้อกฎหมายสำคัญ สิทธิ์ของเจ้าของและผู้เช่า รูปแบบสัญญาเช่าที่ถูกต้องตามกฎหมาย',
+    date:'พฤษภาคม 2026', min:'8',
+    body:[
+      {h:'ทำไมสัญญาเช่าถึงสำคัญ', p:'สัญญาเช่าที่ดีคือเกราะป้องกันของเจ้าของหอพักทุกคน หากเกิดข้อพิพาทขึ้น สัญญาที่ถูกต้องตามกฎหมายจะเป็นหลักฐานสำคัญที่ศาลให้ความสำคัญ'},
+      {h:'สาระสำคัญที่ต้องมีในสัญญาเช่า', p:'สัญญาเช่าที่สมบูรณ์ต้องระบุ: ชื่อ-ที่อยู่คู่สัญญาทั้งสองฝ่าย, สถานที่เช่าและรายละเอียดห้อง, ระยะเวลาเช่า, จำนวนค่าเช่าและกำหนดชำระ, จำนวนเงินประกัน, เงื่อนไขการต่อสัญญาและยกเลิก'},
+      {h:'เงินประกันความเสียหาย', p:'ตามกฎหมายไม่มีการกำหนดจำนวนขั้นสูงสำหรับเงินประกัน แต่โดยทั่วไปนิยมเรียกเก็บ 1–3 เดือน เจ้าของหอพักมีสิทธิ์หักค่าเสียหายจากเงินประกันได้ แต่ต้องมีหลักฐานและต้องคืนส่วนที่เหลือภายใน 30 วันหลังสิ้นสัญญา'},
+      {h:'การบอกเลิกสัญญาเช่า', p:'หากสัญญาไม่ได้ระบุ กฎหมายกำหนดให้แจ้งล่วงหน้าอย่างน้อย 1 รอบการเช่า เช่น ถ้าจ่ายรายเดือน ต้องแจ้งล่วงหน้าอย่างน้อย 1 เดือน ควรระบุค่าปรับการผิดสัญญาด้วยเพื่อให้ผู้เช่าอยู่ตามที่ตกลง'},
+      {h:'การใช้ระบบดิจิทัลช่วยจัดการสัญญา', p:'ระบบจัดการหอพักสมัยใหม่อย่าง HorCare ช่วยสร้างและจัดเก็บสัญญาเช่าในรูปแบบดิจิทัล ค้นหาง่าย ไม่ต้องกลัวสัญญาหาย และยังแจ้งเตือนล่วงหน้าเมื่อสัญญาใกล้หมดอายุ'},
+    ]
+  },
+  {
+    cat:'เทคโนโลยี', cc:'#F57C00', cb:'rgba(245,124,0,0.1)', grad:'linear-gradient(135deg,#FFF8E1,#FFE0B2)',
+    title:'ทำไมหอพักยุคใหม่ถึงต้องใช้ระบบดิจิทัล',
+    desc:'สถิติชี้ว่าหอพักที่ใช้ระบบออนไลน์มีรายได้เพิ่มขึ้นและลดเวลาการดูแลได้อย่างมีนัย',
+    date:'เมษายน 2026', min:'4',
+    body:[
+      {h:'ภาพรวมตลาดหอพักในไทย', p:'ประเทศไทยมีหอพักที่จดทะเบียนกว่า 50,000 แห่ง แต่มีเพียง 15–20% เท่านั้นที่ใช้ระบบดิจิทัลในการจัดการ ทั้งที่หอพักกลุ่มนี้มีรายได้เฉลี่ยสูงกว่ากลุ่มที่ใช้ระบบแบบดั้งเดิมถึง 28%'},
+      {h:'ปัญหาของระบบเดิม', p:'การจดบันทึกด้วยมือหรือใช้ Excel มักนำไปสู่ความผิดพลาดในการคำนวณ ข้อมูลหายหรือสูญหาย ใช้เวลานานในการทำบิล และไม่สามารถดูข้อมูลแบบ Real-time ได้'},
+      {h:'สิ่งที่ระบบดิจิทัลทำได้', p:'ระบบจัดการหอพักออนไลน์ช่วยให้: สร้างบิลอัตโนมัติทุกเดือน แจ้งเตือนผู้เช่าผ่าน LINE เมื่อถึงกำหนดชำระ ดูรายงานรายได้แบบ Real-time และจัดการหลายสาขาจากที่เดียว'},
+      {h:'ROI จากการใช้ระบบ', p:'จากการสำรวจผู้ใช้งาน HorCare พบว่าเจ้าของหอพักประหยัดเวลาได้เฉลี่ย 15–20 ชั่วโมงต่อเดือน ลดข้อผิดพลาดในการคำนวณบิลได้ 95% และเก็บค่าเช่าได้ตรงเวลามากขึ้น 40%'},
+      {h:'เริ่มต้นอย่างไร', p:'การเปลี่ยนมาใช้ระบบดิจิทัลไม่ได้ซับซ้อนอย่างที่คิด HorCare ออกแบบให้ใช้งานง่ายโดยไม่จำเป็นต้องมีความรู้ด้าน IT สมัครฟรีและทดลองใช้ได้เลยวันนี้'},
+    ]
+  },
+  {
+    cat:'เคล็ดลับ', cc:'#2DC76D', cb:'rgba(45,199,109,0.1)', grad:'linear-gradient(135deg,#E8FDF5,#B2EBF2)',
+    title:'วิธีรับมือกับผู้เช่าที่ค้างค่าเช่า',
+    desc:'แนวทางปฏิบัติที่ถูกต้องและมีประสิทธิภาพในการจัดการกับผู้เช่าที่ค้างชำระ โดยไม่ต้องขัดแย้ง',
+    date:'มิถุนายน 2026', min:'6',
+    body:[
+      {h:'ป้องกันดีกว่าแก้ไข', p:'การแก้ปัญหาที่ดีที่สุดคือการป้องกันก่อนเกิดปัญหา ระบบแจ้งเตือนอัตโนมัติก่อนถึงกำหนดชำระ 3–5 วัน ช่วยลดกรณีลืมจ่ายได้อย่างมาก'},
+      {h:'ขั้นตอนที่ 1: แจ้งเตือนอย่างสุภาพ', p:'เมื่อพ้นกำหนดชำระ 1–3 วัน ควรส่งข้อความแจ้งเตือนสุภาพผ่าน LINE หรือโทรศัพท์ บางครั้งผู้เช่าแค่ลืมและพร้อมจ่ายทันที ไม่ควรรีบใช้น้ำเสียงแข็งกร้าว'},
+      {h:'ขั้นตอนที่ 2: หนังสือแจ้งเตือนเป็นลายลักษณ์อักษร', p:'หากเลย 7–14 วันยังไม่ชำระ ควรออกหนังสือแจ้งเตือนอย่างเป็นทางการ ระบุจำนวนเงินที่ค้างชำระ วันครบกำหนด และผลที่จะตามมา ซึ่งเป็นหลักฐานสำคัญหากต้องดำเนินการทางกฎหมาย'},
+      {h:'การเจรจาผ่อนผัน', p:'ในบางกรณีที่ผู้เช่าประสบปัญหาทางการเงินชั่วคราว การตกลงแผนผ่อนชำระที่ชัดเจนดีกว่าการขับออกแล้วหาผู้เช่าใหม่ ซึ่งมีต้นทุนที่สูงกว่ามาก'},
+      {h:'การใช้ระบบช่วยติดตาม', p:'ระบบ HorCare มีฟีเจอร์ติดตามสถานะการชำระเงิน แจ้งเตือนอัตโนมัติ และบันทึกประวัติการชำระที่สมบูรณ์ ทำให้เจ้าของหอพักไม่พลาดการติดตามแม้แต่รายเดียว'},
+    ]
+  },
+  {
+    cat:'กฎหมาย', cc:'#1565C0', cb:'rgba(21,101,192,0.1)', grad:'linear-gradient(135deg,#E3F2FD,#BBDEFB)',
+    title:'พ.ร.บ.หอพัก 2558 เจ้าของหอพักต้องรู้อะไรบ้าง',
+    desc:'สรุปข้อบังคับสำคัญตาม พ.ร.บ.หอพัก 2558 ที่เจ้าของหอพักทุกคนต้องปฏิบัติตาม',
+    date:'มีนาคม 2026', min:'7',
+    body:[
+      {h:'พ.ร.บ.หอพัก 2558 คืออะไร', p:'พระราชบัญญัติหอพัก พ.ศ. 2558 คือกฎหมายที่ควบคุมการดำเนินกิจการหอพักในประเทศไทย มีผลบังคับใช้ตั้งแต่ปี 2558 แทนที่กฎหมายหอพักฉบับเดิมปี 2507'},
+      {h:'ใครต้องขอใบอนุญาต', p:'ผู้ประกอบการที่รับผู้พักอาศัยตั้งแต่ 5 คนขึ้นไป และมีค่าตอบแทน ถือว่าเป็น "หอพัก" ตามกฎหมาย ต้องขอใบอนุญาตประกอบกิจการหอพักจากนายทะเบียนในพื้นที่'},
+      {h:'มาตรฐานที่ต้องปฏิบัติตาม', p:'ห้องพักต้องมีพื้นที่ไม่น้อยกว่า 8 ตร.ม. ต่อคน มีแสงสว่างและการระบายอากาศที่เพียงพอ มีสิ่งอำนวยความสะดวกขั้นพื้นฐาน และต้องจัดทำทะเบียนผู้พักตามแบบที่กำหนด'},
+      {h:'บทลงโทษ', p:'การฝ่าฝืนมีโทษปรับไม่เกิน 20,000 บาท และอาจถูกเพิกถอนใบอนุญาต ซึ่งส่งผลให้ไม่สามารถดำเนินกิจการต่อไปได้ ดังนั้นควรปฏิบัติให้ถูกต้องตั้งแต่ต้น'},
+      {h:'HorCare ช่วยเรื่องการปฏิบัติตามกฎหมาย', p:'ระบบ HorCare มีฟีเจอร์จัดเก็บข้อมูลผู้พักอาศัยและทะเบียนผู้พักที่ครบถ้วน ช่วยให้เจ้าของหอพักพร้อมสำหรับการตรวจสอบจากเจ้าหน้าที่เสมอ'},
+    ]
+  },
+  {
+    cat:'เทคโนโลยี', cc:'#F57C00', cb:'rgba(245,124,0,0.1)', grad:'linear-gradient(135deg,#FFF8E1,#FFE0B2)',
+    title:'LINE Notify vs LINE OA สำหรับหอพัก',
+    desc:'เปรียบเทียบสองช่องทางแจ้งเตือนยอดฮิต เลือกแบบไหนถึงเหมาะกับหอพักของคุณ',
+    date:'กุมภาพันธ์ 2026', min:'5',
+    body:[
+      {h:'ทำไมหอพักถึงต้องใช้ LINE', p:'LINE คือแอปสื่อสารที่คนไทยใช้มากที่สุด การแจ้งเตือนค่าเช่าและบิลผ่าน LINE มีอัตราการอ่านสูงกว่า SMS และอีเมลอย่างมีนัยสำคัญ'},
+      {h:'LINE Notify คืออะไร', p:'LINE Notify เป็นบริการส่งข้อความจากระบบอัตโนมัติเข้าแชทส่วนตัวของผู้ใช้ เหมาะสำหรับการแจ้งเตือนข้อมูล เช่น สรุปยอดเก็บเงินรายเดือน แต่ผู้รับไม่สามารถตอบกลับได้'},
+      {h:'LINE Official Account คืออะไร', p:'LINE OA คือบัญชีทางการของธุรกิจบน LINE ผู้ใช้สามารถแอดเพื่อนแล้วรับส่งข้อความได้ ฟีเจอร์หลากหลายกว่า แต่มีค่าใช้จ่ายตามจำนวนข้อความที่ส่ง'},
+      {h:'เปรียบเทียบสำหรับหอพัก', p:'หอพักขนาดเล็กที่ต้องการแค่แจ้งเตือนบิล: LINE Notify เพียงพอ / หอพักที่ต้องการสื่อสารสองทางกับผู้เช่า รับแจ้งซ่อม หรือทำการตลาด: LINE OA เหมาะกว่า'},
+      {h:'HorCare รองรับทั้งสองระบบ', p:'แพ็กเกจ Premium ของ HorCare รองรับการส่งบิลและแจ้งเตือนผ่าน LINE OA อัตโนมัติ ทำให้ไม่ต้องส่งทีละคนด้วยมืออีกต่อไป ประหยัดเวลาได้หลายชั่วโมงต่อเดือน'},
+    ]
+  },
 ]
 
-function Blog() {
+function ArticleCard({ a, onRead }) {
   return (
-    <section id="blog" style={{ background:'#fff', padding:'80px 0' }}>
-      <W>
-        <div style={{ display:'flex', alignItems:'flex-end', justifyContent:'space-between', marginBottom:40, flexWrap:'wrap', gap:12 }}>
+    <article
+      onClick={() => onRead(a)}
+      className="card-hover"
+      style={{ background:'#fff', borderRadius:14, overflow:'hidden', border:'1px solid rgba(0,184,162,0.12)', cursor:'pointer' }}
+    >
+      <div style={{ height:140, background:a.grad, padding:14, display:'flex', alignItems:'flex-end' }}>
+        <span style={{ fontFamily:'Kanit,sans-serif', fontSize:11, fontWeight:600, color:a.cc, background:a.cb, border:`1px solid ${a.cc}25`, padding:'3px 10px', borderRadius:100 }}>
+          {a.cat}
+        </span>
+      </div>
+      <div style={{ padding:18 }}>
+        <h3 style={{ fontFamily:'Kanit,sans-serif', fontWeight:600, fontSize:14, color:'#1A2433', marginBottom:7, lineHeight:1.45 }}>{a.title}</h3>
+        <p style={{ fontFamily:'Sarabun,sans-serif', fontSize:12.5, color:'#546E7A', lineHeight:1.6, marginBottom:14, display:'-webkit-box', WebkitLineClamp:2, WebkitBoxOrient:'vertical', overflow:'hidden' }}>{a.desc}</p>
+        <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center' }}>
+          <span style={{ fontFamily:'Sarabun,sans-serif', fontSize:11, color:'#90A4AE' }}>{a.date}</span>
+          <span style={{ fontFamily:'Sarabun,sans-serif', fontSize:11, color:a.cc, fontWeight:600 }}>อ่าน {a.min} นาที →</span>
+        </div>
+      </div>
+    </article>
+  )
+}
+
+function ArticleModal({ article, onClose }) {
+  return (
+    <div
+      onClick={onClose}
+      className="modal-overlay"
+      style={{ position:'fixed', inset:0, zIndex:200, background:'rgba(0,0,0,0.6)', display:'flex', alignItems:'center', justifyContent:'center', padding:'40px 16px', overflowY:'auto' }}
+    >
+      <div
+        onClick={e => e.stopPropagation()}
+        className="modal-content"
+        style={{ background:'#fff', borderRadius:20, width:'100%', maxWidth:680, boxShadow:'0 24px 80px rgba(0,0,0,0.25)', overflow:'hidden' }}
+      >
+        {/* Header */}
+        <div className="modal-content-header" style={{ height:160, background:article.grad, padding:'20px 24px', display:'flex', flexDirection:'column', justifyContent:'space-between' }}>
+          <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center' }}>
+            <span style={{ fontFamily:'Kanit,sans-serif', fontSize:11, fontWeight:600, color:article.cc, background:article.cb, border:`1px solid ${article.cc}25`, padding:'4px 12px', borderRadius:100 }}>
+              {article.cat}
+            </span>
+            <button onClick={onClose} style={{ background:'rgba(0,0,0,0.12)', border:'none', borderRadius:'50%', width:32, height:32, cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0 }}>
+              <Ic d={P.close} size={15} color="#1A2433" />
+            </button>
+          </div>
           <div>
-            <h2 style={{ fontFamily:'Kanit,sans-serif', fontWeight:700, fontSize:'clamp(1.5rem,2.5vw,2.1rem)', color:'#1A2433' }}>
+            <div style={{ display:'flex', gap:12, fontFamily:'Sarabun,sans-serif', fontSize:12, color:'#546E7A' }}>
+              <span>{article.date}</span>
+              <span>·</span>
+              <span>อ่าน {article.min} นาที</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Body */}
+        <div className="modal-content-body" style={{ padding:'28px 28px 36px' }}>
+          <h1 style={{ fontFamily:'Kanit,sans-serif', fontWeight:700, fontSize:'clamp(1.2rem,2.5vw,1.55rem)', color:'#1A2433', lineHeight:1.4, marginBottom:24 }}>
+            {article.title}
+          </h1>
+          {article.body.map((sec, i) => (
+            <div key={i} style={{ marginBottom:20 }}>
+              <h2 style={{ fontFamily:'Kanit,sans-serif', fontWeight:600, fontSize:15, color:article.cc, marginBottom:7 }}>{sec.h}</h2>
+              <p style={{ fontFamily:'Sarabun,sans-serif', fontSize:14.5, color:'#374151', lineHeight:1.8 }}>{sec.p}</p>
+            </div>
+          ))}
+          <div style={{ marginTop:32, paddingTop:20, borderTop:'1px solid #f0f0f0', display:'flex', justifyContent:'space-between', alignItems:'center' }}>
+            <span style={{ fontFamily:'Sarabun,sans-serif', fontSize:13, color:'#90A4AE' }}>บทความโดย HorCare</span>
+            <button onClick={onClose} style={{ fontFamily:'Kanit,sans-serif', fontWeight:600, fontSize:13, color:article.cc, background:'transparent', border:`1.5px solid ${article.cc}`, borderRadius:100, padding:'7px 20px', cursor:'pointer' }}>
+              ปิด
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function BlogAllModal({ onRead, onClose }) {
+  return (
+    <div style={{ position:'fixed', inset:0, zIndex:200, background:'rgba(10,20,35,0.95)', overflowY:'auto' }}>
+      <div className="w-inner" style={{ maxWidth:1100, margin:'0 auto', padding:'32px 0 60px' }}>
+        <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:36 }}>
+          <div>
+            <h2 style={{ fontFamily:'Kanit,sans-serif', fontWeight:700, fontSize:'clamp(1.4rem,2.5vw,2rem)', color:'white' }}>บทความทั้งหมด</h2>
+            <p style={{ fontFamily:'Sarabun,sans-serif', fontSize:13, color:'rgba(255,255,255,0.5)', marginTop:4 }}>{ARTICLES.length} บทความ</p>
+          </div>
+          <button onClick={onClose} style={{ background:'rgba(255,255,255,0.1)', border:'1px solid rgba(255,255,255,0.2)', borderRadius:100, padding:'8px 20px', cursor:'pointer', display:'flex', alignItems:'center', gap:6, color:'white', fontFamily:'Kanit,sans-serif', fontWeight:600, fontSize:13 }}>
+            <Ic d={P.close} size={13} color="white" /> ปิด
+          </button>
+        </div>
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(min(280px,100%),1fr))', gap:16 }}>
+          {ARTICLES.map(a => <ArticleCard key={a.title} a={a} onRead={onRead} />)}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function Blog({ onRead, onShowAll }) {
+  return (
+    <section id="blog" style={{ background:'#fff', padding:'88px 0' }}>
+      <W>
+        <div className="reveal" style={{ display:'flex', alignItems:'flex-end', justifyContent:'space-between', marginBottom:48, flexWrap:'wrap', gap:12 }}>
+          <div>
+            <SectionPill icon={P.doc} label="บทความ" color="#1565C0" />
+            <h2 style={{ fontFamily:'Kanit,sans-serif', fontWeight:700, fontSize:'clamp(1.7rem,2.6vw,2.3rem)', color:'#1A2433' }}>
               ความรู้สำหรับเจ้าของหอพัก
             </h2>
           </div>
-          <a href={HORCARE_URL} target="_blank" rel="noopener noreferrer"
-            style={{ fontFamily:'Sarabun,sans-serif', fontSize:13, fontWeight:600, color:'#00B8A2', textDecoration:'none', display:'flex', alignItems:'center', gap:4 }}>
-            ดูทั้งหมด <Ic d={P.arrow} size={13} color="#00B8A2" />
-          </a>
+          <button onClick={onShowAll}
+            style={{ fontFamily:'Sarabun,sans-serif', fontSize:13, fontWeight:600, color:'#00B8A2', background:'none', border:'none', cursor:'pointer', display:'flex', alignItems:'center', gap:4, padding:0 }}>
+            ดูทั้งหมด ({ARTICLES.length}) <Ic d={P.arrow} size={13} color="#00B8A2" />
+          </button>
         </div>
 
-        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(280px,1fr))', gap:16 }}>
-          {ARTICLES.map(a => (
-            <article key={a.title} className="card-hover" style={{ background:'#fff', borderRadius:14, overflow:'hidden', border:'1px solid rgba(0,184,162,0.12)', cursor:'pointer' }}>
-              <div style={{ height:140, background:a.grad, padding:14, display:'flex', alignItems:'flex-end' }}>
-                <span style={{ fontFamily:'Kanit,sans-serif', fontSize:11, fontWeight:600, color:a.cc, background:a.cb, border:`1px solid ${a.cc}25`, padding:'3px 10px', borderRadius:100 }}>
-                  {a.cat}
-                </span>
-              </div>
-              <div style={{ padding:18 }}>
-                <h3 style={{ fontFamily:'Kanit,sans-serif', fontWeight:600, fontSize:14, color:'#1A2433', marginBottom:7, lineHeight:1.45 }}>{a.title}</h3>
-                <p style={{ fontFamily:'Sarabun,sans-serif', fontSize:12.5, color:'#546E7A', lineHeight:1.6, marginBottom:14, display:'-webkit-box', WebkitLineClamp:2, WebkitBoxOrient:'vertical', overflow:'hidden' }}>{a.desc}</p>
-                <div style={{ display:'flex', justifyContent:'space-between' }}>
-                  <span style={{ fontFamily:'Sarabun,sans-serif', fontSize:11, color:'#90A4AE' }}>{a.date}</span>
-                  <span style={{ fontFamily:'Sarabun,sans-serif', fontSize:11, color:'#90A4AE' }}>อ่าน {a.min} นาที</span>
-                </div>
-              </div>
-            </article>
-          ))}
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(min(280px,100%),1fr))', gap:16 }}>
+          {ARTICLES.slice(0, 3).map(a => <ArticleCard key={a.title} a={a} onRead={onRead} />)}
         </div>
       </W>
     </section>
@@ -506,13 +921,14 @@ function LineImg({ size = 32 }) {
 
 function Contact() {
   return (
-    <section id="contact" style={{ background: '#F8FAFB', padding: '80px 0' }}>
+    <section id="contact" style={{ background: '#F8FAFB', padding: '88px 0' }}>
       <W>
-        <div style={{ textAlign: 'center', marginBottom: 48 }}>
-          <h2 style={{ fontFamily: 'Kanit,sans-serif', fontWeight: 700, fontSize: 'clamp(1.6rem,2.5vw,2.2rem)', color: '#1A2433', lineHeight: 1.3 }}>
+        <div className="reveal" style={{ textAlign: 'center', marginBottom: 52 }}>
+          <SectionPill icon={P.headset} label="ติดต่อเรา" color="#1E88E5" />
+          <h2 style={{ fontFamily: 'Kanit,sans-serif', fontWeight: 700, fontSize: 'clamp(1.7rem,2.6vw,2.3rem)', color: '#1A2433', lineHeight: 1.25 }}>
             พร้อมช่วยเหลือคุณเสมอ
           </h2>
-          <p style={{ fontFamily: 'Sarabun,sans-serif', fontSize: 15, color: '#546E7A', marginTop: 10, maxWidth: 440, margin: '10px auto 0' }}>
+          <p style={{ fontFamily: 'Sarabun,sans-serif', fontSize: 15.5, color: '#546E7A', marginTop: 12, maxWidth: 440, margin: '12px auto 0', lineHeight: 1.75 }}>
             มีคำถาม ต้องการสาธิต หรืออยากแจ้งปัญหา ทีมงานเราพร้อมดูแลทุกเรื่อง
           </p>
         </div>
@@ -657,12 +1073,28 @@ function CTABanner() {
 }
 
 // ── Footer ────────────────────────────────────────────────────────────────────
+const FOOTER_COLS = [
+  { title:'ผลิตภัณฑ์', items:[
+    { label:'คุณสมบัติ',    href:'#features' },
+    { label:'ราคา',         href:'#pricing' },
+    { label:'วิธีใช้งาน',  href:'#how-to-use' },
+    { label:'เข้าสู่ระบบ', href:HORCARE_URL, ext:true },
+  ]},
+  { title:'บริษัท', items:[
+    { label:'บทความ',         href:'#blog' },
+    { label:'ติดต่อเรา',      href:'#contact' },
+    { label:'ซัพพอร์ต',      href:'#contact' },
+    { label:'ร่วมงานกับเรา', href:LINE_URL, ext:true },
+  ]},
+  { title:'ช่วยเหลือ', items:[
+    { label:'คำถามที่พบบ่อย', href:'#faq' },
+    { label:'คู่มือการใช้งาน', href:HORCARE_URL, ext:true },
+    { label:'แจ้งปัญหา',      href:LINE_URL, ext:true },
+    { label:'สถานะระบบ',      href:HORCARE_URL, ext:true },
+  ]},
+]
+
 function Footer() {
-  const COLS = [
-    { title:'ผลิตภัณฑ์', items:['คุณสมบัติ','ราคา','ความปลอดภัย','อัพเดต'] },
-    { title:'บริษัท',    items:['เกี่ยวกับเรา','บล็อก','ร่วมงานกับเรา','ติดต่อ'] },
-    { title:'ช่วยเหลือ', items:['คู่มือการใช้งาน','คำถามที่พบบ่อย','ซัพพอร์ต','สถานะระบบ'] },
-  ]
   return (
     <footer style={{ background:'#1A2433', paddingTop:52, paddingBottom:28 }}>
       <W>
@@ -674,23 +1106,29 @@ function Footer() {
             <p style={{ fontFamily:'Sarabun,sans-serif', fontSize:13, color:'#90A4AE', lineHeight:1.7, marginBottom:14 }}>
               ระบบจัดการหอพักครบวงจร<br />สำหรับเจ้าของหอพักยุคใหม่
             </p>
-            {[{ l:'LINE', v:'@horcare' },{ l:'Web', v:'www.horcare.com' }].map(c => (
-              <p key={c.l} style={{ fontFamily:'Sarabun,sans-serif', fontSize:12, color:'#90A4AE', marginBottom:3 }}>
-                <span style={{ fontWeight:600, color:'#00B8A2' }}>{c.l}:</span> {c.v}
-              </p>
-            ))}
+            <a href={LINE_URL} target="_blank" rel="noopener noreferrer"
+              style={{ fontFamily:'Sarabun,sans-serif', fontSize:12, color:'#90A4AE', textDecoration:'none', display:'block', marginBottom:3 }}
+              onMouseEnter={e => e.currentTarget.style.color='#00B8A2'}
+              onMouseLeave={e => e.currentTarget.style.color='#90A4AE'}>
+              <span style={{ fontWeight:600, color:'#00B8A2' }}>LINE:</span> @horcare
+            </a>
+            <p style={{ fontFamily:'Sarabun,sans-serif', fontSize:12, color:'#90A4AE', marginBottom:3 }}>
+              <span style={{ fontWeight:600, color:'#00B8A2' }}>Web:</span> horcare-landing.vercel.app
+            </p>
           </div>
-          {COLS.map(c => (
-            <div key={c.title}>
-              <h4 style={{ fontFamily:'Kanit,sans-serif', fontWeight:600, fontSize:13, color:'white', marginBottom:14 }}>{c.title}</h4>
+          {FOOTER_COLS.map(col => (
+            <div key={col.title}>
+              <h4 style={{ fontFamily:'Kanit,sans-serif', fontWeight:600, fontSize:13, color:'white', marginBottom:14 }}>{col.title}</h4>
               <ul style={{ listStyle:'none', display:'flex', flexDirection:'column', gap:9 }}>
-                {c.items.map(item => (
-                  <li key={item}>
-                    <a href={HORCARE_URL} target="_blank" rel="noopener noreferrer"
+                {col.items.map(item => (
+                  <li key={item.label}>
+                    <a
+                      href={item.href}
+                      {...(item.ext ? { target:'_blank', rel:'noopener noreferrer' } : {})}
                       style={{ fontFamily:'Sarabun,sans-serif', fontSize:13, color:'#90A4AE', textDecoration:'none', transition:'color 0.15s' }}
                       onMouseEnter={e => e.currentTarget.style.color = '#00B8A2'}
                       onMouseLeave={e => e.currentTarget.style.color = '#90A4AE'}>
-                      {item}
+                      {item.label}
                     </a>
                   </li>
                 ))}
@@ -702,11 +1140,14 @@ function Footer() {
         <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', paddingTop:20, borderTop:'1px solid rgba(255,255,255,0.07)', flexWrap:'wrap', gap:10 }}>
           <p style={{ fontFamily:'Sarabun,sans-serif', fontSize:12, color:'#546E7A' }}>© 2026 HorCare. สงวนลิขสิทธิ์</p>
           <div style={{ display:'flex', gap:20 }}>
-            {['นโยบายความเป็นส่วนตัว','เงื่อนไขการใช้งาน'].map(l => (
-              <a key={l} href={HORCARE_URL} target="_blank" rel="noopener noreferrer"
+            {[
+              { label:'นโยบายความเป็นส่วนตัว', href:'/privacy', ext:false },
+              { label:'เงื่อนไขการใช้งาน',      href:'/terms',   ext:false },
+            ].map(l => (
+              <a key={l.label} href={l.href} {...(l.ext ? { target:'_blank', rel:'noopener noreferrer' } : {})}
                 style={{ fontFamily:'Sarabun,sans-serif', fontSize:12, color:'#546E7A', textDecoration:'none' }}
                 onMouseEnter={e => e.currentTarget.style.color = '#00B8A2'}
-                onMouseLeave={e => e.currentTarget.style.color = '#546E7A'}>{l}</a>
+                onMouseLeave={e => e.currentTarget.style.color = '#546E7A'}>{l.label}</a>
             ))}
           </div>
         </div>
@@ -716,18 +1157,6 @@ function Footer() {
 }
 
 // ── Shared: section label pill ────────────────────────────────────────────────
-function Pill({ children }) {
-  return (
-    <span style={{
-      display:'inline-block', fontFamily:'Sarabun,sans-serif', fontWeight:600,
-      fontSize:11, letterSpacing:'0.08em', textTransform:'uppercase',
-      color:'#00B8A2', background:'rgba(0,184,162,0.1)',
-      border:'1px solid rgba(0,184,162,0.22)', borderRadius:100, padding:'4px 12px',
-    }}>
-      {children}
-    </span>
-  )
-}
 
 // ── Responsive helpers (CSS-in-JS alternative) ───────────────────────────────
 const mobileCSS = `
@@ -740,8 +1169,17 @@ const mobileCSS = `
   }
 `
 
-// ── App ───────────────────────────────────────────────────────────────────────
-export default function App() {
+// ── Landing page (all sections) ───────────────────────────────────────────────
+function LandingPage() {
+  const [activeArticle, setActiveArticle] = useState(null)
+  const [showBlogAll, setShowBlogAll] = useState(false)
+  useReveal()
+
+  const handleRead = (article) => {
+    setShowBlogAll(false)
+    setActiveArticle(article)
+  }
+
   return (
     <>
       <style>{mobileCSS}</style>
@@ -749,14 +1187,28 @@ export default function App() {
       <main>
         <Hero />
         <Features />
+        <Testimonials />
         <HowToUse />
         <Pricing />
         <FAQ />
-        <Blog />
+        <Blog onRead={handleRead} onShowAll={() => setShowBlogAll(true)} />
         <Contact />
         <CTABanner />
       </main>
       <Footer />
+      {showBlogAll && <BlogAllModal onRead={handleRead} onClose={() => setShowBlogAll(false)} />}
+      {activeArticle && <ArticleModal article={activeArticle} onClose={() => setActiveArticle(null)} />}
     </>
+  )
+}
+
+// ── App (router) ──────────────────────────────────────────────────────────────
+export default function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/privacy" element={<Privacy />} />
+      <Route path="/terms" element={<Terms />} />
+    </Routes>
   )
 }

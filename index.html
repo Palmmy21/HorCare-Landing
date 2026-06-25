@@ -1,14 +1,164 @@
 <!doctype html>
-<html lang="en">
+<html lang="th">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="HorCare ระบบจัดการหอพักครบวงจร จัดการห้องพัก ผู้เช่า ค่าน้ำค่าไฟ และแจ้งซ่อม ในที่เดียว" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/2.png" />
+    <link rel="apple-touch-icon" href="/2.png" />
+
+    <!-- Primary Meta -->
+    <title>HorCare — ระบบจัดการหอพักอัจฉริยะ ฟรีสูงสุด 250 ห้อง</title>
+    <meta name="description" content="HorCare ระบบจัดการหอพักครบวงจร จัดการห้องพัก ผู้เช่า สัญญาเช่า ค่าน้ำค่าไฟ แจ้งเตือน LINE อัตโนมัติ ฟรีสูงสุด 250 ห้อง ไม่ต้องใช้บัตรเครดิต" />
+    <meta name="keywords" content="ระบบจัดการหอพัก, โปรแกรมจัดการหอพัก, ซอฟต์แวร์หอพัก, HorCare, บริหารหอพัก, แจ้งเตือน LINE หอพัก, ใบแจ้งหนี้หอพัก, คำนวณค่าน้ำค่าไฟ" />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="HorCare" />
+    <link rel="canonical" href="https://horcare-landing.vercel.app/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://horcare-landing.vercel.app/" />
+    <meta property="og:title" content="HorCare — ระบบจัดการหอพักอัจฉริยะ" />
+    <meta property="og:description" content="ครบ จบ ในระบบเดียว จัดการห้องพัก ผู้เช่า การเงิน แจ้งเตือน LINE ฟรีสูงสุด 250 ห้อง ไม่ต้องใช้บัตรเครดิต" />
+    <meta property="og:image" content="https://horcare-landing.vercel.app/og-image.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="HorCare ระบบจัดการหอพักอัจฉริยะ" />
+    <!-- Fallback image already exists in /2.png if og-image.png is not yet generated -->
+    <meta property="og:locale" content="th_TH" />
+    <meta property="og:site_name" content="HorCare" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="HorCare — ระบบจัดการหอพักอัจฉริยะ" />
+    <meta name="twitter:description" content="ครบ จบ ในระบบเดียว จัดการห้องพัก ผู้เช่า การเงิน แจ้งเตือน LINE ฟรีสูงสุด 250 ห้อง" />
+    <meta name="twitter:image" content="https://horcare-landing.vercel.app/og-image.png" />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://horcare-landing.vercel.app/#organization",
+          "name": "HorCare",
+          "url": "https://horcare-landing.vercel.app/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://horcare-landing.vercel.app/2.png"
+          },
+          "description": "ระบบจัดการหอพักครบวงจร จัดการห้องพัก ผู้เช่า สัญญาเช่า ค่าน้ำค่าไฟ และแจ้งเตือน LINE",
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "customer support",
+            "availableLanguage": "Thai"
+          },
+          "sameAs": ["https://lin.ee/9RxwIrM"]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://horcare-landing.vercel.app/#website",
+          "url": "https://horcare-landing.vercel.app/",
+          "name": "HorCare",
+          "publisher": { "@id": "https://horcare-landing.vercel.app/#organization" },
+          "inLanguage": "th"
+        },
+        {
+          "@type": "SoftwareApplication",
+          "name": "HorCare",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "Web",
+          "url": "https://hor-care.vercel.app/",
+          "description": "ระบบจัดการหอพักครบวงจร รองรับห้องพักสูงสุด 250 ห้องในแพ็กเกจฟรี จัดการผู้เช่า สัญญาเช่า ค่าน้ำค่าไฟ และส่งแจ้งเตือนผ่าน LINE",
+          "offers": [
+            {
+              "@type": "Offer",
+              "name": "ฟรีเสมอ",
+              "price": "0",
+              "priceCurrency": "THB",
+              "description": "จัดการห้องพักสูงสุด 250 ห้อง ฟรีตลอดไป"
+            },
+            {
+              "@type": "Offer",
+              "name": "Start",
+              "price": "79",
+              "priceCurrency": "THB",
+              "description": "ไม่เกิน 50 ห้อง พร้อมแจ้งเตือน LINE"
+            },
+            {
+              "@type": "Offer",
+              "name": "Plus",
+              "price": "259",
+              "priceCurrency": "THB",
+              "description": "ไม่เกิน 200 ห้อง พร้อมรายงานเชิงลึก"
+            }
+          ],
+          "publisher": { "@id": "https://horcare-landing.vercel.app/#organization" }
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "มีแพ็กเกจฟรีจริงไหม? มีเงื่อนไขอะไรบ้าง?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "มีจริง ไม่มีวันหมดอายุ รองรับห้องพักได้ถึง 250 ห้อง ใช้งานได้ 1 บัญชี ครบทุกฟีเจอร์ที่ Excel ทำได้ ทั้งจัดการห้อง ผู้เช่า ค่าน้ำค่าไฟ ใบแจ้งหนี้ และสัญญาเช่า ข้อเดียวที่ไม่มีคือการแจ้งเตือนผ่าน LINE ไม่ต้องใช้บัตรเครดิต"
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "ย้ายจาก Excel มาใช้ HorCare ได้เลยไหม?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "ได้เลย รองรับนำเข้าข้อมูลจาก Excel/CSV ทั้งข้อมูลผู้เช่า ห้องพัก และประวัติการชำระเงิน ทีมงานพร้อมช่วย Migration ฟรีสำหรับแพ็กเกจหอกลางขึ้นไป"
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "คิดราคาอย่างไร? อัปเกรดหรือยกเลิกได้ไหม?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "เริ่มฟรีสำหรับ ≤250 ห้อง (ไม่มี LINE) แพ็กเกจที่มี LINE: Start ฿79/ห้อง/เดือน (≤50 ห้อง), Plus ฿259/ห้อง/เดือน (≤200 ห้อง), Pro ฿399/ห้อง/เดือน (200+ ห้อง) อัปเกรด ดาวน์เกรด หรือยกเลิกได้ทุกเมื่อ ราคายังไม่รวม VAT"
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "ข้อมูลของฉันปลอดภัยแค่ไหน?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "ข้อมูลทุกอย่างเข้ารหัส SSL/TLS มีระบบสำรองข้อมูลอัตโนมัติทุกวัน ข้อมูลของคุณจะไม่ถูกแชร์หรือขายให้บุคคลที่สาม"
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "ผู้เช่าต้องดาวน์โหลดแอปไหม?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "ไม่จำเป็น ผู้เช่าเข้าถึงระบบผ่านเบราว์เซอร์บนมือถือหรือคอมพิวเตอร์ได้เลย ไม่ต้องติดตั้งอะไรเพิ่ม"
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "ติดต่อซัพพอร์ตได้ทางไหน?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "ติดต่อผ่าน LINE @horcare ทีมงานพร้อมตอบในวันจันทร์–ศุกร์ 09:00–18:00 น. และวันเสาร์ 09:00–13:00 น. ตอบกลับภายใน 2 ชั่วโมง"
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700&family=Sarabun:wght@300;400;500&display=swap" rel="stylesheet" />
-    <title>HorCare — ระบบจัดการหอพักอัจฉริยะ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700;800&family=Sarabun:wght@300;400;500;600&display=swap" rel="stylesheet" />
   </head>
   <body>
     <div id="root"></div>
