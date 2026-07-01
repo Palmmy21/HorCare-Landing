@@ -281,14 +281,14 @@ function Hero() {
         </div>
 
         <h1 style={{ fontFamily:'Kanit,sans-serif', fontWeight:800, lineHeight:1.15, marginBottom:18 }}>
-          <span style={{ display:'block', fontSize:'clamp(2.1rem,4.8vw,3.6rem)', color:'white' }}>ระบบจัดการหอพัก</span>
+          <span style={{ display:'block', fontSize:'clamp(2.1rem,4.8vw,3.6rem)', color:'white' }}>HorCare ระบบจัดการหอพัก</span>
           <span style={{ display:'block', fontSize:'clamp(2.1rem,4.8vw,3.6rem)' }} className="gradient-text">
             ครบ จบ ในระบบเดียว
           </span>
         </h1>
 
         <p style={{ fontFamily:'Sarabun,sans-serif', fontSize:16, color:'rgba(255,255,255,0.6)', lineHeight:1.85, maxWidth:510, margin:'0 auto 36px' }}>
-          คุ้มค่า ใช้ง่าย ดูแลให้ตลอดการใช้งาน จากห้องพักถึงใบแจ้งหนี้ HorCare รวมทุกอย่างในระบบเดียว ลดภาระงานซ้ำซ้อน
+          HorCare คือระบบจัดการหอพักอัจฉริยะ คุ้มค่า ใช้ง่าย ดูแลให้ตลอดการใช้งาน จากห้องพักถึงใบแจ้งหนี้ รวมทุกอย่างในระบบเดียว ลดภาระงานซ้ำซ้อน
         </p>
 
         <div className="hero-btns" style={{ display:'flex', gap:12, flexWrap:'wrap', justifyContent:'center', marginBottom:44 }}>
