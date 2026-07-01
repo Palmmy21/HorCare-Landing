@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 
 export const HORCARE_URL = 'https://hor-care.vercel.app/'
-export const LINE_URL = 'https://lin.ee/9RxwIrM'
+export const LINE_URL = 'https://lin.ee/Qig9UNg'
 
 export const W = ({ children, style = {} }) => (
   <div className="w-inner" style={{ maxWidth: 1100, margin: '0 auto', ...style }}>
