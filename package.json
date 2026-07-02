@@ -9,9 +9,11 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "postbuild": "node scripts/ssg.mjs",
-    "generate:og": "node scripts/generate-og.mjs"
+    "generate:og": "node scripts/generate-og.mjs",
+    "setup:richmenu": "node scripts/setup-richmenu.mjs"
   },
   "dependencies": {
+    "@line/bot-sdk": "^9.4.0",
     "@tailwindcss/vite": "^4.3.1",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
