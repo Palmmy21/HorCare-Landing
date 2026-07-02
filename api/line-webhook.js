@@ -38,20 +38,24 @@ export default async function handler(req, res) {
   // doesn't freeze it before the flex replies / admin push go out.
   res.status(200).end();
 
-  await Promise.all((body.events || []).map(handleEvent)).catch((err) => {
-    console.error('Failed to handle LINE event', err);
-  });
+  await Promise.all((body.events || []).map(handleEvent));
 }
 
 async function handleEvent(event) {
-  switch (event.type) {
-    case 'postback':
-      return handlePostback(event);
-    case 'message':
-      return handleMessage(event);
-    case 'follow':
-      return handleFollow(event);
-    default:
-      return null;
+  console.log('LINE event', JSON.stringify(event)); // TEMP debug
+  try {
+    switch (event.type) {
+      case 'postback':
+        return await handlePostback(event);
+      case 'message':
+        return await handleMessage(event);
+      case 'follow':
+        return await handleFollow(event);
+      default:
+        return null;
+    }
+  } catch (err) {
+    console.error('Failed to handle LINE event', err?.message, JSON.stringify(err?.originalError?.response?.data));
+    return null;
   }
 }
