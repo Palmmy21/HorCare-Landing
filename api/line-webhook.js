@@ -42,7 +42,6 @@ export default async function handler(req, res) {
 }
 
 async function handleEvent(event) {
-  console.log('LINE event', JSON.stringify(event)); // TEMP debug
   try {
     switch (event.type) {
       case 'postback':
