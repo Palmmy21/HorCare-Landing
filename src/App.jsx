@@ -418,7 +418,7 @@ function Testimonials() {
         </div>
       </W>
 
-      <div className="marquee-container reveal">
+      <div className="marquee-container">
         <div className="marquee-content">
           {marqueeItems.map((t, i) => (
             <div key={i} className="marquee-item card-hover"

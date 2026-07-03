@@ -11,8 +11,6 @@
   left: 50%;
   transform: translateX(-50%);
   padding: 20px 0 40px;
-  mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
-  -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
 }
 
 .marquee-content {
