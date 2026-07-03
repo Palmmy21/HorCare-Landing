@@ -48,6 +48,7 @@ const P = {
   chat:    'M8.625 9.75a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 01.778-.332 48.294 48.294 0 005.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z',
   exclaim: 'M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z',
   mail:    'M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75',
+  clock:   'M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z',
 }
 
 // ── Scroll reveal ─────────────────────────────────────────────────────────────
@@ -491,54 +492,52 @@ function HowToUse() {
 // ── Pricing ───────────────────────────────────────────────────────────────────
 const PLANS = [
   {
-    name:'ฟรีเสมอ', size:'สูงสุด 250 ห้อง', price:'0', unit:'ไม่มีค่าใช้จ่าย',
-    badge:'ออกจาก Excel',
+    name:'Start', size:'สูงสุด 50 ห้อง · 1 หอ', price:'79', unit:'/เดือน', annual:'หรือ ฿790/ปี (ประหยัดกว่า)',
     features:[
-      'จัดการห้องพักสูงสุด 250 ห้อง',
-      'บริหารผู้เช่าพร้อมสัญญาเช่า',
-      'คำนวณค่าน้ำค่าไฟอัตโนมัติ',
-      'ใบแจ้งหนี้ดิจิทัล',
-      'นำเข้า / ส่งออก Excel/CSV',
-      'ผู้ใช้งาน 1 คน',
-      'ไม่รองรับแจ้งเตือนผ่าน LINE',
+      'ห้องสูงสุด 50 ห้อง · 1 หอพัก',
+      'จดมิเตอร์ไฟ / น้ำ + ออกบิลอัตโนมัติ',
+      'ส่งบิลผ่าน LINE อัตโนมัติ',
+      'QR PromptPay ในบิล',
+      'หน้าแจ้งซ่อม (Maintenance board)',
+      'ระบบจัดการ (สต็อก / ทรัพย์สิน / ค่าใช้จ่าย)',
+      'หน้าจัดการการชำระเงิน',
+      'Export PDF / สรุปยอดรายเดือน',
+      'ไม่รองรับ Multi-หอ',
+      'ไม่รองรับ ข้อมูลผู้เช่าเต็มรูปแบบ',
     ],
-    cta:'สมัครฟรี ไม่ต้องใช้บัตร', hi:false, c:'#546E7A', href:HORCARE_URL, ext:true,
+    cta:'เริ่มใช้งาน', hi:false, c:'#3B82F6', href:HORCARE_URL, ext:true,
   },
   {
-    name:'Start', size:'ไม่เกิน 50 ห้อง', price:'79', unit:'บาท / ห้อง / เดือน',
-    features:[
-      'ระบบจัดการหอพักครบวงจร',
-      'ผู้ใช้งานไม่เกิน 2 คน',
-      'ส่งบิลและแจ้งเตือนผ่าน LINE',
-      'ฟีเจอร์พื้นฐานครบครัน',
-      'ซัพพอร์ตผ่านระบบ',
-    ],
-    cta:'เริ่มใช้งาน', hi:false, c:'#2DC76D', href:HORCARE_URL, ext:true,
-  },
-  {
-    name:'Plus', size:'ไม่เกิน 150 ห้อง / 5 หอ', price:'259', unit:'บาท / ห้อง / เดือน',
+    name:'Plus', size:'สูงสุด 150 ห้อง · 5 หอ', price:'259', unit:'/เดือน', annual:'หรือ ฿1,990/ปี (ประหยัดกว่า)',
     badge:'ยอดนิยม',
     features:[
-      'ระบบจัดการหอพักครบวงจร',
-      'ผู้ใช้งานไม่เกิน 5 คน',
-      'ส่งบิลและแจ้งเตือนผ่าน LINE',
-      'รายงานเชิงลึก',
-      'ซัพพอร์ตแบบพรีเมียม',
+      'ห้องสูงสุด 150 ห้อง · 5 หอพัก',
+      'ทุกอย่างของ Start',
+      'อ่านมิเตอร์จากรูปถ่ายด้วย AI',
+      'Multi-หอ (สลับจัดการหลายอาคาร)',
+      'ข้อมูลผู้เช่าเต็มรูปแบบ (สัญญา / มัดจำ)',
+      'Dashboard วิเคราะห์รายได้ & vacancy',
+      'Export รายงาน PDF / Excel',
+      'เร็วๆ นี้ ทีมงานสูงสุด 3 คน (RBAC)',
+      'เร็วๆ นี้ รายงานภาษี / บัญชี',
     ],
-    cta:'เริ่มใช้งาน', hi:true, c:'#00B8A2', href:HORCARE_URL, ext:true,
+    cta:'เปลี่ยนมาเป็น Plus', hi:true, c:'#A855F7', href:HORCARE_URL, ext:true,
   },
   {
-    name:'Pro', size:'200++ ห้อง / 10 หอ', price:'399', unit:'บาท / ห้อง / เดือน',
+    name:'Pro', size:'ไม่จำกัดห้อง · 10 หอ', price:'399', unit:'/เดือน', annual:'หรือ ฿3,990/ปี (ประหยัดกว่า)',
     badge:'Premium',
     features:[
-      'ระบบจัดการหอพักครบวงจร',
-      'ผู้ใช้งานไม่จำกัด',
-      'ส่งบิลผ่าน LINE ปุ่มเดียว',
-      'ฟีเจอร์ทุกฟังก์ชัน + API',
-      'รายงานเชิงลึก + Export ข้อมูล',
-      'Dedicated Support ตลอด 24 ชม.',
+      'ห้องไม่จำกัด · สูงสุด 10 หอพัก',
+      'ทุกอย่างของ Plus',
+      'ผู้ช่วย AI ส่วนตัว "น้องแคร์"',
+      'ตรวจสอบสลิปอัตโนมัติด้วย AI',
+      'ติดต่อทีมงานแบบ real-time (LINE)',
+      'ทีมงาน HorCare ดูแลเซ็ตอัพให้',
+      'เร็วๆ นี้ ทีมงานไม่จำกัด (RBAC)',
+      'เร็วๆ นี้ Dashboard เปรียบเทียบหลายหอ',
+      'Priority Support ตลอด 24 ชม.',
     ],
-    cta:'ติดต่อทีมงาน', hi:false, c:'#F57C00', href:'#contact', ext:false,
+    cta:'ติดต่อทีมงาน', hi:false, c:'#F97316', href:'#contact', ext:false,
   },
 ]
 
@@ -598,28 +597,36 @@ function Pricing() {
 
               <div style={{ marginBottom:14 }}>
                 <div style={{ fontFamily:'Kanit,sans-serif', fontWeight:700, fontSize:17, color:'#1A2433' }}>{p.name}</div>
-                <div style={{ fontFamily:'Sarabun,sans-serif', fontSize:12, color:'#90A4AE', marginTop:2 }}>{p.size}</div>
-              </div>
-
-              <div style={{ textAlign:'center', marginBottom:18, padding:'14px 0', borderTop:'1px solid #f5f5f5', borderBottom:'1px solid #f5f5f5' }}>
-                <div style={{ display:'flex', alignItems:'baseline', justifyContent:'center', gap:2 }}>
-                  {p.price !== '0' && <span style={{ fontFamily:'Sarabun,sans-serif', fontSize:13, color:'#90A4AE' }}>฿</span>}
-                  <span style={{ fontFamily:'Kanit,sans-serif', fontWeight:800, fontSize:36, color: p.price === '0' ? '#2DC76D' : p.c }}>
-                    {p.price === '0' ? 'ฟรี' : p.price}
-                  </span>
+                <div style={{ fontFamily:'Sarabun,sans-serif', fontSize:12, color:'#90A4AE', marginTop:8, display:'flex', alignItems:'center', gap:6, background:'#f8f9fa', padding:'4px 10px', borderRadius:20, width:'fit-content' }}>
+                  <Ic d={P.home} size={12} color="#90A4AE" /> {p.size}
                 </div>
-                <div style={{ fontFamily:'Sarabun,sans-serif', fontSize:12, color:'#90A4AE' }}>{p.unit}</div>
               </div>
 
-              <ul style={{ listStyle:'none', marginBottom:18, display:'flex', flexDirection:'column', gap:9 }}>
+              <div style={{ marginBottom:18, padding:'14px 0', borderTop:'1px solid #f5f5f5', borderBottom:'1px solid #f5f5f5' }}>
+                <div style={{ display:'flex', alignItems:'baseline', justifyContent:'flex-start', gap:4 }}>
+                  <span style={{ fontFamily:'Kanit,sans-serif', fontSize:16, color:'#90A4AE' }}>฿</span>
+                  <span style={{ fontFamily:'Kanit,sans-serif', fontWeight:800, fontSize:40, color: p.c, letterSpacing:'-1px' }}>
+                    {p.price}
+                  </span>
+                  <span style={{ fontFamily:'Sarabun,sans-serif', fontSize:14, color:'#90A4AE', marginLeft:2 }}>{p.unit}</span>
+                </div>
+                {p.annual && <div style={{ fontFamily:'Sarabun,sans-serif', fontSize:13, color:'#90A4AE', marginTop:4 }}>{p.annual}</div>}
+              </div>
+
+              <ul style={{ listStyle:'none', marginBottom:18, display:'flex', flexDirection:'column', gap:10 }}>
                 {p.features.map(f => {
                   const isNo = f.startsWith('ไม่รองรับ')
+                  const isSoon = f.startsWith('เร็วๆ นี้')
+                  const text = isNo ? f.replace('ไม่รองรับ ', '') : isSoon ? f.replace('เร็วๆ นี้ ', '') : f
                   return (
-                    <li key={f} style={{ display:'flex', alignItems:'flex-start', gap:8, fontFamily:'Sarabun,sans-serif', fontSize:12.5, color: isNo ? '#B0BEC5' : '#374151' }}>
-                      <div style={{ width:16, height:16, borderRadius:'50%', background: isNo ? 'rgba(0,0,0,0.04)' : `${p.price === '0' ? '#2DC76D' : p.c}18`, display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0, marginTop:2 }}>
-                        <Ic d={isNo ? P.close : P.check} size={9} color={isNo ? '#B0BEC5' : (p.price === '0' ? '#2DC76D' : p.c)} />
+                    <li key={f} style={{ display:'flex', alignItems:'flex-start', gap:10, fontFamily:'Sarabun,sans-serif', fontSize:13.5, color: isNo ? '#B0BEC5' : '#374151' }}>
+                      <div style={{ width:18, height:18, borderRadius:'50%', background: isNo ? 'rgba(0,0,0,0.04)' : isSoon ? 'rgba(245,124,0,0.1)' : `${p.c}18`, display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0, marginTop:2 }}>
+                        <Ic d={isNo ? P.close : isSoon ? P.clock : P.check} size={10} color={isNo ? '#B0BEC5' : isSoon ? '#F57C00' : p.c} />
                       </div>
-                      {f}
+                      <div style={{ flex: 1, lineHeight:1.4 }}>
+                        {text}
+                        {isSoon && <span style={{ marginLeft: 6, fontSize: 11, padding: '2px 8px', background: 'rgba(245,124,0,0.1)', color: '#F57C00', borderRadius: 12, whiteSpace: 'nowrap' }}>เร็วๆ นี้</span>}
+                      </div>
                     </li>
                   )
                 })}
@@ -631,13 +638,13 @@ function Pricing() {
                 style={{
                   display:'block', textAlign:'center', padding:'11px 0', borderRadius:100,
                   fontFamily:'Kanit,sans-serif', fontWeight:600, fontSize:13.5, textDecoration:'none',
-                  background: p.hi ? `linear-gradient(135deg,#2DC76D,#00B8A2)` : 'transparent',
-                  color: p.hi ? 'white' : (p.price === '0' ? '#546E7A' : p.c),
-                  border: p.hi ? 'none' : `1.5px solid ${p.price === '0' ? '#90A4AE' : p.c}`,
+                  background: p.hi ? `linear-gradient(135deg,${p.c},${p.c}dd)` : 'transparent',
+                  color: p.hi ? 'white' : p.c,
+                  border: p.hi ? 'none' : `1.5px solid ${p.c}`,
                   transition:'all 0.15s',
                 }}
-                onMouseEnter={e => { if (!p.hi) { e.currentTarget.style.background = p.price === '0' ? '#546E7A' : p.c; e.currentTarget.style.color = 'white'; e.currentTarget.style.borderColor = 'transparent' }}}
-                onMouseLeave={e => { if (!p.hi) { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = p.price === '0' ? '#546E7A' : p.c; e.currentTarget.style.borderColor = p.price === '0' ? '#90A4AE' : p.c }}}>
+                onMouseEnter={e => { if (!p.hi) { e.currentTarget.style.background = p.c; e.currentTarget.style.color = 'white'; e.currentTarget.style.borderColor = 'transparent' }}}
+                onMouseLeave={e => { if (!p.hi) { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = p.c; e.currentTarget.style.borderColor = p.c }}}>
                 {p.cta}
               </a>
             </div>
