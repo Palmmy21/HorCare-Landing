@@ -377,6 +377,12 @@ function Features() {
 // ── Testimonials ─────────────────────────────────────────────────────────────
 const TESTIMONIALS = [
   {
+    name: 'คุณมิ้นท์',
+    role: 'หอพักที่สารคาม 36ห้อง',
+    text: 'Horcare ตอบโจทย์หอพักที่มีหลายๆห้องมากๆค่ะ แต่ก่อนทุกเดือน บิลใบปะหน้าทั้งหมด เราต้องปริ้นมาเขียนเองทุกอย่างว่ายอดรวมเท่าไร ซึ่งถ้าเขียนเองแน่นอนค่ะว่าค่อนข้างเสียเวลาไปมาก ไม่แม่นยำ ต้องมาคิดใหม่อีกรอบว่าถูกต้องมั้ย และต้องปริ้นบิลใบเสร็จในแต่ห้องส่งให้ลูกหอทุกคน พอมีHorcare ทุกอย่างง่ายขึ้นมากค่ะ เราผู้ใช้จริง ขอบคุณที่ทำระบบดีๆแบบนี้มาเพื่อให้การคิดค่าเช่าหอพักง่ายขึ้นค่ะ',
+    avatar: 'ม', color: '#E91E63',
+  },
+  {
     name: 'คุณสมชาย วงศ์ทอง',
     role: 'เจ้าของหอพัก 45 ห้อง • จ.เชียงใหม่',
     text: 'ก่อนใช้ HorCare ต้องนั่งคีย์ Excel ทุกสิ้นเดือน ใช้เวลาเกือบวัน ตอนนี้ระบบทำให้ทุกอย่างอัตโนมัติ เหลือแค่คลิกยืนยัน ประหยัดเวลาไปได้มากจริงๆ',
@@ -397,8 +403,9 @@ const TESTIMONIALS = [
 ]
 
 function Testimonials() {
+  const marqueeItems = [...TESTIMONIALS, ...TESTIMONIALS, ...TESTIMONIALS, ...TESTIMONIALS]; // 4 sets for seamless scroll
   return (
-    <section style={{ background: '#F8FAFB', padding: '88px 0' }}>
+    <section style={{ background: '#F8FAFB', padding: '88px 0', overflow: 'hidden' }}>
       <W>
         <div className="reveal" style={{ textAlign: 'center', marginBottom: 52 }}>
           <SectionPill icon={P.star} label="รีวิวจากผู้ใช้จริง" color="#FF9800" />
@@ -409,10 +416,12 @@ function Testimonials() {
             ความเชื่อมั่นจากผู้ใช้งานจริงคือสิ่งที่เราภูมิใจที่สุด
           </p>
         </div>
+      </W>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(min(290px,100%),1fr))', gap: 20 }}>
-          {TESTIMONIALS.map((t, i) => (
-            <div key={t.name} className={`card-hover reveal reveal-d${i + 1}`}
+      <div className="marquee-container reveal">
+        <div className="marquee-content">
+          {marqueeItems.map((t, i) => (
+            <div key={i} className="marquee-item card-hover"
               style={{ background: '#fff', borderRadius: 18, padding: '28px 26px', border: '1px solid rgba(0,184,162,0.1)', boxShadow: '0 2px 16px rgba(0,0,0,0.04)', display: 'flex', flexDirection: 'column', gap: 0 }}>
               {/* Stars */}
               <div style={{ display: 'flex', gap: 3, marginBottom: 16 }}>
@@ -437,7 +446,7 @@ function Testimonials() {
             </div>
           ))}
         </div>
-      </W>
+      </div>
     </section>
   )
 }
