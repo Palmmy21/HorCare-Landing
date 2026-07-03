@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-const LINE_URL = 'https://lin.ee/Qig9UNg'
+const LINE_URL = 'https://line.me/R/ti/p/@127qwwfi'
 
 function PageHeader() {
   return (

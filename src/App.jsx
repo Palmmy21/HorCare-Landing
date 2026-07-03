@@ -9,7 +9,7 @@ import BlogPost from './pages/BlogPost.jsx'
 import { ARTICLES } from './data/articles.js'
 
 const HORCARE_URL = 'https://hor-care.vercel.app/'
-const LINE_URL = 'https://lin.ee/Qig9UNg'
+const LINE_URL = 'https://line.me/R/ti/p/@127qwwfi'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Reliable centered wrapper — uses inline styles to avoid Tailwind v4 quirks
