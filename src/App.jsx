@@ -515,7 +515,7 @@ const PLANS = [
     cta:'สมัครฟรี ไม่ต้องใช้บัตร', hi:false, c:'#546E7A', href:HORCARE_URL, ext:true,
   },
   {
-    name:'Start', size:'สูงสุด 50 ห้อง · 1 หอ', price:'79', unit:'/เดือน', annual:'หรือ ฿790/ปี (ประหยัดกว่า)',
+    name:'Start', size:'สูงสุด 50 ห้อง · 1 หอ', price:'79', unit:'/เดือน', annual:'หรือ ฿790/ปี (ประหยัด 17%)',
     features:[
       'ห้องสูงสุด 50 ห้อง · 1 หอพัก',
       'จดมิเตอร์ไฟ / น้ำ + ออกบิลอัตโนมัติ',
@@ -531,7 +531,7 @@ const PLANS = [
     cta:'เริ่มใช้งาน', hi:false, c:'#3B82F6', href:HORCARE_URL, ext:true,
   },
   {
-    name:'Plus', size:'สูงสุด 150 ห้อง · 5 หอ', price:'259', unit:'/เดือน', annual:'หรือ ฿1,990/ปี (ประหยัดกว่า)',
+    name:'Plus', size:'สูงสุด 150 ห้อง · 5 หอ', price:'259', unit:'/เดือน', annual:'หรือ ฿1,990/ปี (ประหยัด 36%)',
     badge:'ยอดนิยม',
     features:[
       'ห้องสูงสุด 150 ห้อง · 5 หอพัก',
@@ -547,7 +547,7 @@ const PLANS = [
     cta:'เปลี่ยนมาเป็น Plus', hi:true, c:'#A855F7', href:HORCARE_URL, ext:true,
   },
   {
-    name:'Pro', size:'ไม่จำกัดห้อง · 10 หอ', price:'399', unit:'/เดือน', annual:'หรือ ฿2,590/ปี (ประหยัดกว่า)',
+    name:'Pro', size:'ไม่จำกัดห้อง · 10 หอ', price:'399', unit:'/เดือน', annual:'หรือ ฿2,590/ปี (ประหยัด 46%)',
     badge:'Premium',
     features:[
       'ห้องไม่จำกัด · สูงสุด 10 หอพัก',
