@@ -37,7 +37,7 @@ export function Footer() {
               style={{ fontFamily: 'Sarabun,sans-serif', fontSize: 12, color: '#90A4AE', textDecoration: 'none', display: 'block', marginBottom: 3 }}
               onMouseEnter={e => e.currentTarget.style.color = '#00B8A2'}
               onMouseLeave={e => e.currentTarget.style.color = '#90A4AE'}>
-              <span style={{ fontWeight: 600, color: '#00B8A2' }}>LINE:</span> @horcare
+              <span style={{ fontWeight: 600, color: '#00B8A2' }}>LINE:</span> @127qwwfi
             </a>
             <p style={{ fontFamily: 'Sarabun,sans-serif', fontSize: 12, color: '#90A4AE', marginBottom: 3 }}>
               <span style={{ fontWeight: 600, color: '#00B8A2' }}>Web:</span> horcare-landing.vercel.app
