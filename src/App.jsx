@@ -547,7 +547,7 @@ const PLANS = [
     cta:'เปลี่ยนมาเป็น Plus', hi:true, c:'#A855F7', href:HORCARE_URL, ext:true,
   },
   {
-    name:'Pro', size:'ไม่จำกัดห้อง · 10 หอ', price:'399', unit:'/เดือน', annual:'หรือ ฿3,990/ปี (ประหยัดกว่า)',
+    name:'Pro', size:'ไม่จำกัดห้อง · 10 หอ', price:'399', unit:'/เดือน', annual:'หรือ ฿2,590/ปี (ประหยัดกว่า)',
     badge:'Premium',
     features:[
       'ห้องไม่จำกัด · สูงสุด 10 หอพัก',
