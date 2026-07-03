@@ -560,7 +560,7 @@ const PLANS = [
       'เร็วๆ นี้ Dashboard เปรียบเทียบหลายหอ',
       'Priority Support ตลอด 24 ชม.',
     ],
-    cta:'ติดต่อทีมงาน', hi:false, c:'#F97316', href:'#contact', ext:false,
+    cta:'เปลี่ยนมาเป็น Pro', hi:false, c:'#F97316', href:HORCARE_URL, ext:true,
   },
 ]
 
