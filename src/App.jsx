@@ -515,7 +515,8 @@ const PLANS = [
     cta:'สมัครฟรี ไม่ต้องใช้บัตร', hi:false, c:'#546E7A', href:HORCARE_URL, ext:true,
   },
   {
-    name:'Start', size:'สูงสุด 50 ห้อง · 1 หอ', price:'79', unit:'/เดือน', annual:'หรือ ฿790/ปี (ประหยัด 17%)',
+    name:'Start', size:'สูงสุด 50 ห้อง · 1 หอ', price:'79', originalPrice:'159', unit:'/เดือน', annual:'หรือ ฿790/ปี (ประหยัด 17%)',
+    badge:'โปรโมชั่น', promo:'100 ผู้ใช้แรกเท่านั้น!',
     features:[
       'ห้องสูงสุด 50 ห้อง · 1 หอพัก',
       'จดมิเตอร์ไฟ / น้ำ + ออกบิลอัตโนมัติ',
@@ -528,7 +529,7 @@ const PLANS = [
       'ไม่รองรับ Multi-หอ',
       'ไม่รองรับ ข้อมูลผู้เช่าเต็มรูปแบบ',
     ],
-    cta:'เริ่มใช้งาน', hi:false, c:'#3B82F6', href:HORCARE_URL, ext:true,
+    cta:'รับโปรโมชั่นเลย!', hi:false, c:'#3B82F6', href:HORCARE_URL, ext:true,
   },
   {
     name:'Plus', size:'สูงสุด 150 ห้อง · 5 หอ', price:'259', unit:'/เดือน', annual:'หรือ ฿1,990/ปี (ประหยัด 36%)',
@@ -560,124 +561,253 @@ const PLANS = [
       'เร็วๆ นี้ Dashboard เปรียบเทียบหลายหอ',
       'Priority Support ตลอด 24 ชม.',
     ],
-    cta:'เปลี่ยนมาเป็น Pro', hi:false, c:'#F97316', href:HORCARE_URL, ext:true,
+    cta:'เปลี่ยนมาเป็น Pro', hi:false, premium:true, c:'#F97316', href:HORCARE_URL, ext:true,
   },
 ]
 
 function Pricing() {
   return (
-    <section id="pricing" style={{ background:'#fff', padding:'88px 0' }}>
+    <section id="pricing" style={{ background:'linear-gradient(180deg,#f0f6ff 0%,#fafbff 60%,#fff 100%)', padding:'96px 0' }}>
       <W>
-        <div className="reveal" style={{ textAlign:'center', marginBottom:16 }}>
-          <SectionPill icon={P.card} label="ราคา" color="#1565C0" />
-          <h2 style={{ fontFamily:'Kanit,sans-serif', fontWeight:700, fontSize:'clamp(1.7rem,2.6vw,2.3rem)', color:'#1A2433' }}>
-            เลือกแพ็กเกจให้เหมาะกับหอพักคุณ
+        {/* Header — no eyebrow pill (impeccable ban: tiny uppercase tracked kicker on every section) */}
+        <div className="reveal" style={{ textAlign:'center', marginBottom:20 }}>
+          <h2 style={{ fontFamily:'Kanit,sans-serif', fontWeight:800, fontSize:'clamp(1.9rem,3vw,2.7rem)', color:'#1A2433', lineHeight:1.15 }}>
+            เลือกแพ็กเกจที่ใช่{' '}
+            <span style={{ color:'#2DC76D' }}>เริ่มฟรี อัปเกรดได้ทุกเมื่อ</span>
           </h2>
-          <p style={{ fontFamily:'Sarabun,sans-serif', fontSize:14, color:'#90A4AE', marginTop:8 }}>
-            ราคายังไม่รวมภาษีมูลค่าเพิ่ม • ไม่มีสัญญาผูกมัด • ยกเลิกได้ทุกเมื่อ
+          <p style={{ fontFamily:'Sarabun,sans-serif', fontSize:15, color:'#546E7A', marginTop:12, lineHeight:1.7 }}>
+            ราคายังไม่รวม VAT &bull; ไม่มีสัญญาผูกมัด &bull; ยกเลิกได้ทุกเมื่อ
           </p>
         </div>
 
-        {/* Excel conversion banner */}
-        <div style={{
-          display:'flex', alignItems:'center', gap:12, justifyContent:'center', flexWrap:'wrap',
-          background:'linear-gradient(135deg,rgba(45,199,109,0.07),rgba(0,184,162,0.07))',
-          border:'1px solid rgba(45,199,109,0.2)', borderRadius:12,
-          padding:'14px 24px', marginBottom:48,
+        {/* Promo banner */}
+        <div className="reveal" style={{
+          display:'flex', alignItems:'center', gap:10, justifyContent:'center', flexWrap:'wrap',
+          background:'linear-gradient(135deg,#FF6B35,#FF8C00)',
+          borderRadius:12, padding:'12px 24px', marginBottom:12,
+          boxShadow:'0 6px 24px rgba(255,107,53,0.28)',
         }}>
-          <Ic d={P.doc} size={16} color='#2DC76D' />
-          <span style={{ fontFamily:'Sarabun,sans-serif', fontSize:14, color:'#1A2433' }}>
+          <span style={{ fontFamily:'Kanit,sans-serif', fontWeight:700, fontSize:14, color:'#fff', letterSpacing:'0.2px' }}>
+            โปรโมชั่นพิเศษ — แพ็กเกจ Start ลดเหลือ ฿79/เดือน
+          </span>
+          <span style={{ fontFamily:'Sarabun,sans-serif', fontSize:12, color:'rgba(255,255,255,0.88)', background:'rgba(255,255,255,0.16)', padding:'2px 10px', borderRadius:100, whiteSpace:'nowrap' }}>
+            100 ผู้ใช้แรกเท่านั้น
+          </span>
+        </div>
+
+        {/* Excel banner */}
+        <div style={{
+          display:'flex', alignItems:'center', gap:10, justifyContent:'center', flexWrap:'wrap',
+          background:'rgba(45,199,109,0.06)', border:'1px solid rgba(45,199,109,0.18)', borderRadius:10,
+          padding:'12px 20px', marginBottom:48,
+        }}>
+          <Ic d={P.doc} size={15} color='#2DC76D' />
+          <span style={{ fontFamily:'Sarabun,sans-serif', fontSize:13.5, color:'#1A2433' }}>
             <strong style={{ fontFamily:'Kanit,sans-serif', color:'#2DC76D' }}>ใช้ Excel จัดการหอพักอยู่?</strong>
-            {' '}เปลี่ยนมาใช้ HorCare ได้เลย ฟรี — นำเข้าข้อมูลจาก Excel/CSV ได้ภายใน 15 นาที
+            {' '}เปลี่ยนมาใช้ HorCare ฟรี — นำเข้าจาก Excel/CSV ได้ใน 15 นาที
           </span>
           <a href={HORCARE_URL} target="_blank" rel="noopener noreferrer"
-            style={{ fontFamily:'Kanit,sans-serif', fontWeight:600, fontSize:13, color:'#00B8A2', textDecoration:'none', whiteSpace:'nowrap', display:'flex', alignItems:'center', gap:4 }}>
+            style={{ fontFamily:'Kanit,sans-serif', fontWeight:600, fontSize:13, color:'#00B8A2', textDecoration:'none', display:'flex', alignItems:'center', gap:4, whiteSpace:'nowrap' }}>
             เริ่มเลย <Ic d={P.arrow} size={12} color='#00B8A2' />
           </a>
         </div>
 
-        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(230px,1fr))', gap:16, alignItems:'center' }}>
-          {PLANS.map(p => (
-            <div key={p.name} className={p.hi ? 'pricing-featured' : ''}
-              style={{
-                background:'#fff', borderRadius:16, padding:24, position:'relative',
-                border: p.hi ? `2px solid ${p.c}` : '1px solid rgba(0,0,0,0.08)',
-                boxShadow: p.hi ? `0 20px 48px ${p.c}22` : '0 2px 12px rgba(0,0,0,0.04)',
-                transform: p.hi ? 'translateY(-8px)' : 'none',
+        {/* ── Tier 1: Free + Start (lighter, supporting row) ── */}
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(260px,1fr))', gap:16, marginBottom:16 }}>
+          {PLANS.slice(0,2).map(p => {
+            const isStart = p.name === 'Start'
+            const isFree = p.name === 'ฟรีเสมอ'
+            const isPromo = isStart && p.originalPrice
+            return (
+              <div key={p.name} style={{
+                background: isStart ? 'linear-gradient(145deg,#EFF6FF,#e8f2ff)' : '#fafafa',
+                borderRadius:16, padding:'24px 24px 20px',
+                position:'relative',
+                border: isStart ? '2px solid #3B82F6' : '1px solid #e8eaed',
+                boxShadow: isStart ? '0 12px 40px rgba(59,130,246,0.14)' : '0 1px 6px rgba(0,0,0,0.05)',
+                display:'flex', flexDirection:'column',
+                transition:'box-shadow 0.2s ease',
               }}>
-              {p.badge && (
-                <span style={{
-                  position:'absolute', top:-13, left:'50%', transform:'translateX(-50%)',
-                  background: p.badge === 'Premium'
-                    ? 'linear-gradient(135deg,#F57C00,#FFB300)'
-                    : p.badge === 'ออกจาก Excel'
-                    ? 'linear-gradient(135deg,#546E7A,#78909C)'
-                    : 'linear-gradient(135deg,#2DC76D,#00B8A2)',
-                  color:'white', fontSize:10, fontFamily:'Kanit,sans-serif', fontWeight:700,
-                  padding:'3px 12px', borderRadius:100, whiteSpace:'nowrap',
-                }}>{p.badge === 'Premium' ? '★ Premium' : p.badge}</span>
-              )}
+                {/* Badge */}
+                {p.badge && (
+                  <span style={{
+                    position:'absolute', top:-12, left:20,
+                    background: isStart ? 'linear-gradient(135deg,#FF6B35,#FF8C00)' : 'linear-gradient(135deg,#546E7A,#78909C)',
+                    color:'white', fontSize:10.5, fontFamily:'Kanit,sans-serif', fontWeight:700,
+                    padding:'3px 12px', borderRadius:100, whiteSpace:'nowrap',
+                    boxShadow: isStart ? '0 3px 10px rgba(255,107,53,0.35)' : 'none',
+                    letterSpacing:'0.4px',
+                  }}>{p.badge}</span>
+                )}
 
-              <div style={{ marginBottom:14 }}>
-                <div style={{ fontFamily:'Kanit,sans-serif', fontWeight:700, fontSize:17, color:'#1A2433' }}>{p.name}</div>
-                <div style={{ fontFamily:'Sarabun,sans-serif', fontSize:12, color:'#90A4AE', marginTop:8, display:'flex', alignItems:'center', gap:6, background:'#f8f9fa', padding:'4px 10px', borderRadius:20, width:'fit-content' }}>
-                  <Ic d={P.home} size={12} color="#90A4AE" /> {p.size}
+                {/* Name + size */}
+                <div style={{ marginBottom:14, marginTop: p.badge ? 8 : 0 }}>
+                  <div style={{ fontFamily:'Kanit,sans-serif', fontWeight:800, fontSize:18, color: isStart ? '#1E40AF' : '#374151' }}>{p.name}</div>
+                  <div style={{ fontFamily:'Sarabun,sans-serif', fontSize:12, color: isStart ? '#3B82F6' : '#90A4AE', marginTop:6, display:'flex', alignItems:'center', gap:5 }}>
+                    <Ic d={P.home} size={11} color={isStart ? '#3B82F6' : '#90A4AE'} /> {p.size}
+                  </div>
                 </div>
-              </div>
 
-              <div style={{ marginBottom:18, padding:'14px 0', borderTop:'1px solid #f5f5f5', borderBottom:'1px solid #f5f5f5' }}>
-                <div style={{ display:'flex', alignItems:'baseline', justifyContent:'flex-start', gap:4 }}>
-                  <span style={{ fontFamily:'Kanit,sans-serif', fontSize:16, color:'#90A4AE' }}>฿</span>
-                  <span style={{ fontFamily:'Kanit,sans-serif', fontWeight:800, fontSize:40, color: p.c, letterSpacing:'-1px' }}>
-                    {p.price}
-                  </span>
-                  <span style={{ fontFamily:'Sarabun,sans-serif', fontSize:14, color:'#90A4AE', marginLeft:2 }}>{p.unit}</span>
+                {/* Price */}
+                <div style={{ paddingBottom:14, borderBottom:`1px solid ${isStart ? 'rgba(59,130,246,0.12)' : '#f0f0f0'}`, marginBottom:14 }}>
+                  {isPromo && (
+                    <div style={{ display:'flex', alignItems:'center', gap:8, marginBottom:3 }}>
+                      <span style={{ fontFamily:'Sarabun,sans-serif', fontSize:12, color:'#B0BEC5', textDecoration:'line-through' }}>฿{p.originalPrice}</span>
+                      <span style={{ fontFamily:'Kanit,sans-serif', fontSize:10, fontWeight:700, color:'#fff', background:'#FF6B35', padding:'1px 7px', borderRadius:100 }}>ลด 50%</span>
+                    </div>
+                  )}
+                  <div style={{ display:'flex', alignItems:'baseline', gap:3 }}>
+                    {!isFree && <span style={{ fontFamily:'Kanit,sans-serif', fontSize:14, color: isStart ? '#3B82F6' : '#90A4AE' }}>฿</span>}
+                    <span style={{ fontFamily:'Kanit,sans-serif', fontWeight:800, fontSize: isFree ? 20 : 38, color: isStart ? '#2563EB' : p.c, letterSpacing:'-1px', lineHeight:1 }}>
+                      {isFree ? 'ฟรีตลอดไป' : p.price}
+                    </span>
+                    {!isFree && <span style={{ fontFamily:'Sarabun,sans-serif', fontSize:13, color:'#90A4AE' }}>{p.unit}</span>}
+                  </div>
+                  {isPromo && (
+                    <div style={{ marginTop:8, fontSize:12, fontFamily:'Sarabun,sans-serif', color:'#FF6B35', fontWeight:600 }}>
+                      สำหรับ 100 ผู้ใช้แรกเท่านั้น
+                    </div>
+                  )}
                 </div>
-                {p.annual && <div style={{ fontFamily:'Sarabun,sans-serif', fontSize:13, color:'#90A4AE', marginTop:4 }}>{p.annual}</div>}
+
+                {/* Features */}
+                <ul style={{ listStyle:'none', flex:1, display:'flex', flexDirection:'column', gap:7, marginBottom:16 }}>
+                  {p.features.map(f => {
+                    const isNo = f.startsWith('ไม่รองรับ')
+                    const text = isNo ? f.replace('ไม่รองรับ ','') : f
+                    return (
+                      <li key={f} style={{ display:'flex', alignItems:'flex-start', gap:8, fontFamily:'Sarabun,sans-serif', fontSize:13, color: isNo ? '#C4CDD5' : '#4B5563' }}>
+                        <div style={{ width:16, height:16, borderRadius:'50%', background: isNo ? 'rgba(0,0,0,0.03)' : `${p.c}15`, display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0, marginTop:1 }}>
+                          <Ic d={isNo ? P.close : P.check} size={9} color={isNo ? '#C4CDD5' : p.c} />
+                        </div>
+                        <span style={{ lineHeight:1.45 }}>{text}</span>
+                      </li>
+                    )
+                  })}
+                </ul>
+
+                {/* CTA */}
+                <a href={p.href} {...(p.ext ? { target:'_blank', rel:'noopener noreferrer' } : {})}
+                  style={{
+                    display:'block', textAlign:'center', padding:'11px 0', borderRadius:100,
+                    fontFamily:'Kanit,sans-serif', fontWeight:700, fontSize:13.5, textDecoration:'none',
+                    background: isStart ? 'linear-gradient(135deg,#3B82F6,#2563EB)' : 'transparent',
+                    color: isStart ? 'white' : p.c,
+                    border: isStart ? 'none' : `1.5px solid ${p.c}`,
+                    boxShadow: isStart ? '0 5px 18px rgba(59,130,246,0.3)' : 'none',
+                    transition:'all 0.18s ease',
+                  }}
+                  onMouseEnter={e => {
+                    if (isStart) { e.currentTarget.style.filter='brightness(1.08)'; e.currentTarget.style.transform='translateY(-1px)' }
+                    else { e.currentTarget.style.background=p.c; e.currentTarget.style.color='white'; e.currentTarget.style.borderColor='transparent' }
+                  }}
+                  onMouseLeave={e => {
+                    if (isStart) { e.currentTarget.style.filter=''; e.currentTarget.style.transform='' }
+                    else { e.currentTarget.style.background='transparent'; e.currentTarget.style.color=p.c; e.currentTarget.style.borderColor=p.c }
+                  }}>
+                  {p.cta}
+                </a>
               </div>
-
-              <ul style={{ listStyle:'none', marginBottom:18, display:'flex', flexDirection:'column', gap:10 }}>
-                {p.features.map(f => {
-                  const isNo = f.startsWith('ไม่รองรับ')
-                  const isSoon = f.startsWith('เร็วๆ นี้')
-                  const text = isNo ? f.replace('ไม่รองรับ ', '') : isSoon ? f.replace('เร็วๆ นี้ ', '') : f
-                  return (
-                    <li key={f} style={{ display:'flex', alignItems:'flex-start', gap:10, fontFamily:'Sarabun,sans-serif', fontSize:13.5, color: isNo ? '#B0BEC5' : '#374151' }}>
-                      <div style={{ width:18, height:18, borderRadius:'50%', background: isNo ? 'rgba(0,0,0,0.04)' : isSoon ? 'rgba(245,124,0,0.1)' : `${p.c}18`, display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0, marginTop:2 }}>
-                        <Ic d={isNo ? P.close : isSoon ? P.clock : P.check} size={10} color={isNo ? '#B0BEC5' : isSoon ? '#F57C00' : p.c} />
-                      </div>
-                      <div style={{ flex: 1, lineHeight:1.4 }}>
-                        {text}
-                        {isSoon && <span style={{ marginLeft: 6, fontSize: 11, padding: '2px 8px', background: 'rgba(245,124,0,0.1)', color: '#F57C00', borderRadius: 12, whiteSpace: 'nowrap' }}>เร็วๆ นี้</span>}
-                      </div>
-                    </li>
-                  )
-                })}
-              </ul>
-
-              <a
-                href={p.href}
-                {...(p.ext ? { target:'_blank', rel:'noopener noreferrer' } : {})}
-                style={{
-                  display:'block', textAlign:'center', padding:'11px 0', borderRadius:100,
-                  fontFamily:'Kanit,sans-serif', fontWeight:600, fontSize:13.5, textDecoration:'none',
-                  background: p.hi ? `linear-gradient(135deg,${p.c},${p.c}dd)` : 'transparent',
-                  color: p.hi ? 'white' : p.c,
-                  border: p.hi ? 'none' : `1.5px solid ${p.c}`,
-                  transition:'all 0.15s',
-                }}
-                onMouseEnter={e => { if (!p.hi) { e.currentTarget.style.background = p.c; e.currentTarget.style.color = 'white'; e.currentTarget.style.borderColor = 'transparent' }}}
-                onMouseLeave={e => { if (!p.hi) { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = p.c; e.currentTarget.style.borderColor = p.c }}}>
-                {p.cta}
-              </a>
-            </div>
-          ))}
+            )
+          })}
         </div>
 
-        <div style={{ marginTop:36, display:'flex', gap:24, justifyContent:'center', flexWrap:'wrap' }}>
-          {['ราคาโปร่งใส ไม่มีซ่อน','ไม่มีสัญญาผูกมัด','ซัพพอร์ตตลอดการใช้งาน','ระบบเสถียร Uptime 99.9%'].map(t => (
-            <span key={t} style={{ display:'flex', alignItems:'center', gap:6, fontFamily:'Sarabun,sans-serif', fontSize:13, color:'#90A4AE' }}>
-              <Ic d={P.check} size={13} color='#2DC76D' />{t}
+        {/* ── Tier 2: Plus + Pro (heavier, featured row — more visual weight) ── */}
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))', gap:16 }}>
+          {PLANS.slice(2).map(p => {
+            const isPro = p.premium === true
+            return (
+              <div key={p.name} style={{
+                background: isPro
+                  ? 'linear-gradient(145deg,#1C1A2E,#2A1B45,#1A1A2E)'
+                  : 'linear-gradient(145deg,#faf5ff,#f5eeff)',
+                borderRadius:20, padding:'32px 28px 24px',
+                position:'relative',
+                border: isPro ? '1.5px solid rgba(251,191,36,0.4)' : '2px solid #A855F7',
+                boxShadow: isPro
+                  ? '0 24px 64px rgba(251,191,36,0.12), inset 0 1px 0 rgba(255,255,255,0.05)'
+                  : '0 20px 52px rgba(168,85,247,0.16)',
+                display:'flex', flexDirection:'column',
+                transition:'box-shadow 0.2s ease, transform 0.2s ease',
+              }}>
+                {/* Badge */}
+                {p.badge && (
+                  <span style={{
+                    position:'absolute', top:-13, left:'50%', transform:'translateX(-50%)',
+                    background: isPro ? 'linear-gradient(135deg,#A67C00,#FFD700,#A67C00)' : 'linear-gradient(135deg,#2DC76D,#00B8A2)',
+                    color: isPro ? '#1A1200' : 'white',
+                    fontSize:11, fontFamily:'Kanit,sans-serif', fontWeight:800,
+                    padding:'4px 16px', borderRadius:100, whiteSpace:'nowrap',
+                    boxShadow: isPro ? '0 3px 14px rgba(255,215,0,0.45)' : '0 3px 10px rgba(45,199,109,0.35)',
+                    letterSpacing:'0.5px',
+                  }}>{isPro ? '★ Premium' : p.badge}</span>
+                )}
+
+                {/* Name + size */}
+                <div style={{ marginBottom:18 }}>
+                  <div style={{ fontFamily:'Kanit,sans-serif', fontWeight:800, fontSize:22, color: isPro ? '#FFD700' : '#6B21A8' }}>{p.name}</div>
+                  <div style={{ fontFamily:'Sarabun,sans-serif', fontSize:12.5, color: isPro ? 'rgba(255,215,0,0.6)' : '#9333EA', marginTop:8, display:'flex', alignItems:'center', gap:6,
+                    background: isPro ? 'rgba(255,215,0,0.07)' : 'rgba(168,85,247,0.08)', padding:'4px 12px', borderRadius:100, width:'fit-content', fontWeight:600 }}>
+                    <Ic d={P.home} size={12} color={isPro ? 'rgba(255,215,0,0.6)' : '#9333EA'} /> {p.size}
+                  </div>
+                </div>
+
+                {/* Price */}
+                <div style={{ paddingBottom:20, borderBottom:`1px solid ${isPro ? 'rgba(255,215,0,0.12)' : 'rgba(168,85,247,0.12)'}`, marginBottom:20 }}>
+                  <div style={{ display:'flex', alignItems:'baseline', gap:4 }}>
+                    <span style={{ fontFamily:'Kanit,sans-serif', fontSize:18, color: isPro ? '#FFD700' : '#A855F7' }}>฿</span>
+                    <span style={{ fontFamily:'Kanit,sans-serif', fontWeight:800, fontSize:52, color: isPro ? '#FFD700' : '#A855F7', letterSpacing:'-2.5px', lineHeight:1 }}>
+                      {p.price}
+                    </span>
+                    <span style={{ fontFamily:'Sarabun,sans-serif', fontSize:14, color: isPro ? 'rgba(255,215,0,0.55)' : 'rgba(168,85,247,0.6)' }}>{p.unit}</span>
+                  </div>
+                  <div style={{ fontFamily:'Sarabun,sans-serif', fontSize:12, color: isPro ? 'rgba(255,215,0,0.42)' : 'rgba(168,85,247,0.5)', marginTop:6 }}>{p.annual}</div>
+                </div>
+
+                {/* Features */}
+                <ul style={{ listStyle:'none', flex:1, display:'flex', flexDirection:'column', gap:10, marginBottom:24 }}>
+                  {p.features.map(f => {
+                    const isSoon = f.startsWith('เร็วๆ นี้')
+                    const text = isSoon ? f.replace('เร็วๆ นี้ ','') : f
+                    return (
+                      <li key={f} style={{ display:'flex', alignItems:'flex-start', gap:10, fontFamily:'Sarabun,sans-serif', fontSize:13.5, color: isPro ? 'rgba(255,255,255,0.82)' : '#4B3F6B' }}>
+                        <div style={{ width:18, height:18, borderRadius:'50%', background: isSoon ? 'rgba(245,124,0,0.12)' : isPro ? 'rgba(255,215,0,0.12)' : 'rgba(168,85,247,0.12)', display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0, marginTop:2 }}>
+                          <Ic d={isSoon ? P.clock : P.check} size={10} color={isSoon ? '#F57C00' : isPro ? '#FFD700' : '#A855F7'} />
+                        </div>
+                        <div style={{ flex:1, lineHeight:1.45 }}>
+                          {text}
+                          {isSoon && <span style={{ marginLeft:6, fontSize:10.5, padding:'1px 7px', background: isPro ? 'rgba(245,124,0,0.15)' : 'rgba(245,124,0,0.1)', color:'#F57C00', borderRadius:100, whiteSpace:'nowrap' }}>เร็วๆ นี้</span>}
+                        </div>
+                      </li>
+                    )
+                  })}
+                </ul>
+
+                {/* CTA */}
+                <a href={p.href} {...(p.ext ? { target:'_blank', rel:'noopener noreferrer' } : {})}
+                  style={{
+                    display:'block', textAlign:'center', padding:'14px 0', borderRadius:100,
+                    fontFamily:'Kanit,sans-serif', fontWeight:700, fontSize:14.5, textDecoration:'none',
+                    background: isPro ? 'linear-gradient(135deg,#A67C00,#FFD700,#A67C00)' : 'linear-gradient(135deg,#A855F7,#7C3AED)',
+                    color: isPro ? '#1A1200' : 'white',
+                    boxShadow: isPro ? '0 6px 24px rgba(255,215,0,0.38)' : '0 6px 24px rgba(168,85,247,0.38)',
+                    transition:'all 0.18s ease',
+                    letterSpacing:'0.3px',
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.filter='brightness(1.1)'; e.currentTarget.style.transform='translateY(-2px)'; e.currentTarget.style.boxShadow = isPro ? '0 10px 32px rgba(255,215,0,0.52)' : '0 10px 32px rgba(168,85,247,0.52)' }}
+                  onMouseLeave={e => { e.currentTarget.style.filter=''; e.currentTarget.style.transform=''; e.currentTarget.style.boxShadow = isPro ? '0 6px 24px rgba(255,215,0,0.38)' : '0 6px 24px rgba(168,85,247,0.38)' }}>
+                  {p.cta}
+                </a>
+              </div>
+            )
+          })}
+        </div>
+
+        {/* Trust row */}
+        <div style={{ marginTop:40, display:'flex', gap:20, justifyContent:'center', flexWrap:'wrap', paddingTop:24, borderTop:'1px solid #eef0f3' }}>
+          {['ราคาโปร่งใส ไม่มีซ่อน','ไม่มีสัญญาผูกมัด','ซัพพอร์ตตลอดการใช้งาน','Uptime 99.9%'].map(t => (
+            <span key={t} style={{ display:'flex', alignItems:'center', gap:6, fontFamily:'Sarabun,sans-serif', fontSize:13, color:'#78909C' }}>
+              <Ic d={P.check} size={12} color='#2DC76D' />{t}
             </span>
           ))}
         </div>

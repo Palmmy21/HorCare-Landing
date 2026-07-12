@@ -34,11 +34,12 @@ export default async function handler(req, res) {
 
   const body = JSON.parse(rawBody.toString('utf-8'));
 
-  // Ack LINE right away; keep processing in the same invocation so Vercel
-  // doesn't freeze it before the flex replies / admin push go out.
-  res.status(200).end();
-
+  // Process all events before sending the response.
+  // In Vercel serverless functions, calling res.end() freezes the execution environment,
+  // causing delayed or dropped messages if we don't await the tasks first.
   await Promise.all((body.events || []).map(handleEvent));
+
+  res.status(200).end();
 }
 
 async function handleEvent(event) {
