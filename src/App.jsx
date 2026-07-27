@@ -515,8 +515,8 @@ const PLANS = [
     cta:'สมัครฟรี ไม่ต้องใช้บัตร', hi:false, c:'#546E7A', href:HORCARE_URL, ext:true,
   },
   {
-    name:'Start', size:'สูงสุด 50 ห้อง · 1 หอ', price:'79', originalPrice:'159', unit:'/เดือน', annual:'หรือ ฿790/ปี (ประหยัด 17%)',
-    badge:'โปรโมชั่น', promo:'100 ผู้ใช้แรกเท่านั้น!',
+    name:'Start', size:'สูงสุด 50 ห้อง · 1 หอ', price:'79', unit:'/เดือน', annual:'หรือ ฿790/ปี (ประหยัด 17%)',
+    badge:'แนะนำ',
     features:[
       'ห้องสูงสุด 50 ห้อง · 1 หอพัก',
       'จดมิเตอร์ไฟ / น้ำ + ออกบิลอัตโนมัติ',
@@ -529,10 +529,10 @@ const PLANS = [
       'ไม่รองรับ Multi-หอ',
       'ไม่รองรับ ข้อมูลผู้เช่าเต็มรูปแบบ',
     ],
-    cta:'รับโปรโมชั่นเลย!', hi:false, c:'#3B82F6', href:HORCARE_URL, ext:true,
+    cta:'เริ่มต้นใช้งาน', hi:false, c:'#3B82F6', href:HORCARE_URL, ext:true,
   },
   {
-    name:'Plus', size:'สูงสุด 150 ห้อง · 5 หอ', price:'259', unit:'/เดือน', annual:'หรือ ฿1,990/ปี (ประหยัด 36%)',
+    name:'Plus', size:'สูงสุด 150 ห้อง · 5 หอ', price:'199', unit:'/เดือน', annual:'หรือ ฿1,190/ปี (ประหยัด 50%)',
     badge:'ยอดนิยม',
     features:[
       'ห้องสูงสุด 150 ห้อง · 5 หอพัก',
@@ -548,7 +548,7 @@ const PLANS = [
     cta:'เปลี่ยนมาเป็น Plus', hi:true, c:'#A855F7', href:HORCARE_URL, ext:true,
   },
   {
-    name:'Pro', size:'ไม่จำกัดห้อง · 10 หอ', price:'399', unit:'/เดือน', annual:'หรือ ฿2,590/ปี (ประหยัด 46%)',
+    name:'Pro', size:'ไม่จำกัดห้อง · 10 หอ', price:'299', unit:'/เดือน', annual:'หรือ ฿1,990/ปี (ประหยัด 45%)',
     badge:'Premium',
     features:[
       'ห้องไม่จำกัด · สูงสุด 10 หอพัก',
@@ -580,20 +580,21 @@ function Pricing() {
           </p>
         </div>
 
-        {/* Promo banner */}
-        <div className="reveal" style={{
+        {/* LINE Support banner */}
+        <a href={`https://line.me/R/oaMessage/${encodeURIComponent('@127qwwfi')}/?${encodeURIComponent('สมัคร')}`} target="_blank" rel="noopener noreferrer" className="reveal" style={{
           display:'flex', alignItems:'center', gap:10, justifyContent:'center', flexWrap:'wrap',
-          background:'linear-gradient(135deg,#FF6B35,#FF8C00)',
+          background:'linear-gradient(135deg,#06C755,#00B849)',
           borderRadius:12, padding:'12px 24px', marginBottom:12,
-          boxShadow:'0 6px 24px rgba(255,107,53,0.28)',
+          boxShadow:'0 6px 24px rgba(6,199,85,0.28)',
+          textDecoration:'none', cursor:'pointer', transition:'all 0.2s ease',
         }}>
           <span style={{ fontFamily:'Kanit,sans-serif', fontWeight:700, fontSize:14, color:'#fff', letterSpacing:'0.2px' }}>
-            โปรโมชั่นพิเศษ — แพ็กเกจ Start ลดเหลือ ฿79/เดือน
+            🎁 สมัครผ่าน LINE Support คุ้มกว่า ดูแลดีกว่า ถูกกว่า
           </span>
           <span style={{ fontFamily:'Sarabun,sans-serif', fontSize:12, color:'rgba(255,255,255,0.88)', background:'rgba(255,255,255,0.16)', padding:'2px 10px', borderRadius:100, whiteSpace:'nowrap' }}>
-            100 ผู้ใช้แรกเท่านั้น
+            แตะเพื่อสมัคร ▸
           </span>
-        </div>
+        </a>
 
         {/* Excel banner */}
         <div style={{
@@ -617,7 +618,7 @@ function Pricing() {
           {PLANS.slice(0,2).map(p => {
             const isStart = p.name === 'Start'
             const isFree = p.name === 'ฟรีเสมอ'
-            const isPromo = isStart && p.originalPrice
+            const isPromo = false
             return (
               <div key={p.name} style={{
                 background: isStart ? 'linear-gradient(145deg,#EFF6FF,#e8f2ff)' : '#fafafa',
@@ -707,6 +708,25 @@ function Pricing() {
                   }}>
                   {p.cta}
                 </a>
+
+                {/* LINE Support note */}
+                {isStart && (
+                  <a href={`https://line.me/R/oaMessage/${encodeURIComponent('@127qwwfi')}/?${encodeURIComponent('สมัคร')}`}
+                    target="_blank" rel="noopener noreferrer"
+                    style={{ textDecoration:'none', display:'block', marginTop:10 }}>
+                    <div style={{
+                      fontSize:11.5, fontFamily:'Sarabun,sans-serif', textAlign:'center',
+                      background:'rgba(6,199,85,0.06)', border:'1px solid rgba(6,199,85,0.18)',
+                      borderRadius:8, padding:'6px 10px', cursor:'pointer',
+                      transition:'all 0.2s ease',
+                    }}
+                      onMouseEnter={e => { e.currentTarget.style.background='rgba(6,199,85,0.12)'; e.currentTarget.style.borderColor='rgba(6,199,85,0.35)' }}
+                      onMouseLeave={e => { e.currentTarget.style.background='rgba(6,199,85,0.06)'; e.currentTarget.style.borderColor='rgba(6,199,85,0.18)' }}>
+                      <span style={{ fontWeight:600, color:'#06C755' }}>🎁 สมัครผ่าน LINE ดูแลดีกว่า</span>
+                      <span style={{ display:'block', color:'#78909C', fontSize:10.5, marginTop:2 }}>แตะเพื่อสมัครผ่าน LINE ▸</span>
+                    </div>
+                  </a>
+                )}
               </div>
             )
           })}
@@ -798,6 +818,24 @@ function Pricing() {
                   onMouseLeave={e => { e.currentTarget.style.filter=''; e.currentTarget.style.transform=''; e.currentTarget.style.boxShadow = isPro ? '0 6px 24px rgba(255,215,0,0.38)' : '0 6px 24px rgba(168,85,247,0.38)' }}>
                   {p.cta}
                 </a>
+
+                {/* LINE Support note */}
+                <a href={`https://line.me/R/oaMessage/${encodeURIComponent('@127qwwfi')}/?${encodeURIComponent('สมัคร')}`}
+                  target="_blank" rel="noopener noreferrer"
+                  style={{ textDecoration:'none', display:'block', marginTop:12 }}>
+                  <div style={{
+                    fontSize:12, fontFamily:'Sarabun,sans-serif', textAlign:'center',
+                    background: isPro ? 'rgba(255,215,0,0.06)' : 'rgba(168,85,247,0.06)',
+                    border: `1px solid ${isPro ? 'rgba(255,215,0,0.15)' : 'rgba(168,85,247,0.15)'}`,
+                    borderRadius:10, padding:'8px 12px', cursor:'pointer',
+                    transition:'all 0.2s ease',
+                  }}
+                    onMouseEnter={e => { e.currentTarget.style.background = isPro ? 'rgba(255,215,0,0.12)' : 'rgba(168,85,247,0.12)' }}
+                    onMouseLeave={e => { e.currentTarget.style.background = isPro ? 'rgba(255,215,0,0.06)' : 'rgba(168,85,247,0.06)' }}>
+                    <span style={{ fontWeight:600, color: isPro ? '#FFD700' : '#A855F7' }}>🎁 สมัครผ่าน LINE คุ้มกว่า ดูแลดีกว่า</span>
+                    <span style={{ display:'block', color: isPro ? 'rgba(255,215,0,0.5)' : 'rgba(168,85,247,0.5)', fontSize:10.5, marginTop:2 }}>แตะเพื่อสมัครผ่าน LINE ▸</span>
+                  </div>
+                </a>
               </div>
             )
           })}
@@ -820,7 +858,7 @@ function Pricing() {
 const FAQS = [
   { q:'มีแพ็กเกจฟรีจริงไหม? มีเงื่อนไขอะไรบ้าง?', a:'มีจริง ไม่มีวันหมดอายุ รองรับห้องพักได้ถึง 250 ห้อง ใช้งานได้ 1 บัญชี ครบทุกฟีเจอร์ที่ Excel ทำได้ ทั้งจัดการห้อง ผู้เช่า ค่าน้ำค่าไฟ ใบแจ้งหนี้ และสัญญาเช่า ข้อเดียวที่ไม่มีคือการแจ้งเตือนผ่าน LINE ไม่ต้องใช้บัตรเครดิต' },
   { q:'ย้ายจาก Excel มาใช้ HorCare ได้เลยไหม?', a:'ได้เลย รองรับนำเข้าข้อมูลจาก Excel/CSV ทั้งข้อมูลผู้เช่า ห้องพัก และประวัติการชำระเงิน ทีมงานพร้อมช่วย Migration ฟรีสำหรับแพ็กเกจหอกลางขึ้นไป' },
-  { q:'คิดราคาอย่างไร? อัปเกรดหรือยกเลิกได้ไหม?', a:'เริ่มฟรีสำหรับ ≤250 ห้อง (ไม่มี LINE) แพ็กเกจที่มี LINE: Start ฿79/ห้อง/เดือน (≤50 ห้อง), Plus ฿259/ห้อง/เดือน (≤150 ห้อง / 5 หอ), Pro ฿399/ห้อง/เดือน (200++ ห้อง / 10 หอ) อัปเกรด ดาวน์เกรด หรือยกเลิกได้ทุกเมื่อ ราคายังไม่รวม VAT' },
+  { q:'คิดราคาอย่างไร? อัปเกรดหรือยกเลิกได้ไหม?', a:'เริ่มฟรีสำหรับ ≤250 ห้อง (ไม่มี LINE) แพ็กเกจที่มี LINE: Start ฿79/เดือน (≤50 ห้อง), Plus ฿199/เดือน (≤150 ห้อง / 5 หอ), Pro ฿299/เดือน (200++ ห้อง / 10 หอ) สมัครผ่าน LINE Support คุ้มกว่า อัปเกรด ดาวน์เกรด หรือยกเลิกได้ทุกเมื่อ ราคายังไม่รวม VAT' },
   { q:'ข้อมูลของฉันปลอดภัยแค่ไหน?', a:'ข้อมูลทุกอย่างเข้ารหัส SSL/TLS มีระบบสำรองข้อมูลอัตโนมัติทุกวัน ข้อมูลของคุณจะไม่ถูกแชร์หรือขายให้บุคคลที่สาม' },
   { q:'ผู้เช่าต้องดาวน์โหลดแอปไหม?', a:'ไม่จำเป็น ผู้เช่าเข้าถึงระบบผ่านเบราว์เซอร์บนมือถือหรือคอมพิวเตอร์ได้เลย ไม่ต้องติดตั้งอะไรเพิ่ม' },
   { q:'ติดต่อซัพพอร์ตได้ทางไหน?', a:'ติดต่อผ่าน LINE @127qwwfi ทีมงานพร้อมตอบในวันจันทร์–ศุกร์ 09:00–18:00 น. และวันเสาร์ 09:00–13:00 น. ตอบกลับภายใน 2 ชั่วโมง' },
