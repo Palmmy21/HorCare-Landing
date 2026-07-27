@@ -1,4 +1,5 @@
 {
+  "regions": ["hnd1"],
   "rewrites": [
     { "source": "/privacy",    "destination": "/privacy/index.html"    },
     { "source": "/terms",      "destination": "/terms/index.html"      },
