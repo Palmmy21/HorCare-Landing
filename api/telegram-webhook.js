@@ -14,19 +14,34 @@ if (!getApps().length) {
 const db = getFirestore();
 
 export default async function handler(req, res) {
+  if (req.method === 'GET') {
+    return res.status(200).send('Webhook is active and listening!');
+  }
+  
   if (req.method !== 'POST') {
     return res.status(405).end();
   }
 
   try {
-    const update = req.body;
+    const update = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
     
-    // Check if it's a message and a reply
-    if (update.message && update.message.reply_to_message) {
+    // Check if it's a message
+    if (update.message) {
       const text = update.message.text?.trim()?.toLowerCase();
+      const token = process.env.TELEGRAM_BOT_TOKEN;
+      const chatId = update.message.chat.id;
       
       // Allow 'อนุมัติ' or 'approve'
       if (text === 'อนุมัติ' || text === 'approve') {
+        if (!update.message.reply_to_message) {
+          await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ chat_id: chatId, text: `⚠️ กรุณากด Reply (ตอบกลับ) ที่รูปสลิปก่อนพิมพ์อนุมัติครับ` })
+          });
+          return res.status(200).send('OK');
+        }
+
         const replyTo = update.message.reply_to_message;
         const caption = replyTo.caption || '';
         
@@ -90,8 +105,6 @@ export default async function handler(req, res) {
             }
           } else {
              // Not a valid paid license (e.g., free)
-              const token = process.env.TELEGRAM_BOT_TOKEN;
-              const chatId = update.message.chat.id;
               await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -102,7 +115,24 @@ export default async function handler(req, res) {
                 })
               });
           }
+        } else {
+           // Regex failed to find Owner ID
+           await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+             method: 'POST',
+             headers: { 'Content-Type': 'application/json' },
+             body: JSON.stringify({
+               chat_id: chatId,
+               text: `⚠️ ไม่พบ Owner ID ในข้อความที่ Reply ครับ\nข้อมูลที่อ่านได้: ${caption}`,
+               reply_to_message_id: update.message.message_id
+             })
+           });
         }
+      } else if (text === 'ping') {
+        await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ chat_id: chatId, text: `Pong! ระบบทำงานปกติครับ` })
+        });
       }
     }
     
