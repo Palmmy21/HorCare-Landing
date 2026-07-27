@@ -49,6 +49,7 @@ const P = {
   exclaim: 'M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z',
   mail:    'M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75',
   clock:   'M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z',
+  gift:    'M21 11.25v8.25a1.5 1.5 0 0 1-1.5 1.5H4.5a1.5 1.5 0 0 1-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 1 0 9.375 7.5H12m0-2.625A2.625 2.625 0 1 1 14.625 7.5H12m-9 0h18v3.75H3V7.5z',
 }
 
 // ── Scroll reveal ─────────────────────────────────────────────────────────────
@@ -588,8 +589,8 @@ function Pricing() {
           boxShadow:'0 6px 24px rgba(6,199,85,0.28)',
           textDecoration:'none', cursor:'pointer', transition:'all 0.2s ease',
         }}>
-          <span style={{ fontFamily:'Kanit,sans-serif', fontWeight:700, fontSize:14, color:'#fff', letterSpacing:'0.2px' }}>
-            🎁 สมัครผ่าน LINE Support คุ้มกว่า ดูแลดีกว่า ถูกกว่า
+          <span style={{ fontFamily:'Kanit,sans-serif', fontWeight:700, fontSize:14, color:'#fff', letterSpacing:'0.2px', display:'inline-flex', alignItems:'center', gap:6 }}>
+            <Ic d={P.gift} size={16} color="#fff" /> สมัครผ่าน LINE Support คุ้มกว่า ดูแลดีกว่า ถูกกว่า
           </span>
           <span style={{ fontFamily:'Sarabun,sans-serif', fontSize:12, color:'rgba(255,255,255,0.88)', background:'rgba(255,255,255,0.16)', padding:'2px 10px', borderRadius:100, whiteSpace:'nowrap' }}>
             แตะเพื่อสมัคร ▸
@@ -722,7 +723,9 @@ function Pricing() {
                     }}
                       onMouseEnter={e => { e.currentTarget.style.background='rgba(6,199,85,0.12)'; e.currentTarget.style.borderColor='rgba(6,199,85,0.35)' }}
                       onMouseLeave={e => { e.currentTarget.style.background='rgba(6,199,85,0.06)'; e.currentTarget.style.borderColor='rgba(6,199,85,0.18)' }}>
-                      <span style={{ fontWeight:600, color:'#06C755' }}>🎁 ถูกกว่าเมื่อสมัครผ่าน LINE เพียง ฿79/เดือน</span>
+                      <span style={{ fontWeight:600, color:'#06C755', display:'inline-flex', alignItems:'center', gap:4 }}>
+                        <Ic d={P.gift} size={14} color="#06C755" /> ถูกกว่าเมื่อสมัครผ่าน LINE เพียง ฿79/เดือน
+                      </span>
                       <span style={{ display:'block', color:'#78909C', fontSize:10.5, marginTop:2 }}>แตะเพื่อสมัครผ่าน LINE Support ▸</span>
                     </div>
                   </a>
@@ -832,8 +835,8 @@ function Pricing() {
                   }}
                     onMouseEnter={e => { e.currentTarget.style.background = isPro ? 'rgba(255,215,0,0.12)' : 'rgba(168,85,247,0.12)' }}
                     onMouseLeave={e => { e.currentTarget.style.background = isPro ? 'rgba(255,215,0,0.06)' : 'rgba(168,85,247,0.06)' }}>
-                    <span style={{ fontWeight:600, color: isPro ? '#FFD700' : '#A855F7' }}>
-                      🎁 ถูกกว่าเมื่อสมัครผ่าน LINE เพียง {isPro ? '฿299' : '฿199'}/เดือน
+                    <span style={{ fontWeight:600, color: isPro ? '#FFD700' : '#A855F7', display:'inline-flex', alignItems:'center', gap:4 }}>
+                      <Ic d={P.gift} size={14} color={isPro ? '#FFD700' : '#A855F7'} /> ถูกกว่าเมื่อสมัครผ่าน LINE เพียง {isPro ? '฿299' : '฿199'}/เดือน
                     </span>
                     <span style={{ display:'block', color: isPro ? 'rgba(255,215,0,0.5)' : 'rgba(168,85,247,0.5)', fontSize:10.5, marginTop:2 }}>แตะเพื่อสมัครผ่าน LINE Support ▸</span>
                   </div>
