@@ -50,6 +50,7 @@ const P = {
   mail:    'M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75',
   clock:   'M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z',
   gift:    'M21 11.25v8.25a1.5 1.5 0 0 1-1.5 1.5H4.5a1.5 1.5 0 0 1-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 1 0 9.375 7.5H12m0-2.625A2.625 2.625 0 1 1 14.625 7.5H12m-9 0h18v3.75H3V7.5z',
+  crown:   'M2.25 18.75h19.5M3.75 6.75l3.75 6 4.5-8.25 4.5 8.25 3.75-6 1.5 9H2.25l1.5-9z',
 }
 
 // ── Scroll reveal ─────────────────────────────────────────────────────────────
@@ -763,7 +764,13 @@ function Pricing() {
                     padding:'4px 16px', borderRadius:100, whiteSpace:'nowrap',
                     boxShadow: isPro ? '0 3px 14px rgba(255,215,0,0.45)' : '0 3px 10px rgba(45,199,109,0.35)',
                     letterSpacing:'0.5px',
-                  }}>{isPro ? '★ Premium' : p.badge}</span>
+                  }}>
+                    {isPro ? (
+                      <span style={{ display:'inline-flex', alignItems:'center', gap:4 }}>
+                        <Ic d={P.crown} size={13} color="#1A1200" /> Premium
+                      </span>
+                    ) : p.badge}
+                  </span>
                 )}
 
                 {/* Name + size */}
