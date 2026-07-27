@@ -1,12 +1,59 @@
-import { useState, useEffect } from 'react'
-import { Routes, Route, Link } from 'react-router-dom'
+import { useState, useEffect, lazy, Suspense } from 'react'
+import { Routes, Route, Link, useLocation } from 'react-router-dom'
 import './App.css'
-import Privacy from './pages/Privacy.jsx'
-import Terms from './pages/Terms.jsx'
-import Calculator from './pages/Calculator.jsx'
-import BlogList from './pages/BlogList.jsx'
-import BlogPost from './pages/BlogPost.jsx'
+import { Navbar } from './components/Navbar.jsx'
 import { ARTICLES } from './data/articles.js'
+
+const Privacy = lazy(() => import('./pages/Privacy.jsx'))
+const Terms = lazy(() => import('./pages/Terms.jsx'))
+const Calculator = lazy(() => import('./pages/Calculator.jsx'))
+const BlogList = lazy(() => import('./pages/BlogList.jsx'))
+const BlogPost = lazy(() => import('./pages/BlogPost.jsx'))
+
+// Preload route modules in background for zero-wait transition
+if (typeof window !== 'undefined') {
+  setTimeout(() => {
+    import('./pages/BlogList.jsx')
+    import('./pages/BlogPost.jsx')
+    import('./pages/Calculator.jsx')
+    import('./pages/Privacy.jsx')
+    import('./pages/Terms.jsx')
+  }, 800)
+}
+
+function ScrollToTop() {
+  const { pathname } = useLocation()
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+  }, [pathname])
+  return null
+}
+
+function PageLoader() {
+  return (
+    <div style={{
+      position: 'fixed', inset: 0, zIndex: 9999,
+      background: 'rgba(11, 26, 39, 0.85)',
+      backdropFilter: 'blur(10px)',
+      display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+      gap: 16
+    }}>
+      <div style={{ position: 'relative', width: 68, height: 68, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <Logo size={52} />
+        <div style={{
+          position: 'absolute', inset: 0, borderRadius: '50%',
+          border: '2.5px solid rgba(45,199,109,0.15)',
+          borderTopColor: '#2DC76D',
+          borderRightColor: '#00B8A2',
+          animation: 'spin 0.75s linear infinite'
+        }} />
+      </div>
+      <span style={{ fontFamily: 'Kanit, sans-serif', fontSize: 13.5, color: '#2DC76D', letterSpacing: '0.05em', fontWeight: 600 }}>
+        HorCare
+      </span>
+    </div>
+  )
+}
 
 const HORCARE_URL = 'https://hor-care.vercel.app/'
 const LINE_URL = 'https://line.me/R/ti/p/@127qwwfi'
@@ -170,163 +217,210 @@ function LogoText({ dark = true }) {
   )
 }
 
-// ── Navbar ────────────────────────────────────────────────────────────────────
-const CALC_ICON = 'M15.75 15.75V18m-7.5-6.75h.008v.008H8.25v-.008zm0 2.25h.008v.008H8.25V13.5zm0 2.25h.008v.008H8.25v-.008zm0 2.25h.008v.008H8.25V18zm2.498-6.75h.007v.008h-.007v-.008zm0 2.25h.007v.008h-.007V13.5zm0 2.25h.007v.008h-.007v-.008zm0 2.25h.007v.008h-.007V18zm2.504-6.75h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V13.5zm0 2.25h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V18zm2.498-6.75h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V13.5zM8.25 6h7.5v3h-7.5V6zM12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25z'
 
-const NAV = [
-  { label: 'คุณสมบัติ',      href: '#features' },
-  { label: 'วิธีใช้งาน',     href: '#how-to-use' },
-  { label: 'ราคา',           href: '#pricing' },
-  { label: 'FAQ',            href: '#faq' },
-  { label: 'บทความ',        href: '#blog' },
-  { label: 'คำนวณค่าน้ำค่าไฟ', href: '/calculator', icon: CALC_ICON },
-  { label: 'ติดต่อ',        href: '#contact' },
-]
-
-function Navbar() {
-  const [open, setOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
-  useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 30)
-    window.addEventListener('scroll', fn, { passive: true })
-    return () => window.removeEventListener('scroll', fn)
-  }, [])
-  return (
-    <nav style={{
-      position: 'fixed', inset: '0 0 auto 0', zIndex: 50,
-      background: scrolled ? 'rgba(255,255,255,0.98)' : 'rgba(255,255,255,0.92)',
-      borderBottom: scrolled ? '1px solid rgba(0,184,162,0.18)' : '1px solid rgba(0,184,162,0.08)',
-      boxShadow: scrolled ? '0 4px 24px rgba(0,0,0,0.09)' : '0 1px 4px rgba(0,0,0,0.04)',
-      backdropFilter: 'blur(12px)',
-      transition: 'background 0.25s, box-shadow 0.25s, border-color 0.25s',
-    }}>
-      <W>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 64 }}>
-          <a href="#" style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none' }}>
-            <Logo size={48} />
-            <LogoText />
-          </a>
-
-          {/* Desktop nav */}
-          <div style={{ display: 'flex', gap: 28, alignItems: 'center' }}
-            className="hidden-mobile">
-            {NAV.map(n => (
-              <a key={n.href} href={n.href} style={{
-                fontFamily: 'Sarabun, sans-serif', fontSize: 14, fontWeight: 500,
-                color: '#546E7A', textDecoration: 'none', transition: 'color 0.15s',
-                display: 'flex', alignItems: 'center', gap: 5,
-              }}
-              onMouseEnter={e => e.currentTarget.style.color = '#00B8A2'}
-              onMouseLeave={e => e.currentTarget.style.color = '#546E7A'}>
-                {n.icon && <Ic d={n.icon} size={13} color="currentColor" />}
-                {n.label}
-              </a>
-            ))}
-          </div>
-
-          <a href={HORCARE_URL} target="_blank" rel="noopener noreferrer"
-            className="btn-orange hidden-mobile"
-            style={{ gap: 6, padding: '8px 20px', borderRadius: 100, fontSize: 14, fontFamily: 'Kanit, sans-serif', fontWeight: 600, textDecoration: 'none' }}>
-            เริ่มใช้งาน <Ic d={P.arrow} size={13} color="white" />
-          </a>
-
-          {/* Mobile hamburger */}
-          <button onClick={() => setOpen(!open)} className="show-mobile"
-            style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 4 }}>
-            <Ic d={open ? P.close : P.menu} size={22} color="#546E7A" />
-          </button>
-        </div>
-      </W>
-
-      {/* Mobile menu */}
-      {open && (
-        <div style={{ background: '#fff', borderTop: '1px solid rgba(0,184,162,0.1)', padding: '16px 20px 20px', flexDirection: 'column' }}
-          className="show-mobile">
-          {NAV.map(n => (
-            <a key={n.href} href={n.href} onClick={() => setOpen(false)}
-              style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 0', fontFamily: 'Sarabun, sans-serif', fontSize: 15, color: '#546E7A', textDecoration: 'none', borderBottom: '1px solid #f5f5f5' }}>
-              {n.icon && <Ic d={n.icon} size={15} color="#00B8A2" />}
-              {n.label}
-            </a>
-          ))}
-          <a href={HORCARE_URL} target="_blank" rel="noopener noreferrer"
-            className="btn-orange"
-            style={{ display: 'block', textAlign: 'center', marginTop: 14, padding: '12px 0', borderRadius: 100, fontFamily: 'Kanit, sans-serif', fontWeight: 600, fontSize: 15, textDecoration: 'none', justifyContent: 'center' }}>
-            เริ่มใช้งาน
-          </a>
-        </div>
-      )}
-    </nav>
-  )
-}
 
 // ── Hero ──────────────────────────────────────────────────────────────────────
 function Hero() {
   return (
-    <section className="hero-section" style={{ background: 'linear-gradient(150deg,#0B1A27 0%,#122338 55%,#0A1F14 100%)', paddingTop: 120, paddingBottom: 72 }}>
-      <W style={{ textAlign:'center' }}>
+    <section className="hero-section" style={{
+      position: 'relative', overflow: 'hidden',
+      paddingTop: 115, paddingBottom: 72,
+      background: 'linear-gradient(180deg, rgba(11, 26, 39, 0.86) 0%, rgba(18, 35, 56, 0.92) 55%, rgba(10, 31, 20, 0.97) 100%), url("/dormitory-bg.png")',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+    }}>
+      <W style={{ textAlign:'center', position: 'relative', zIndex: 2 }}>
 
         {/* Logo mark */}
-        <div style={{ display:'flex', justifyContent:'center', marginBottom:20 }}>
+        <div style={{ display:'flex', justifyContent:'center', marginBottom:18 }}>
           <Logo size={108} />
         </div>
 
-        {/* Badge */}
+        {/* Honest Kicker Badge */}
         <div style={{
-          display:'inline-flex', alignItems:'center', gap:7, marginBottom:24,
-          background:'rgba(45,199,109,0.13)', border:'1px solid rgba(45,199,109,0.32)',
-          borderRadius:100, padding:'7px 18px',
+          display:'inline-flex', alignItems:'center', gap:8, marginBottom:22,
+          background:'rgba(45,199,109,0.15)', border:'1px solid rgba(45,199,109,0.38)',
+          borderRadius:100, padding:'7px 20px', boxShadow: '0 4px 20px rgba(45,199,109,0.25)'
         }}>
-          <span className="pulse-dot" style={{ width:7, height:7, borderRadius:'50%', background:'#2DC76D', flexShrink:0 }}/>
-          <span style={{ fontFamily:'Sarabun,sans-serif', fontSize:11.5, fontWeight:600, color:'#2DC76D', letterSpacing:'0.1em', textTransform:'uppercase' }}>
-            ระบบจัดการหอพักครบวงจร
+          <Ic d={P.bolt} size={14} color="#2DC76D" />
+          <span style={{ fontFamily:'Sarabun,sans-serif', fontSize:12.5, fontWeight:700, color:'#2DC76D', letterSpacing:'0.05em' }}>
+            ตัดภาระงานสิ้นเดือน ออกบิลและแจ้งเตือนผ่าน LINE อัตโนมัติ
           </span>
         </div>
 
-        <h1 style={{ fontFamily:'Kanit,sans-serif', fontWeight:800, lineHeight:1.15, marginBottom:18 }}>
-          <span style={{ display:'block', fontSize:'clamp(2.1rem,4.8vw,3.6rem)', color:'white' }}>HorCare ระบบจัดการหอพัก</span>
-          <span style={{ display:'block', fontSize:'clamp(2.1rem,4.8vw,3.6rem)' }} className="gradient-text">
-            ครบ จบ ในระบบเดียว
+        {/* Main Hook Headline focused on Problem & Practical Result */}
+        <h1 style={{ fontFamily:'Kanit,sans-serif', fontWeight:800, lineHeight:1.18, marginBottom:20, maxWidth: 880, margin: '0 auto 20px' }}>
+          <span style={{ display:'block', fontSize:'clamp(2.2rem,5vw,3.8rem)', color:'white' }}>
+            ออกบิลทั้งหอพัก <span style={{ color:'#2DC76D' }}>สะดวกรวดเร็ว และแม่นยำ</span>
+          </span>
+          <span style={{ display:'block', fontSize:'clamp(1.35rem,3.2vw,2.3rem)', color:'rgba(255,255,255,0.92)', marginTop: 10, fontWeight: 600 }}>
+            ไม่ต้องนั่งกดเครื่องคิดเลขจนดึก ไม่ต้องตามทวงค่าเช่าทีละคน
           </span>
         </h1>
 
-        <p style={{ fontFamily:'Sarabun,sans-serif', fontSize:16, color:'rgba(255,255,255,0.6)', lineHeight:1.85, maxWidth:510, margin:'0 auto 36px' }}>
-          HorCare คือระบบจัดการหอพักอัจฉริยะ คุ้มค่า ใช้ง่าย ดูแลให้ตลอดการใช้งาน จากห้องพักถึงใบแจ้งหนี้ รวมทุกอย่างในระบบเดียว ลดภาระงานซ้ำซ้อน
+        {/* Sub-hook tailored to age 30++ landlords */}
+        <p style={{ fontFamily:'Sarabun,sans-serif', fontSize:'clamp(14px, 1.8vw, 17px)', color:'rgba(255,255,255,0.72)', lineHeight:1.8, maxWidth:640, margin:'0 auto 32px' }}>
+          ระบบจัดการหอพักอัจฉริยะที่ออกแบบให้ <strong style={{ color: '#2DC76D', fontWeight: 600 }}>"ใส่ง่าย ใช้ง่าย แม้ไม่ถนัดคอมพิวเตอร์"</strong><br className="hidden-mobile" />
+          คำนวณค่าน้ำค่าไฟพร้อมส่งใบแจ้งหนี้เข้า LINE ผู้เช่าทุกคนอัตโนมัติ ฟรีสูงสุด 250 ห้อง
         </p>
 
-        <div className="hero-btns" style={{ display:'flex', gap:12, flexWrap:'wrap', justifyContent:'center', marginBottom:44 }}>
+        {/* CTA Buttons */}
+        <div className="hero-btns" style={{ display:'flex', gap:14, flexWrap:'wrap', justifyContent:'center', marginBottom:36 }}>
           <a href={HORCARE_URL} target="_blank" rel="noopener noreferrer"
             className="btn-orange"
-            style={{ gap:8, padding:'14px 34px', borderRadius:100, fontSize:15, fontFamily:'Kanit,sans-serif', fontWeight:700, textDecoration:'none', boxShadow:'0 6px 24px rgba(255,152,0,0.45)' }}>
-            เริ่มใช้งานฟรี <Ic d={P.arrow} size={16} color="white" />
+            style={{ gap:10, padding:'16px 36px', borderRadius:100, fontSize:16, fontFamily:'Kanit,sans-serif', fontWeight:700, textDecoration:'none', boxShadow:'0 8px 30px rgba(255,152,0,0.5)', transition: 'transform 0.2s ease' }}>
+            เริ่มใช้งานฟรี <Ic d={P.arrow} size={18} color="white" />
           </a>
-          <a href="#features"
+          <a href={LINE_URL} target="_blank" rel="noopener noreferrer"
             className="btn-ghost-teal"
-            style={{ gap:8, padding:'14px 34px', borderRadius:100, fontSize:15, fontFamily:'Kanit,sans-serif', fontWeight:600, textDecoration:'none' }}>
-            ดูคุณสมบัติ
+            style={{ gap:8, padding:'16px 32px', borderRadius:100, fontSize:15, fontFamily:'Kanit,sans-serif', fontWeight:600, textDecoration:'none', border: '1px solid rgba(0,184,162,0.4)', background: 'rgba(0,184,162,0.1)' }}>
+            <LineImg size={18} /> ปรึกษาทีมงานผ่าน LINE
           </a>
         </div>
 
-        {/* Trust row */}
-        <div className="hero-stats" style={{ display:'flex', gap:0, justifyContent:'center', flexWrap:'wrap', paddingTop:24, borderTop:'1px solid rgba(255,255,255,0.08)', marginBottom:0 }}>
+        {/* Trust Badges Bar for 30++ Landlords */}
+        <div style={{ display: 'flex', justifyContent: 'center', gap: 20, flexWrap: 'wrap', marginBottom: 36, color: 'rgba(255,255,255,0.85)', fontFamily: 'Sarabun,sans-serif', fontSize: 13 }}>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+            <Ic d={P.checkCircle} size={15} color="#2DC76D" /> ไม่ต้องผูกบัตรเครดิต
+          </span>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+            <Ic d={P.checkCircle} size={15} color="#2DC76D" /> ตั้งค่าเสร็จพร้อมใช้ใน 5 นาที
+          </span>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+            <Ic d={P.checkCircle} size={15} color="#2DC76D" /> มีทีมงานคนไทยช่วยสอนใช้งานฟรี
+          </span>
+        </div>
+
+        {/* Social Proof Stats */}
+        <div className="hero-stats" style={{ display:'flex', gap:0, justifyContent:'center', flexWrap:'wrap', paddingTop:22, borderTop:'1px solid rgba(255,255,255,0.12)' }}>
           {[
-            { v:'500+', l:'หอพักที่ใช้งาน', c:'#2DC76D' },
-            { v:'10K+', l:'ผู้เช่าลงทะเบียน', c:'#00B8A2' },
-            { v:'99.9%', l:'Uptime', c:'#FF9800' },
+            { v:'100++', l:'หอพักเลือกใช้งาน', c:'#2DC76D' },
+            { v:'ประหยัดเวลา', l:'ลดเวลาทำบิลสูงสุด 80%', c:'#00B8A2' },
+            { v:'คำนวณออโต้', l:'ลดข้อผิดพลาดค่าน้ำค่าไฟ', c:'#FF9800' },
           ].map((s, i) => (
             <div key={s.l} style={{ display:'flex', alignItems:'center', gap:0 }}>
-              {i > 0 && <span className="stat-sep" style={{ color:'rgba(255,255,255,0.15)', padding:'0 20px', fontFamily:'Sarabun,sans-serif' }}>|</span>}
-              <span style={{ fontFamily:'Sarabun,sans-serif', fontSize:13, color:'rgba(255,255,255,0.55)' }}>
-                <span style={{ fontFamily:'Kanit,sans-serif', fontWeight:700, fontSize:15, color:s.c }}>{s.v}</span>
+              {i > 0 && <span className="stat-sep" style={{ color:'rgba(255,255,255,0.2)', padding:'0 20px', fontFamily:'Sarabun,sans-serif' }}>|</span>}
+              <span style={{ fontFamily:'Sarabun,sans-serif', fontSize:13.5, color:'rgba(255,255,255,0.65)' }}>
+                <span style={{ fontFamily:'Kanit,sans-serif', fontWeight:700, fontSize:16, color:s.c }}>{s.v}</span>
                 {' '}{s.l}
               </span>
             </div>
           ))}
         </div>
 
-        {/* Dashboard preview — hidden on small mobile via CSS */}
+        {/* Dashboard preview */}
         <div className="dashboard-wrap">
           <DashboardPreview />
+        </div>
+      </W>
+    </section>
+  )
+}
+
+// ── Before & After Comparison ────────────────────────────────────────────────
+function BeforeAfterComparison() {
+  return (
+    <section style={{ background: '#0F1E2E', color: 'white', padding: '88px 0', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+      <W>
+        <div className="reveal" style={{ textAlign: 'center', marginBottom: 52 }}>
+          <SectionPill icon={P.bolt} label="เปรียบเทียบผลลัพธ์ที่เห็นชัด" color="#FF9800" />
+          <h2 style={{ fontFamily: 'Kanit,sans-serif', fontWeight: 800, fontSize: 'clamp(1.8rem,3vw,2.5rem)', color: 'white', lineHeight: 1.25 }}>
+            ทำไมเจ้าของหอพักถึงเปลี่ยนมาใช้ HorCare?
+          </h2>
+          <p style={{ fontFamily: 'Sarabun,sans-serif', fontSize: 16, color: 'rgba(255,255,255,0.65)', marginTop: 12, maxWidth: 540, margin: '12px auto 0' }}>
+            เปรียบเทียบชัดๆ ระหว่างวิธีเดิมที่เหนื่อยล้า กับการบริหารหอพักยุคใหม่ที่เป็นระบบ
+          </p>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 24, maxWidth: 960, margin: '0 auto' }}>
+          
+          {/* Old Way Card */}
+          <div className="reveal" style={{
+            background: 'rgba(239, 68, 68, 0.05)',
+            border: '1.5px solid rgba(239, 68, 68, 0.25)',
+            borderRadius: 20, padding: '32px 26px',
+            position: 'relative'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
+              <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'rgba(239, 68, 68, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <Ic d={P.xCircle} size={20} color="#EF4444" />
+              </div>
+              <div>
+                <h3 style={{ fontFamily: 'Kanit,sans-serif', fontWeight: 700, fontSize: 18, color: '#EF4444' }}>การทำบิลแบบเดิม (สมุด / Excel)</h3>
+                <span style={{ fontFamily: 'Sarabun,sans-serif', fontSize: 12, color: 'rgba(239, 68, 68, 0.8)' }}>ใช้เวลานานและเสี่ยงต่อข้อผิดพลาด</span>
+              </div>
+            </div>
+            
+            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 14, padding: 0, margin: 0 }}>
+              {[
+                'ต้องเดินจดเลขมิเตอร์ทีละห้อง นั่งกดเครื่องคิดเลขทีละรายการ',
+                'เสี่ยงคำนวณเลขผิด พิมพ์ผิด โดนผู้เช่าโวยวายเสียความรู้สึก',
+                'ต้องเขียนบิลด้วยมือทีละใบ หรือปริ้นกระดาษแจกทีละห้อง',
+                'อายและเกรงใจเวลาต้องคอยส่งข้อความทวงค่าเช่าทีละคน',
+                'ไม่มีข้อมูล Real-time ต้องมานั่งเปิดสมุดเช็กย้อนหลัง'
+              ].map((item, idx) => (
+                <li key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: 10, fontFamily: 'Sarabun,sans-serif', fontSize: 14, color: 'rgba(255,255,255,0.7)', lineHeight: 1.6 }}>
+                  <Ic d={P.xCircle} size={16} color="#EF4444" style={{ flexShrink: 0, marginTop: 3 }} />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* HorCare Way Card */}
+          <div className="reveal" style={{
+            background: 'linear-gradient(145deg, rgba(45,199,109,0.1), rgba(0,184,162,0.06))',
+            border: '2px solid #2DC76D',
+            borderRadius: 20, padding: '32px 26px',
+            position: 'relative',
+            boxShadow: '0 12px 40px rgba(45,199,109,0.15)'
+          }}>
+            <div style={{
+              position: 'absolute', top: -14, right: 24,
+              background: 'linear-gradient(135deg,#2DC76D,#00B8A2)',
+              color: 'white', fontFamily: 'Kanit,sans-serif', fontWeight: 700, fontSize: 11,
+              padding: '4px 14px', borderRadius: 100, boxShadow: '0 4px 14px rgba(45,199,109,0.4)',
+              display: 'flex', alignItems: 'center', gap: 4
+            }}>
+              <Ic d={P.sparkles} size={12} color="white" /> ทำงานได้เป็นระบบ
+            </div>
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
+              <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'rgba(45,199,109,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <Ic d={P.bolt} size={20} color="#2DC76D" />
+              </div>
+              <div>
+                <h3 style={{ fontFamily: 'Kanit,sans-serif', fontWeight: 700, fontSize: 18, color: '#2DC76D' }}>เมื่อเปลี่ยนมาใช้ HorCare</h3>
+                <span style={{ fontFamily: 'Sarabun,sans-serif', fontSize: 12, color: '#00B8A2', fontWeight: 600 }}>ออกบิลและแจ้งเตือนเร็วขึ้น 10 เท่า</span>
+              </div>
+            </div>
+
+            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 14, padding: 0, margin: 0 }}>
+              {[
+                'พิมพ์เลขมิเตอร์ปุ๊บ ระบบคำนวณค่าน้ำค่าไฟให้อัตโนมัติ',
+                'บิลมีความแม่นยำ พร้อม QR Code ให้ผู้เช่าสแกนจ่ายง่าย',
+                'ส่งใบแจ้งหนี้ดิจิทัลเข้า LINE ผู้เช่าทุกคนอัตโนมัติในคลิกเดียว',
+                'ระบบช่วยติดตามยอดค้างชำระให้อัตโนมัติ ไม่ต้องตามทวงเอง',
+                'ดูสถานะห้องพัก รายรับ-รายจ่าย ได้จากมือถือทุกที่ตลอด 24 ชม.'
+              ].map((item, idx) => (
+                <li key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: 10, fontFamily: 'Sarabun,sans-serif', fontSize: 14, color: 'white', lineHeight: 1.6, fontWeight: 500 }}>
+                  <Ic d={P.checkCircle} size={16} color="#2DC76D" style={{ flexShrink: 0, marginTop: 3 }} />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+        </div>
+
+        {/* Bottom CTA in comparison */}
+        <div className="reveal" style={{ textAlign: 'center', marginTop: 44 }}>
+          <a href={HORCARE_URL} target="_blank" rel="noopener noreferrer"
+            className="btn-orange"
+            style={{ gap: 8, padding: '15px 38px', borderRadius: 100, fontSize: 16, fontFamily: 'Kanit,sans-serif', fontWeight: 700, textDecoration: 'none', boxShadow: '0 6px 24px rgba(255,152,0,0.4)' }}>
+            ทดลองใช้ HorCare ฟรี (ไม่ต้องใช้บัตรเครดิต) <Ic d={P.arrow} size={16} color="white" />
+          </a>
         </div>
       </W>
     </section>
@@ -1237,6 +1331,33 @@ const mobileCSS = `
   }
 `
 
+// ── Floating LINE Widget for High Conversion ───────────────────────────────
+function FloatingLineWidget() {
+  return (
+    <a href={LINE_URL} target="_blank" rel="noopener noreferrer"
+      aria-label="ติดต่อสอบถามทีมงานผ่าน LINE"
+      style={{
+        position: 'fixed', bottom: 24, right: 24, zIndex: 99,
+        background: '#06C755', color: 'white',
+        borderRadius: 100, padding: '12px 22px',
+        display: 'flex', alignItems: 'center', gap: 10,
+        boxShadow: '0 8px 30px rgba(6,199,85,0.45)',
+        textDecoration: 'none', fontFamily: 'Kanit, sans-serif',
+        fontWeight: 600, fontSize: 14,
+        transition: 'transform 0.22s ease, box-shadow 0.22s ease',
+      }}
+      onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px) scale(1.03)'; e.currentTarget.style.boxShadow = '0 12px 36px rgba(6,199,85,0.6)' }}
+      onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = '0 8px 30px rgba(6,199,85,0.45)' }}
+    >
+      <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+        <LineImg size={22} />
+        <span className="pulse-dot" style={{ position: 'absolute', top: -2, right: -2, width: 8, height: 8, borderRadius: '50%', background: '#FFD700' }} />
+      </div>
+      <span>สอบถามทีมงาน LINE</span>
+    </a>
+  )
+}
+
 // ── Landing page (all sections) ───────────────────────────────────────────────
 function LandingPage() {
   useReveal()
@@ -1246,6 +1367,7 @@ function LandingPage() {
       <Navbar />
       <main>
         <Hero />
+        <BeforeAfterComparison />
         <Features />
         <Testimonials />
         <HowToUse />
@@ -1255,6 +1377,7 @@ function LandingPage() {
         <Contact />
         <CTABanner />
       </main>
+      <FloatingLineWidget />
       <Footer />
     </>
   )
@@ -1263,13 +1386,18 @@ function LandingPage() {
 // ── App (router) ──────────────────────────────────────────────────────────────
 export default function App() {
   return (
-    <Routes>
-      <Route path="/" element={<LandingPage />} />
-      <Route path="/privacy" element={<Privacy />} />
-      <Route path="/terms" element={<Terms />} />
-      <Route path="/calculator" element={<Calculator />} />
-      <Route path="/blog" element={<BlogList />} />
-      <Route path="/blog/:slug" element={<BlogPost />} />
-    </Routes>
+    <>
+      <ScrollToTop />
+      <Suspense fallback={<PageLoader />}>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/calculator" element={<Calculator />} />
+          <Route path="/blog" element={<BlogList />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
+        </Routes>
+      </Suspense>
+    </>
   )
 }

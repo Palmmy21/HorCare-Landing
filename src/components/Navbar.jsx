@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { W, Ic, P, Logo, LogoText, HORCARE_URL } from './shared.jsx'
 
 const CALC_ICON = 'M15.75 15.75V18m-7.5-6.75h.008v.008H8.25v-.008zm0 2.25h.008v.008H8.25V13.5zm0 2.25h.008v.008H8.25v-.008zm0 2.25h.008v.008H8.25V18zm2.498-6.75h.007v.008h-.007v-.008zm0 2.25h.007v.008h-.007V13.5zm0 2.25h.007v.008h-.007v-.008zm0 2.25h.007v.008h-.007V18zm2.504-6.75h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V13.5zm0 2.25h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V18zm2.498-6.75h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V13.5zM8.25 6h7.5v3h-7.5V6zM12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25z'
@@ -8,8 +9,8 @@ const NAV = [
   { label: 'วิธีใช้งาน',        href: '/#how-to-use' },
   { label: 'ราคา',              href: '/#pricing' },
   { label: 'FAQ',               href: '/#faq' },
-  { label: 'บทความ',           href: '/blog' },
-  { label: 'คำนวณค่าน้ำค่าไฟ', href: '/calculator', icon: CALC_ICON },
+  { label: 'บทความ',           href: '/blog', isRouterLink: true },
+  { label: 'คำนวณค่าน้ำค่าไฟ', href: '/calculator', icon: CALC_ICON, isRouterLink: true },
   { label: 'ติดต่อ',           href: '/#contact' },
 ]
 
@@ -21,6 +22,17 @@ export function Navbar() {
     window.addEventListener('scroll', fn, { passive: true })
     return () => window.removeEventListener('scroll', fn)
   }, [])
+  const handleNavClick = (e, href) => {
+    if (href.startsWith('/#')) {
+      const id = href.replace('/#', '')
+      const el = document.getElementById(id)
+      if (el) {
+        e.preventDefault()
+        el.scrollIntoView({ behavior: 'smooth' })
+      }
+    }
+  }
+
   return (
     <nav style={{
       position: 'fixed', inset: '0 0 auto 0', zIndex: 50,
@@ -32,23 +44,36 @@ export function Navbar() {
     }}>
       <W>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 64 }}>
-          <a href="/" style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none' }}>
+          <Link to="/" onClick={() => window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })} style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none' }}>
             <Logo size={48} />
             <LogoText />
-          </a>
+          </Link>
 
           <div style={{ display: 'flex', gap: 28, alignItems: 'center' }} className="hidden-mobile">
             {NAV.map(n => (
-              <a key={n.href} href={n.href} style={{
-                fontFamily: 'Sarabun, sans-serif', fontSize: 14, fontWeight: 500,
-                color: '#546E7A', textDecoration: 'none', transition: 'color 0.15s',
-                display: 'flex', alignItems: 'center', gap: 5,
-              }}
-              onMouseEnter={e => e.currentTarget.style.color = '#00B8A2'}
-              onMouseLeave={e => e.currentTarget.style.color = '#546E7A'}>
-                {n.icon && <Ic d={n.icon} size={13} color="currentColor" />}
-                {n.label}
-              </a>
+              n.isRouterLink ? (
+                <Link key={n.href} to={n.href} style={{
+                  fontFamily: 'Sarabun, sans-serif', fontSize: 14, fontWeight: 500,
+                  color: '#546E7A', textDecoration: 'none', transition: 'color 0.15s',
+                  display: 'flex', alignItems: 'center', gap: 5,
+                }}
+                onMouseEnter={e => e.currentTarget.style.color = '#00B8A2'}
+                onMouseLeave={e => e.currentTarget.style.color = '#546E7A'}>
+                  {n.icon && <Ic d={n.icon} size={13} color="currentColor" />}
+                  {n.label}
+                </Link>
+              ) : (
+                <a key={n.href} href={n.href} onClick={(e) => handleNavClick(e, n.href)} style={{
+                  fontFamily: 'Sarabun, sans-serif', fontSize: 14, fontWeight: 500,
+                  color: '#546E7A', textDecoration: 'none', transition: 'color 0.15s',
+                  display: 'flex', alignItems: 'center', gap: 5,
+                }}
+                onMouseEnter={e => e.currentTarget.style.color = '#00B8A2'}
+                onMouseLeave={e => e.currentTarget.style.color = '#546E7A'}>
+                  {n.icon && <Ic d={n.icon} size={13} color="currentColor" />}
+                  {n.label}
+                </a>
+              )
             ))}
           </div>
 
@@ -69,11 +94,19 @@ export function Navbar() {
         <div style={{ background: '#fff', borderTop: '1px solid rgba(0,184,162,0.1)', padding: '16px 20px 20px', flexDirection: 'column' }}
           className="show-mobile">
           {NAV.map(n => (
-            <a key={n.href} href={n.href} onClick={() => setOpen(false)}
-              style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 0', fontFamily: 'Sarabun, sans-serif', fontSize: 15, color: '#546E7A', textDecoration: 'none', borderBottom: '1px solid #f5f5f5' }}>
-              {n.icon && <Ic d={n.icon} size={15} color="#00B8A2" />}
-              {n.label}
-            </a>
+            n.isRouterLink ? (
+              <Link key={n.href} to={n.href} onClick={() => setOpen(false)}
+                style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 0', fontFamily: 'Sarabun, sans-serif', fontSize: 15, color: '#546E7A', textDecoration: 'none', borderBottom: '1px solid #f5f5f5' }}>
+                {n.icon && <Ic d={n.icon} size={15} color="#00B8A2" />}
+                {n.label}
+              </Link>
+            ) : (
+              <a key={n.href} href={n.href} onClick={() => setOpen(false)}
+                style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 0', fontFamily: 'Sarabun, sans-serif', fontSize: 15, color: '#546E7A', textDecoration: 'none', borderBottom: '1px solid #f5f5f5' }}>
+                {n.icon && <Ic d={n.icon} size={15} color="#00B8A2" />}
+                {n.label}
+              </a>
+            )
           ))}
           <a href={HORCARE_URL} target="_blank" rel="noopener noreferrer"
             className="btn-orange"
