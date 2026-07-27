@@ -722,8 +722,8 @@ function Pricing() {
                     }}
                       onMouseEnter={e => { e.currentTarget.style.background='rgba(6,199,85,0.12)'; e.currentTarget.style.borderColor='rgba(6,199,85,0.35)' }}
                       onMouseLeave={e => { e.currentTarget.style.background='rgba(6,199,85,0.06)'; e.currentTarget.style.borderColor='rgba(6,199,85,0.18)' }}>
-                      <span style={{ fontWeight:600, color:'#06C755' }}>🎁 สมัครผ่าน LINE ดูแลดีกว่า</span>
-                      <span style={{ display:'block', color:'#78909C', fontSize:10.5, marginTop:2 }}>แตะเพื่อสมัครผ่าน LINE ▸</span>
+                      <span style={{ fontWeight:600, color:'#06C755' }}>🎁 ถูกกว่าเมื่อสมัครผ่าน LINE เพียง ฿79/เดือน</span>
+                      <span style={{ display:'block', color:'#78909C', fontSize:10.5, marginTop:2 }}>แตะเพื่อสมัครผ่าน LINE Support ▸</span>
                     </div>
                   </a>
                 )}
@@ -832,8 +832,10 @@ function Pricing() {
                   }}
                     onMouseEnter={e => { e.currentTarget.style.background = isPro ? 'rgba(255,215,0,0.12)' : 'rgba(168,85,247,0.12)' }}
                     onMouseLeave={e => { e.currentTarget.style.background = isPro ? 'rgba(255,215,0,0.06)' : 'rgba(168,85,247,0.06)' }}>
-                    <span style={{ fontWeight:600, color: isPro ? '#FFD700' : '#A855F7' }}>🎁 สมัครผ่าน LINE คุ้มกว่า ดูแลดีกว่า</span>
-                    <span style={{ display:'block', color: isPro ? 'rgba(255,215,0,0.5)' : 'rgba(168,85,247,0.5)', fontSize:10.5, marginTop:2 }}>แตะเพื่อสมัครผ่าน LINE ▸</span>
+                    <span style={{ fontWeight:600, color: isPro ? '#FFD700' : '#A855F7' }}>
+                      🎁 ถูกกว่าเมื่อสมัครผ่าน LINE เพียง {isPro ? '฿299' : '฿199'}/เดือน
+                    </span>
+                    <span style={{ display:'block', color: isPro ? 'rgba(255,215,0,0.5)' : 'rgba(168,85,247,0.5)', fontSize:10.5, marginTop:2 }}>แตะเพื่อสมัครผ่าน LINE Support ▸</span>
                   </div>
                 </a>
               </div>
