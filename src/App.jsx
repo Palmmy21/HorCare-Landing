@@ -593,83 +593,46 @@ function HowToUse() {
     </section>
   )
 }
-
-// ── Pricing ───────────────────────────────────────────────────────────────────
 const PLANS = [
   {
-    name:'ฟรีเสมอ', size:'สูงสุด 250 ห้อง', price:'0', unit:'ไม่มีค่าใช้จ่าย',
-    badge:'ออกจาก Excel',
+    name:'ฟรีเสมอ', size:'สูงสุด 250 ห้อง', price:'0', unit:'/ตลอดชีพ', annual:'ไม่มีวันหมดอายุ',
     features:[
-      'จัดการห้องพักสูงสุด 250 ห้อง',
-      'บริหารผู้เช่าพร้อมสัญญาเช่า',
-      'คำนวณค่าน้ำค่าไฟอัตโนมัติ',
-      'ใบแจ้งหนี้ดิจิทัล',
-      'นำเข้า / ส่งออก Excel/CSV',
-      'ผู้ใช้งาน 1 คน',
-      'ไม่รองรับแจ้งเตือนผ่าน LINE',
+      'จัดการห้องพัก ผู้เช่า',
+      'ออกบิล / ใบแจ้งหนี้',
+      'จดมิเตอร์น้ำไฟ',
+      'สร้างสัญญาเช่าออนไลน์',
+      'พิมพ์ใบเสร็จรับเงิน',
     ],
-    cta:'สมัครฟรี ไม่ต้องใช้บัตร', hi:false, c:'#546E7A', href:HORCARE_URL, ext:true,
+    cta:'สมัครใช้งานฟรี', hi:false, premium:false, c:'#00B8A2', href:`https://line.me/R/oaMessage/@127qwwfi/?${encodeURIComponent('สนใจแพ็กเกจ ฟรีเสมอ')}`, ext:true,
   },
   {
-    name:'Start', size:'สูงสุด 50 ห้อง · 1 หอ', price:'149', unit:'/เดือน', annual:'หรือ ฿950/ปี (ประหยัด 47%)',
+    name:'HorCare', size:'ไม่จำกัดห้อง · สูงสุด 10 หอ', price:'399', unit:'/เดือน', annual:'หรือ ฿2,590/ปี (ประหยัด 46%)',
     badge:'แนะนำ',
     features:[
-      'ห้องสูงสุด 50 ห้อง · 1 หอพัก',
+      'จัดการห้องพักไม่จำกัดจำนวน',
+      'บริหารผู้เช่าพร้อมสัญญาเช่า',
       'จดมิเตอร์ไฟ / น้ำ + ออกบิลอัตโนมัติ',
-      'ส่งบิลผ่าน LINE อัตโนมัติ',
-      'QR PromptPay ในบิล',
+      'ส่งบิลและแจ้งเตือนผ่าน LINE อัตโนมัติ',
+      'QR PromptPay ในบิล สลิปเข้าอัตโนมัติ',
+      'อ่านมิเตอร์จากรูปถ่ายด้วย AI',
       'หน้าแจ้งซ่อม (Maintenance board)',
       'ระบบจัดการ (สต็อก / ทรัพย์สิน / ค่าใช้จ่าย)',
-      'หน้าจัดการการชำระเงิน',
-      'Export PDF / สรุปยอดรายเดือน',
-      'ไม่รองรับ Multi-หอ',
-      'ไม่รองรับ ข้อมูลผู้เช่าเต็มรูปแบบ',
-    ],
-    cta:'เริ่มต้นใช้งาน', hi:false, c:'#3B82F6', href:HORCARE_URL, ext:true,
-  },
-  {
-    name:'Plus', size:'สูงสุด 150 ห้อง · 5 หอ', price:'259', unit:'/เดือน', annual:'หรือ ฿1,590/ปี (ประหยัด 49%)',
-    badge:'ยอดนิยม',
-    features:[
-      'ห้องสูงสุด 150 ห้อง · 5 หอพัก',
-      'ทุกอย่างของ Start',
-      'อ่านมิเตอร์จากรูปถ่ายด้วย AI',
-      'Multi-หอ (สลับจัดการหลายอาคาร)',
-      'ข้อมูลผู้เช่าเต็มรูปแบบ (สัญญา / มัดจำ)',
       'Dashboard วิเคราะห์รายได้ & vacancy',
       'Export รายงาน PDF / Excel',
-      'เร็วๆ นี้ ทีมงานสูงสุด 3 คน (RBAC)',
-      'เร็วๆ นี้ รายงานภาษี / บัญชี',
     ],
-    cta:'เปลี่ยนมาเป็น Plus', hi:true, c:'#A855F7', href:HORCARE_URL, ext:true,
-  },
-  {
-    name:'Pro', size:'ไม่จำกัดห้อง · 10 หอ', price:'399', unit:'/เดือน', annual:'หรือ ฿2,590/ปี (ประหยัด 46%)',
-    badge:'Premium',
-    features:[
-      'ห้องไม่จำกัด · สูงสุด 10 หอพัก',
-      'ทุกอย่างของ Plus',
-      'ผู้ช่วย AI ส่วนตัว "น้องแคร์"',
-      'ตรวจสอบสลิปอัตโนมัติด้วย AI',
-      'ติดต่อทีมงานแบบ real-time (LINE)',
-      'ทีมงาน HorCare ดูแลเซ็ตอัพให้',
-      'เร็วๆ นี้ ทีมงานไม่จำกัด (RBAC)',
-      'เร็วๆ นี้ Dashboard เปรียบเทียบหลายหอ',
-      'Priority Support ตลอด 24 ชม.',
-    ],
-    cta:'เปลี่ยนมาเป็น Pro', hi:false, premium:true, c:'#F97316', href:HORCARE_URL, ext:true,
-  },
+    cta:'เริ่มต้นใช้งาน', hi:true, premium:true, c:'#0066FF', href:`https://line.me/R/oaMessage/@127qwwfi/?${encodeURIComponent('สนใจแพ็กเกจ HorCare')}`, ext:true,
+  }
 ]
 
 function Pricing() {
   return (
     <section id="pricing" style={{ background:'linear-gradient(180deg,#f0f6ff 0%,#fafbff 60%,#fff 100%)', padding:'96px 0' }}>
       <W>
-        {/* Header — no eyebrow pill (impeccable ban: tiny uppercase tracked kicker on every section) */}
+        {/* Header */}
         <div className="reveal" style={{ textAlign:'center', marginBottom:20 }}>
           <h2 style={{ fontFamily:'Kanit,sans-serif', fontWeight:800, fontSize:'clamp(1.9rem,3vw,2.7rem)', color:'#1A2433', lineHeight:1.15 }}>
-            เลือกแพ็กเกจที่ใช่{' '}
-            <span style={{ color:'#2DC76D' }}>เริ่มฟรี อัปเกรดได้ทุกเมื่อ</span>
+            แพ็กเกจ HorCare{' '}
+            <span style={{ color:'#2DC76D' }}>จัดการหอพักครบวงจร</span>
           </h2>
           <p style={{ fontFamily:'Sarabun,sans-serif', fontSize:15, color:'#546E7A', marginTop:12, lineHeight:1.7 }}>
             ราคายังไม่รวม VAT &bull; ไม่มีสัญญาผูกมัด &bull; ยกเลิกได้ทุกเมื่อ
@@ -677,174 +640,32 @@ function Pricing() {
         </div>
 
         {/* LINE Support banner */}
-        <a href={`https://line.me/R/oaMessage/${encodeURIComponent('@127qwwfi')}/?${encodeURIComponent('สมัคร')}`} target="_blank" rel="noopener noreferrer" className="reveal" style={{
+        <a href={`https://line.me/R/oaMessage/${encodeURIComponent('@127qwwfi')}/?${encodeURIComponent('สอบถามแพ็กเกจ HorCare')}`} target="_blank" rel="noopener noreferrer" className="reveal" style={{
           display:'flex', alignItems:'center', gap:10, justifyContent:'center', flexWrap:'wrap',
           background:'linear-gradient(135deg,#06C755,#00B849)',
-          borderRadius:12, padding:'12px 24px', marginBottom:12,
+          borderRadius:12, padding:'12px 24px', marginBottom:48,
           boxShadow:'0 6px 24px rgba(6,199,85,0.28)',
           textDecoration:'none', cursor:'pointer', transition:'all 0.2s ease',
         }}>
           <span style={{ fontFamily:'Kanit,sans-serif', fontWeight:700, fontSize:14, color:'#fff', letterSpacing:'0.2px', display:'inline-flex', alignItems:'center', gap:6 }}>
-            <Ic d={P.gift} size={16} color="#fff" /> สมัครผ่าน LINE Support คุ้มกว่า ดูแลดีกว่า ถูกกว่า
+            <Ic d={P.gift} size={16} color="#fff" /> สอบถามแพ็กเกจผ่าน LINE Support พร้อมดูแลเซ็ตอัพฟรี
           </span>
           <span style={{ fontFamily:'Sarabun,sans-serif', fontSize:12, color:'rgba(255,255,255,0.88)', background:'rgba(255,255,255,0.16)', padding:'2px 10px', borderRadius:100, whiteSpace:'nowrap' }}>
-            แตะเพื่อสมัคร ▸
+            แตะเพื่อคุยกับทีมงาน ▸
           </span>
         </a>
 
-        {/* Excel banner */}
-        <div style={{
-          display:'flex', alignItems:'center', gap:10, justifyContent:'center', flexWrap:'wrap',
-          background:'rgba(45,199,109,0.06)', border:'1px solid rgba(45,199,109,0.18)', borderRadius:10,
-          padding:'12px 20px', marginBottom:48,
-        }}>
-          <Ic d={P.doc} size={15} color='#2DC76D' />
-          <span style={{ fontFamily:'Sarabun,sans-serif', fontSize:13.5, color:'#1A2433' }}>
-            <strong style={{ fontFamily:'Kanit,sans-serif', color:'#2DC76D' }}>ใช้ Excel จัดการหอพักอยู่?</strong>
-            {' '}เปลี่ยนมาใช้ HorCare ฟรี — นำเข้าจาก Excel/CSV ได้ใน 15 นาที
-          </span>
-          <a href={HORCARE_URL} target="_blank" rel="noopener noreferrer"
-            style={{ fontFamily:'Kanit,sans-serif', fontWeight:600, fontSize:13, color:'#00B8A2', textDecoration:'none', display:'flex', alignItems:'center', gap:4, whiteSpace:'nowrap' }}>
-            เริ่มเลย <Ic d={P.arrow} size={12} color='#00B8A2' />
-          </a>
-        </div>
-
-        {/* ── Tier 1: Free + Start (lighter, supporting row) ── */}
-        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(260px,1fr))', gap:16, marginBottom:16 }}>
-          {PLANS.slice(0,2).map(p => {
-            const isStart = p.name === 'Start'
-            const isFree = p.name === 'ฟรีเสมอ'
-            const isPromo = false
+        {/* ── Single Pricing Card ── */}
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))', gap:24, alignItems:'stretch', maxWidth:800, margin:'0 auto' }}>
+          {PLANS.map(p => {
+            const isPro = p.premium === true;
             return (
               <div key={p.name} style={{
-                background: isStart ? 'linear-gradient(145deg,#EFF6FF,#e8f2ff)' : '#fafafa',
-                borderRadius:16, padding:'24px 24px 20px',
-                position:'relative',
-                border: isStart ? '2px solid #3B82F6' : '1px solid #e8eaed',
-                boxShadow: isStart ? '0 12px 40px rgba(59,130,246,0.14)' : '0 1px 6px rgba(0,0,0,0.05)',
-                display:'flex', flexDirection:'column',
-                transition:'box-shadow 0.2s ease',
-              }}>
-                {/* Badge */}
-                {p.badge && (
-                  <span style={{
-                    position:'absolute', top:-12, left:20,
-                    background: isStart ? 'linear-gradient(135deg,#FF6B35,#FF8C00)' : 'linear-gradient(135deg,#546E7A,#78909C)',
-                    color:'white', fontSize:10.5, fontFamily:'Kanit,sans-serif', fontWeight:700,
-                    padding:'3px 12px', borderRadius:100, whiteSpace:'nowrap',
-                    boxShadow: isStart ? '0 3px 10px rgba(255,107,53,0.35)' : 'none',
-                    letterSpacing:'0.4px',
-                  }}>{p.badge}</span>
-                )}
-
-                {/* Name + size */}
-                <div style={{ marginBottom:14, marginTop: p.badge ? 8 : 0 }}>
-                  <div style={{ fontFamily:'Kanit,sans-serif', fontWeight:800, fontSize:18, color: isStart ? '#1E40AF' : '#374151' }}>{p.name}</div>
-                  <div style={{ fontFamily:'Sarabun,sans-serif', fontSize:12, color: isStart ? '#3B82F6' : '#90A4AE', marginTop:6, display:'flex', alignItems:'center', gap:5 }}>
-                    <Ic d={P.home} size={11} color={isStart ? '#3B82F6' : '#90A4AE'} /> {p.size}
-                  </div>
-                </div>
-
-                {/* Price */}
-                <div style={{ paddingBottom:14, borderBottom:`1px solid ${isStart ? 'rgba(59,130,246,0.12)' : '#f0f0f0'}`, marginBottom:14 }}>
-                  {isPromo && (
-                    <div style={{ display:'flex', alignItems:'center', gap:8, marginBottom:3 }}>
-                      <span style={{ fontFamily:'Sarabun,sans-serif', fontSize:12, color:'#B0BEC5', textDecoration:'line-through' }}>฿{p.originalPrice}</span>
-                      <span style={{ fontFamily:'Kanit,sans-serif', fontSize:10, fontWeight:700, color:'#fff', background:'#FF6B35', padding:'1px 7px', borderRadius:100 }}>ลด 50%</span>
-                    </div>
-                  )}
-                  <div style={{ display:'flex', alignItems:'baseline', gap:3 }}>
-                    {!isFree && <span style={{ fontFamily:'Kanit,sans-serif', fontSize:14, color: isStart ? '#3B82F6' : '#90A4AE' }}>฿</span>}
-                    <span style={{ fontFamily:'Kanit,sans-serif', fontWeight:800, fontSize: isFree ? 20 : 38, color: isStart ? '#2563EB' : p.c, letterSpacing:'-1px', lineHeight:1 }}>
-                      {isFree ? 'ฟรีตลอดไป' : p.price}
-                    </span>
-                    {!isFree && <span style={{ fontFamily:'Sarabun,sans-serif', fontSize:13, color:'#90A4AE' }}>{p.unit}</span>}
-                  </div>
-                  {isPromo && (
-                    <div style={{ marginTop:8, fontSize:12, fontFamily:'Sarabun,sans-serif', color:'#FF6B35', fontWeight:600 }}>
-                      สำหรับ 100 ผู้ใช้แรกเท่านั้น
-                    </div>
-                  )}
-                </div>
-
-                {/* Features */}
-                <ul style={{ listStyle:'none', flex:1, display:'flex', flexDirection:'column', gap:7, marginBottom:16 }}>
-                  {p.features.map(f => {
-                    const isNo = f.startsWith('ไม่รองรับ')
-                    const text = isNo ? f.replace('ไม่รองรับ ','') : f
-                    return (
-                      <li key={f} style={{ display:'flex', alignItems:'flex-start', gap:8, fontFamily:'Sarabun,sans-serif', fontSize:13, color: isNo ? '#C4CDD5' : '#4B5563' }}>
-                        <div style={{ width:16, height:16, borderRadius:'50%', background: isNo ? 'rgba(0,0,0,0.03)' : `${p.c}15`, display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0, marginTop:1 }}>
-                          <Ic d={isNo ? P.close : P.check} size={9} color={isNo ? '#C4CDD5' : p.c} />
-                        </div>
-                        <span style={{ lineHeight:1.45 }}>{text}</span>
-                      </li>
-                    )
-                  })}
-                </ul>
-
-                {/* CTA */}
-                <a href={p.href} {...(p.ext ? { target:'_blank', rel:'noopener noreferrer' } : {})}
-                  style={{
-                    display:'block', textAlign:'center', padding:'11px 0', borderRadius:100,
-                    fontFamily:'Kanit,sans-serif', fontWeight:700, fontSize:13.5, textDecoration:'none',
-                    background: isStart ? 'linear-gradient(135deg,#3B82F6,#2563EB)' : 'transparent',
-                    color: isStart ? 'white' : p.c,
-                    border: isStart ? 'none' : `1.5px solid ${p.c}`,
-                    boxShadow: isStart ? '0 5px 18px rgba(59,130,246,0.3)' : 'none',
-                    transition:'all 0.18s ease',
-                  }}
-                  onMouseEnter={e => {
-                    if (isStart) { e.currentTarget.style.filter='brightness(1.08)'; e.currentTarget.style.transform='translateY(-1px)' }
-                    else { e.currentTarget.style.background=p.c; e.currentTarget.style.color='white'; e.currentTarget.style.borderColor='transparent' }
-                  }}
-                  onMouseLeave={e => {
-                    if (isStart) { e.currentTarget.style.filter=''; e.currentTarget.style.transform='' }
-                    else { e.currentTarget.style.background='transparent'; e.currentTarget.style.color=p.c; e.currentTarget.style.borderColor=p.c }
-                  }}>
-                  {p.cta}
-                </a>
-
-                {/* LINE Support note */}
-                {isStart && (
-                  <a href={`https://line.me/R/oaMessage/${encodeURIComponent('@127qwwfi')}/?${encodeURIComponent('สมัคร')}`}
-                    target="_blank" rel="noopener noreferrer"
-                    style={{ textDecoration:'none', display:'block', marginTop:10 }}>
-                    <div style={{
-                      fontSize:11.5, fontFamily:'Sarabun,sans-serif', textAlign:'center',
-                      background:'rgba(6,199,85,0.06)', border:'1px solid rgba(6,199,85,0.18)',
-                      borderRadius:8, padding:'6px 10px', cursor:'pointer',
-                      transition:'all 0.2s ease',
-                    }}
-                      onMouseEnter={e => { e.currentTarget.style.background='rgba(6,199,85,0.12)'; e.currentTarget.style.borderColor='rgba(6,199,85,0.35)' }}
-                      onMouseLeave={e => { e.currentTarget.style.background='rgba(6,199,85,0.06)'; e.currentTarget.style.borderColor='rgba(6,199,85,0.18)' }}>
-                      <span style={{ fontWeight:600, color:'#06C755', display:'inline-flex', alignItems:'center', gap:4 }}>
-                        <Ic d={P.gift} size={14} color="#06C755" /> ถูกกว่าเมื่อสมัครผ่าน LINE เพียง ฿79/เดือน
-                      </span>
-                      <span style={{ display:'block', color:'#78909C', fontSize:10.5, marginTop:2 }}>แตะเพื่อสมัครผ่าน LINE Support ▸</span>
-                    </div>
-                  </a>
-                )}
-              </div>
-            )
-          })}
-        </div>
-
-        {/* ── Tier 2: Plus + Pro (heavier, featured row — more visual weight) ── */}
-        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))', gap:16 }}>
-          {PLANS.slice(2).map(p => {
-            const isPro = p.premium === true
-            return (
-              <div key={p.name} style={{
-                background: isPro
-                  ? 'linear-gradient(145deg,#1C1A2E,#2A1B45,#1A1A2E)'
-                  : 'linear-gradient(145deg,#faf5ff,#f5eeff)',
+                background: isPro ? 'linear-gradient(145deg,#0B2447,#19376D,#0B2447)' : '#ffffff',
                 borderRadius:20, padding:'32px 28px 24px',
                 position:'relative',
-                border: isPro ? '1.5px solid rgba(251,191,36,0.4)' : '2px solid #A855F7',
-                boxShadow: isPro
-                  ? '0 24px 64px rgba(251,191,36,0.12), inset 0 1px 0 rgba(255,255,255,0.05)'
-                  : '0 20px 52px rgba(168,85,247,0.16)',
+                border: isPro ? '1.5px solid rgba(45,199,109,0.4)' : '1px solid #e2e8f0',
+                boxShadow: isPro ? '0 24px 64px rgba(11,36,71,0.2), inset 0 1px 0 rgba(255,255,255,0.05)' : '0 10px 30px rgba(0,0,0,0.04)',
                 display:'flex', flexDirection:'column',
                 transition:'box-shadow 0.2s ease, transform 0.2s ease',
               }}>
@@ -852,55 +673,48 @@ function Pricing() {
                 {p.badge && (
                   <span style={{
                     position:'absolute', top:-13, left:'50%', transform:'translateX(-50%)',
-                    background: isPro ? 'linear-gradient(135deg,#A67C00,#FFD700,#A67C00)' : 'linear-gradient(135deg,#2DC76D,#00B8A2)',
-                    color: isPro ? '#1A1200' : 'white',
+                    background: 'linear-gradient(135deg,#2DC76D,#00B8A2)',
+                    color: 'white',
                     fontSize:11, fontFamily:'Kanit,sans-serif', fontWeight:800,
                     padding:'4px 16px', borderRadius:100, whiteSpace:'nowrap',
-                    boxShadow: isPro ? '0 3px 14px rgba(255,215,0,0.45)' : '0 3px 10px rgba(45,199,109,0.35)',
+                    boxShadow: '0 3px 14px rgba(45,199,109,0.35)',
                     letterSpacing:'0.5px',
                   }}>
-                    {isPro ? (
-                      <span style={{ display:'inline-flex', alignItems:'center', gap:4 }}>
-                        <Ic d={P.crown} size={13} color="#1A1200" /> Premium
-                      </span>
-                    ) : p.badge}
+                    {p.badge}
                   </span>
                 )}
 
                 {/* Name + size */}
                 <div style={{ marginBottom:18 }}>
-                  <div style={{ fontFamily:'Kanit,sans-serif', fontWeight:800, fontSize:22, color: isPro ? '#FFD700' : '#6B21A8' }}>{p.name}</div>
-                  <div style={{ fontFamily:'Sarabun,sans-serif', fontSize:12.5, color: isPro ? 'rgba(255,215,0,0.6)' : '#9333EA', marginTop:8, display:'flex', alignItems:'center', gap:6,
-                    background: isPro ? 'rgba(255,215,0,0.07)' : 'rgba(168,85,247,0.08)', padding:'4px 12px', borderRadius:100, width:'fit-content', fontWeight:600 }}>
-                    <Ic d={P.home} size={12} color={isPro ? 'rgba(255,215,0,0.6)' : '#9333EA'} /> {p.size}
+                  <div style={{ fontFamily:'Kanit,sans-serif', fontWeight:800, fontSize:22, color: isPro ? '#2DC76D' : '#1A2433' }}>{p.name}</div>
+                  <div style={{ fontFamily:'Sarabun,sans-serif', fontSize:12.5, color: isPro ? 'rgba(255,255,255,0.7)' : '#546E7A', marginTop:8, display:'flex', alignItems:'center', gap:6,
+                    background: isPro ? 'rgba(45,199,109,0.1)' : '#f1f5f9', padding:'4px 12px', borderRadius:100, width:'fit-content', fontWeight:600 }}>
+                    <Ic d={P.home} size={12} color={isPro ? '#2DC76D' : '#64748B'} /> {p.size}
                   </div>
                 </div>
 
                 {/* Price */}
-                <div style={{ paddingBottom:20, borderBottom:`1px solid ${isPro ? 'rgba(255,215,0,0.12)' : 'rgba(168,85,247,0.12)'}`, marginBottom:20 }}>
+                <div style={{ paddingBottom:20, borderBottom:`1px solid ${isPro ? 'rgba(255,255,255,0.1)' : '#f1f5f9'}`, marginBottom:20 }}>
                   <div style={{ display:'flex', alignItems:'baseline', gap:4 }}>
-                    <span style={{ fontFamily:'Kanit,sans-serif', fontSize:18, color: isPro ? '#FFD700' : '#A855F7' }}>฿</span>
-                    <span style={{ fontFamily:'Kanit,sans-serif', fontWeight:800, fontSize:52, color: isPro ? '#FFD700' : '#A855F7', letterSpacing:'-2.5px', lineHeight:1 }}>
+                    <span style={{ fontFamily:'Kanit,sans-serif', fontSize:18, color: isPro ? '#2DC76D' : '#1A2433' }}>฿</span>
+                    <span style={{ fontFamily:'Kanit,sans-serif', fontWeight:800, fontSize:52, color: isPro ? '#2DC76D' : '#1A2433', letterSpacing:'-2.5px', lineHeight:1 }}>
                       {p.price}
                     </span>
-                    <span style={{ fontFamily:'Sarabun,sans-serif', fontSize:14, color: isPro ? 'rgba(255,215,0,0.55)' : 'rgba(168,85,247,0.6)' }}>{p.unit}</span>
+                    <span style={{ fontFamily:'Sarabun,sans-serif', fontSize:14, color: isPro ? 'rgba(255,255,255,0.5)' : '#64748B' }}>{p.unit}</span>
                   </div>
-                  <div style={{ fontFamily:'Sarabun,sans-serif', fontSize:12, color: isPro ? 'rgba(255,215,0,0.42)' : 'rgba(168,85,247,0.5)', marginTop:6 }}>{p.annual}</div>
+                  <div style={{ fontFamily:'Sarabun,sans-serif', fontSize:12, color: isPro ? 'rgba(255,255,255,0.4)' : '#94a3b8', marginTop:6 }}>{p.annual}</div>
                 </div>
 
                 {/* Features */}
                 <ul style={{ listStyle:'none', flex:1, display:'flex', flexDirection:'column', gap:10, marginBottom:24 }}>
                   {p.features.map(f => {
-                    const isSoon = f.startsWith('เร็วๆ นี้')
-                    const text = isSoon ? f.replace('เร็วๆ นี้ ','') : f
                     return (
-                      <li key={f} style={{ display:'flex', alignItems:'flex-start', gap:10, fontFamily:'Sarabun,sans-serif', fontSize:13.5, color: isPro ? 'rgba(255,255,255,0.82)' : '#4B3F6B' }}>
-                        <div style={{ width:18, height:18, borderRadius:'50%', background: isSoon ? 'rgba(245,124,0,0.12)' : isPro ? 'rgba(255,215,0,0.12)' : 'rgba(168,85,247,0.12)', display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0, marginTop:2 }}>
-                          <Ic d={isSoon ? P.clock : P.check} size={10} color={isSoon ? '#F57C00' : isPro ? '#FFD700' : '#A855F7'} />
+                      <li key={f} style={{ display:'flex', alignItems:'flex-start', gap:10, fontFamily:'Sarabun,sans-serif', fontSize:13.5, color: isPro ? 'rgba(255,255,255,0.85)' : '#334155' }}>
+                        <div style={{ width:18, height:18, borderRadius:'50%', background: isPro ? 'rgba(45,199,109,0.15)' : 'rgba(0,184,162,0.1)', display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0, marginTop:2 }}>
+                          <Ic d={P.check} size={10} color={isPro ? '#2DC76D' : '#00B8A2'} />
                         </div>
                         <div style={{ flex:1, lineHeight:1.45 }}>
-                          {text}
-                          {isSoon && <span style={{ marginLeft:6, fontSize:10.5, padding:'1px 7px', background: isPro ? 'rgba(245,124,0,0.15)' : 'rgba(245,124,0,0.1)', color:'#F57C00', borderRadius:100, whiteSpace:'nowrap' }}>เร็วๆ นี้</span>}
+                          {f}
                         </div>
                       </li>
                     )
@@ -912,39 +726,40 @@ function Pricing() {
                   style={{
                     display:'block', textAlign:'center', padding:'14px 0', borderRadius:100,
                     fontFamily:'Kanit,sans-serif', fontWeight:700, fontSize:14.5, textDecoration:'none',
-                    background: isPro ? 'linear-gradient(135deg,#A67C00,#FFD700,#A67C00)' : 'linear-gradient(135deg,#A855F7,#7C3AED)',
-                    color: isPro ? '#1A1200' : 'white',
-                    boxShadow: isPro ? '0 6px 24px rgba(255,215,0,0.38)' : '0 6px 24px rgba(168,85,247,0.38)',
+                    background: isPro ? 'linear-gradient(135deg,#2DC76D,#00B8A2)' : '#f8fafc',
+                    color: isPro ? 'white' : '#0f172a',
+                    border: isPro ? 'none' : '1px solid #e2e8f0',
+                    boxShadow: isPro ? '0 6px 24px rgba(45,199,109,0.3)' : 'none',
                     transition:'all 0.18s ease',
                     letterSpacing:'0.3px',
                   }}
-                  onMouseEnter={e => { e.currentTarget.style.filter='brightness(1.1)'; e.currentTarget.style.transform='translateY(-2px)'; e.currentTarget.style.boxShadow = isPro ? '0 10px 32px rgba(255,215,0,0.52)' : '0 10px 32px rgba(168,85,247,0.52)' }}
-                  onMouseLeave={e => { e.currentTarget.style.filter=''; e.currentTarget.style.transform=''; e.currentTarget.style.boxShadow = isPro ? '0 6px 24px rgba(255,215,0,0.38)' : '0 6px 24px rgba(168,85,247,0.38)' }}>
-                  {p.cta}
-                </a>
-
-                {/* LINE Support note */}
-                <a href={`https://line.me/R/oaMessage/${encodeURIComponent('@127qwwfi')}/?${encodeURIComponent('สมัคร')}`}
-                  target="_blank" rel="noopener noreferrer"
-                  style={{ textDecoration:'none', display:'block', marginTop:12 }}>
-                  <div style={{
-                    fontSize:12, fontFamily:'Sarabun,sans-serif', textAlign:'center',
-                    background: isPro ? 'rgba(255,215,0,0.06)' : 'rgba(168,85,247,0.06)',
-                    border: `1px solid ${isPro ? 'rgba(255,215,0,0.15)' : 'rgba(168,85,247,0.15)'}`,
-                    borderRadius:10, padding:'8px 12px', cursor:'pointer',
-                    transition:'all 0.2s ease',
+                  onMouseEnter={e => {
+                    if (isPro) {
+                      e.currentTarget.style.filter='brightness(1.1)'; e.currentTarget.style.transform='translateY(-2px)';
+                    } else {
+                      e.currentTarget.style.background='#f1f5f9';
+                    }
                   }}
-                    onMouseEnter={e => { e.currentTarget.style.background = isPro ? 'rgba(255,215,0,0.12)' : 'rgba(168,85,247,0.12)' }}
-                    onMouseLeave={e => { e.currentTarget.style.background = isPro ? 'rgba(255,215,0,0.06)' : 'rgba(168,85,247,0.06)' }}>
-                    <span style={{ fontWeight:600, color: isPro ? '#FFD700' : '#A855F7', display:'inline-flex', alignItems:'center', gap:4 }}>
-                      <Ic d={P.gift} size={14} color={isPro ? '#FFD700' : '#A855F7'} /> ถูกกว่าเมื่อสมัครผ่าน LINE เพียง {isPro ? '฿299' : '฿199'}/เดือน
-                    </span>
-                    <span style={{ display:'block', color: isPro ? 'rgba(255,215,0,0.5)' : 'rgba(168,85,247,0.5)', fontSize:10.5, marginTop:2 }}>แตะเพื่อสมัครผ่าน LINE Support ▸</span>
-                  </div>
+                  onMouseLeave={e => {
+                    if (isPro) {
+                      e.currentTarget.style.filter=''; e.currentTarget.style.transform='';
+                    } else {
+                      e.currentTarget.style.background='#f8fafc';
+                    }
+                  }}>
+                  {p.cta}
                 </a>
               </div>
             )
           })}
+        </div>
+
+        {/* Old Customer Note */}
+        <div style={{ textAlign:'center', marginTop:24 }}>
+          <p style={{ fontFamily:'Sarabun,sans-serif', fontSize:13.5, color:'#546E7A', background:'rgba(255,193,7,0.1)', display:'inline-flex', alignItems:'center', gap:6, padding:'10px 18px', borderRadius:100, border:'1px solid rgba(255,193,7,0.3)' }}>
+            <Ic d={P.info} size={16} color="#FF9800" />
+            <strong style={{ color:'#1A2433' }}>ลูกค้าเก่า:</strong> สามารถต่ออายุแพ็กเกจเดิมได้ในราคาเท่าเดิม หากไม่ต้องการเปลี่ยน
+          </p>
         </div>
 
         {/* Trust row */}
@@ -962,17 +777,15 @@ function Pricing() {
 
 // ── FAQ ───────────────────────────────────────────────────────────────────────
 const FAQS = [
-  { q:'มีแพ็กเกจฟรีจริงไหม? มีเงื่อนไขอะไรบ้าง?', a:'มีจริง ไม่มีวันหมดอายุ รองรับห้องพักได้ถึง 250 ห้อง ใช้งานได้ 1 บัญชี ครบทุกฟีเจอร์ที่ Excel ทำได้ ทั้งจัดการห้อง ผู้เช่า ค่าน้ำค่าไฟ ใบแจ้งหนี้ และสัญญาเช่า ข้อเดียวที่ไม่มีคือการแจ้งเตือนผ่าน LINE ไม่ต้องใช้บัตรเครดิต' },
-  { q:'ย้ายจาก Excel มาใช้ HorCare ได้เลยไหม?', a:'ได้เลย รองรับนำเข้าข้อมูลจาก Excel/CSV ทั้งข้อมูลผู้เช่า ห้องพัก และประวัติการชำระเงิน ทีมงานพร้อมช่วย Migration ฟรีสำหรับแพ็กเกจหอกลางขึ้นไป' },
-  { q:'คิดราคาอย่างไร? อัปเกรดหรือยกเลิกได้ไหม?', a:'เริ่มฟรีสำหรับ ≤250 ห้อง (ไม่มี LINE) แพ็กเกจปกติ: Start ฿149/เดือน, Plus ฿259/เดือน, Pro ฿399/เดือน (สมัครผ่าน LINE Support คุ้มกว่า เริ่มต้นเพียง ฿79/เดือน) อัปเกรด ดาวน์เกรด หรือยกเลิกได้ทุกเมื่อ ราคายังไม่รวม VAT' },
+  { q:'ย้ายจาก Excel มาใช้ HorCare ได้เลยไหม?', a:'ได้เลย รองรับนำเข้าข้อมูลจาก Excel/CSV ทั้งข้อมูลผู้เช่า ห้องพัก และประวัติการชำระเงิน ทีมงานพร้อมช่วย Migration ให้ฟรี' },
+  { q:'คิดราคาอย่างไร? อัปเกรดหรือยกเลิกได้ไหม?', a:'แพ็กเกจ HorCare ราคา ฿399/เดือน (หรือ ฿2,590/ปี) ใช้ได้ทุกฟีเจอร์ ไม่จำกัดห้อง สูงสุด 10 หอ ไม่มีสัญญาผูกมัดและสามารถยกเลิกได้ทุกเมื่อ ราคายังไม่รวม VAT' },
   { q:'ข้อมูลของฉันปลอดภัยแค่ไหน?', a:'ข้อมูลทุกอย่างเข้ารหัส SSL/TLS มีระบบสำรองข้อมูลอัตโนมัติทุกวัน ข้อมูลของคุณจะไม่ถูกแชร์หรือขายให้บุคคลที่สาม' },
   { q:'ผู้เช่าต้องดาวน์โหลดแอปไหม?', a:'ไม่จำเป็น ผู้เช่าเข้าถึงระบบผ่านเบราว์เซอร์บนมือถือหรือคอมพิวเตอร์ได้เลย ไม่ต้องติดตั้งอะไรเพิ่ม' },
   { q:'ติดต่อซัพพอร์ตได้ทางไหน?', a:'ติดต่อผ่าน LINE @127qwwfi ทีมงานพร้อมตอบในวันจันทร์–ศุกร์ 09:00–18:00 น. และวันเสาร์ 09:00–13:00 น. ตอบกลับภายใน 2 ชั่วโมง' },
   { q:'โปรแกรมจัดการหอพักต่างจากใช้ Excel อย่างไร?', a:'Excel ต้องคีย์ข้อมูลเองทุกขั้นตอน เสี่ยงผิดพลาด และไม่มีการแจ้งเตือนอัตโนมัติ ส่วน HorCare สร้างบิล คำนวณค่าน้ำค่าไฟ และส่งแจ้งเตือนผ่าน LINE ได้อัตโนมัติ ประหยัดเวลาได้ 15–20 ชั่วโมงต่อเดือน และลดข้อผิดพลาดในการคำนวณได้ 95%' },
-  { q:'จัดการหอพักหลายสาขาในบัญชีเดียวได้ไหม?', a:'ได้ครับ แพ็กเกจ Pro รองรับการจัดการหอพักหลายสาขาจาก Dashboard เดียว ดูภาพรวมรายได้ อัตราการเช่า และสถานะห้องพักทุกสาขาในหน้าเดียว โดยไม่ต้องสลับบัญชี' },
+  { q:'จัดการหอพักหลายสาขาในบัญชีเดียวได้ไหม?', a:'ได้ครับ แพ็กเกจ HorCare รองรับการจัดการหอพักหลายสาขาจาก Dashboard เดียว ดูภาพรวมรายได้ อัตราการเช่า และสถานะห้องพักทุกสาขาในหน้าเดียว โดยไม่ต้องสลับบัญชี' },
   { q:'ผู้เช่าสามารถดูใบแจ้งหนี้และยอดค้างชำระออนไลน์ได้ไหม?', a:'ได้ครับ ผู้เช่าสามารถดูใบแจ้งหนี้ ยอดค้างชำระ และประวัติการชำระเงินผ่านเบราว์เซอร์บนมือถือได้เลย ไม่ต้องดาวน์โหลดแอป และยังได้รับแจ้งเตือนผ่าน LINE โดยอัตโนมัติ' },
   { q:'HorCare ใช้งานบนมือถือได้ไหม?', a:'ได้ HorCare เป็น Web Application ที่ออกแบบมาให้ใช้งานได้ดีทั้งบน smartphone แท็บเล็ต และคอมพิวเตอร์ ไม่ต้องติดตั้งแอปเพิ่มเติม เปิดเบราว์เซอร์ก็ใช้งานได้ทันที' },
-  { q:'มีช่วงทดลองใช้ฟรีหรือไม่? ต้องผูกบัตรเครดิตไหม?', a:'แพ็กเกจฟรีไม่มีวันหมดอายุ ไม่ต้องใส่บัตรเครดิต ทดลองใช้ได้เลยทันทีโดยไม่มีเงื่อนไข รองรับสูงสุด 250 ห้อง ครบทุกฟีเจอร์ยกเว้นการแจ้งเตือน LINE เมื่อพร้อมจึงค่อยอัปเกรด' },
 ]
 
 function FAQ() {
