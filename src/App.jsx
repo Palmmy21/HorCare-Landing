@@ -603,7 +603,7 @@ const PLANS = [
       'สร้างสัญญาเช่าออนไลน์',
       'พิมพ์ใบเสร็จรับเงิน',
     ],
-    cta:'สมัครใช้งานฟรี', hi:false, premium:false, c:'#00B8A2', href:`https://line.me/R/oaMessage/@127qwwfi/?${encodeURIComponent('สนใจแพ็กเกจ ฟรีเสมอ')}`, ext:true,
+    cta:'สมัครใช้งานฟรี', hi:false, premium:false, c:'#00B8A2', href:HORCARE_URL, ext:true,
   },
   {
     name:'HorCare', size:'ไม่จำกัดห้อง · สูงสุด 10 หอ', price:'399', unit:'/เดือน', annual:'หรือ ฿2,990/ปี (ประหยัด 38%)',
