@@ -1,9 +1,5 @@
-{
+﻿{
   "regions": ["hnd1"],
-  "rewrites": [
-    { "source": "/privacy",    "destination": "/privacy/index.html"    },
-    { "source": "/terms",      "destination": "/terms/index.html"      },
-    { "source": "/calculator", "destination": "/calculator/index.html" },
-    { "source": "/(.*)",       "destination": "/index.html"            }
-  ]
+  "cleanUrls": true,
+  "trailingSlash": false
 }

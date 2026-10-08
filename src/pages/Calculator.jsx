@@ -1,363 +1,212 @@
-import { useState, useCallback } from 'react'
+﻿import { useId, useState } from 'react'
 import { Link } from 'react-router-dom'
-
-const HORCARE_URL = 'https://hor-care.vercel.app/'
-
-const Ic = ({ d, size = 18, color = 'currentColor', style: s = {} }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
-    stroke={color} strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round"
-    style={{ flexShrink: 0, ...s }} aria-hidden="true">
-    <path d={d} />
-  </svg>
-)
-
-const ICON = {
-  settings: 'M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75',
-  chart:    'M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z',
-  link:     'M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244',
-  bolt:     'M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z',
-  droplet:  'M19.5 12c0 4.136-3.364 7.5-7.5 7.5S4.5 16.136 4.5 12C4.5 7.875 12 2.25 12 2.25S19.5 7.875 19.5 12z',
-  doc:      'M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25z',
-  wrench:   'M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75',
-  calc:     'M15.75 15.75V18m-7.5-6.75h.008v.008H8.25v-.008zm0 2.25h.008v.008H8.25V13.5zm0 2.25h.008v.008H8.25v-.008zm0 2.25h.008v.008H8.25V18zm2.498-6.75h.007v.008h-.007v-.008zm0 2.25h.007v.008h-.007V13.5zm0 2.25h.007v.008h-.007v-.008zm0 2.25h.007v.008h-.007V18zm2.504-6.75h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V13.5zm0 2.25h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V18zm2.498-6.75h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V13.5zM8.25 6h7.5v3h-7.5V6zM12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25z',
-}
-
-const ELECTRICITY_RATE = 8.0   // บาท/หน่วย (อัตราหอพักทั่วไป ไม่เกิน กกพ.)
-const WATER_RATE       = 18.0  // บาท/หน่วย (ลบ.ม.)
-
-function NumInput({ label, unit, value, onChange, min = 0, hint }) {
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-      <label style={{ fontFamily: 'Kanit,sans-serif', fontWeight: 500, fontSize: 14, color: '#1A2433' }}>
-        {label}
-      </label>
-      <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-        <input
-          type="number"
-          min={min}
-          value={value}
-          onChange={e => onChange(e.target.value === '' ? '' : Number(e.target.value))}
-          style={{
-            width: '100%', padding: '10px 52px 10px 14px',
-            fontFamily: 'Kanit,sans-serif', fontSize: 16, fontWeight: 600,
-            border: '1.5px solid rgba(0,184,162,0.3)', borderRadius: 10,
-            outline: 'none', color: '#1A2433', background: '#fff',
-            boxSizing: 'border-box',
-          }}
-          onFocus={e => e.target.style.borderColor = '#00B8A2'}
-          onBlur={e  => e.target.style.borderColor = 'rgba(0,184,162,0.3)'}
-        />
-        <span style={{
-          position: 'absolute', right: 12,
-          fontFamily: 'Sarabun,sans-serif', fontSize: 12, color: '#90A4AE', pointerEvents: 'none',
-        }}>{unit}</span>
-      </div>
-      {hint && <p style={{ fontFamily: 'Sarabun,sans-serif', fontSize: 11.5, color: '#90A4AE', margin: 0 }}>{hint}</p>}
-    </div>
-  )
-}
-
-function ResultRow({ label, value, color = '#1A2433', large = false, border = false }) {
-  return (
-    <div style={{
-      display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-      padding: '10px 0',
-      borderTop: border ? '1px solid #f0f0f0' : 'none',
-    }}>
-      <span style={{ fontFamily: 'Sarabun,sans-serif', fontSize: large ? 15 : 13.5, color: '#546E7A' }}>{label}</span>
-      <span style={{ fontFamily: 'Kanit,sans-serif', fontWeight: large ? 700 : 600, fontSize: large ? 20 : 14, color }}>{value}</span>
-    </div>
-  )
-}
-
-function RoomRow({ room, onUpdate, onRemove, index }) {
-  return (
-    <div style={{
-      background: '#fff', borderRadius: 14, padding: '18px 20px',
-      border: '1px solid rgba(0,184,162,0.12)',
-      boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
-    }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
-        <span style={{ fontFamily: 'Kanit,sans-serif', fontWeight: 600, fontSize: 14, color: '#00B8A2' }}>
-          ห้องที่ {index + 1}
-        </span>
-        {index > 0 && (
-          <button onClick={onRemove} style={{
-            background: 'none', border: 'none', cursor: 'pointer',
-            fontFamily: 'Sarabun,sans-serif', fontSize: 12, color: '#E53935', padding: '2px 6px',
-          }}>ลบ</button>
-        )}
-      </div>
-
-      <div className="calc-room-grid">
-        <NumInput label="เลขมิเตอร์ไฟ (ต้น)" unit="หน่วย" value={room.elecPrev}
-          onChange={v => onUpdate({ ...room, elecPrev: v })} />
-        <NumInput label="เลขมิเตอร์ไฟ (ปลาย)" unit="หน่วย" value={room.elecCurr}
-          onChange={v => onUpdate({ ...room, elecCurr: v })} />
-        <NumInput label="เลขมิเตอร์น้ำ (ต้น)" unit="ลบ.ม." value={room.waterPrev}
-          onChange={v => onUpdate({ ...room, waterPrev: v })} />
-        <NumInput label="เลขมิเตอร์น้ำ (ปลาย)" unit="ลบ.ม." value={room.waterCurr}
-          onChange={v => onUpdate({ ...room, waterCurr: v })} />
-        <NumInput label="ค่าเช่าห้อง" unit="บาท" value={room.rent}
-          onChange={v => onUpdate({ ...room, rent: v })} />
-        <NumInput label="ค่าใช้จ่ายอื่นๆ" unit="บาท" value={room.extra}
-          onChange={v => onUpdate({ ...room, extra: v })} hint="ค่าส่วนกลาง ค่าจอดรถ ฯลฯ" />
-      </div>
-
-      {/* Per-room summary */}
-      {(() => {
-        const elec  = Math.max(0, (room.elecCurr  || 0) - (room.elecPrev  || 0))
-        const water = Math.max(0, (room.waterCurr || 0) - (room.waterPrev || 0))
-        const elecCost  = elec  * ELECTRICITY_RATE
-        const waterCost = water * WATER_RATE
-        const total = (room.rent || 0) + elecCost + waterCost + (room.extra || 0)
-        return (
-          <div style={{ marginTop: 14, paddingTop: 14, borderTop: '1px dashed rgba(0,184,162,0.2)', display: 'flex', gap: 16, flexWrap: 'wrap' }}>
-            <span style={{ fontFamily: 'Sarabun,sans-serif', fontSize: 12, color: '#546E7A' }}>
-              ไฟ <strong style={{ color: '#FF9800' }}>{elec} หน่วย</strong> = {elecCost.toLocaleString('th-TH', { minimumFractionDigits: 2 })} บาท
-            </span>
-            <span style={{ fontFamily: 'Sarabun,sans-serif', fontSize: 12, color: '#546E7A' }}>
-              น้ำ <strong style={{ color: '#1E88E5' }}>{water} ลบ.ม.</strong> = {waterCost.toLocaleString('th-TH', { minimumFractionDigits: 2 })} บาท
-            </span>
-            <span style={{ fontFamily: 'Kanit,sans-serif', fontSize: 13, fontWeight: 700, color: '#2DC76D', marginLeft: 'auto' }}>
-              รวม {total.toLocaleString('th-TH', { minimumFractionDigits: 2 })} บาท
-            </span>
-          </div>
-        )
-      })()}
-    </div>
-  )
-}
-
-const newRoom = () => ({ elecPrev: 0, elecCurr: 0, waterPrev: 0, waterCurr: 0, rent: 3000, extra: 0 })
-
-export default function Calculator() {
-  const [elecRate,  setElecRate]  = useState(ELECTRICITY_RATE)
-  const [waterRate, setWaterRate] = useState(WATER_RATE)
-  const [rooms, setRooms] = useState([newRoom()])
-
-  const updateRoom = useCallback((i, r) => setRooms(prev => prev.map((x, idx) => idx === i ? r : x)), [])
-  const removeRoom = useCallback(i => setRooms(prev => prev.filter((_, idx) => idx !== i)), [])
-  const addRoom    = useCallback(() => setRooms(prev => [...prev, newRoom()]), [])
-
-  const summary = rooms.map(r => {
-    const elec  = Math.max(0, (r.elecCurr  || 0) - (r.elecPrev  || 0))
-    const water = Math.max(0, (r.waterCurr || 0) - (r.waterPrev || 0))
-    const elecCost  = elec  * elecRate
-    const waterCost = water * waterRate
-    return { elec, water, elecCost, waterCost, rent: r.rent || 0, extra: r.extra || 0,
-      total: (r.rent || 0) + elecCost + waterCost + (r.extra || 0) }
+import { Navbar } from '../components/Navbar.jsx'
+import { Footer } from '../components/Footer.jsx'
+import { Ic, HORCARE_URL } from '../components/shared.jsx'
+const initialRoom = (id) => ({
+  id,
+  elecPrev: 0,
+  elecCurr: 0,
+  waterPrev: 0,
+  waterCurr: 0,
+  rent: 3000,
+  extra: 0,
+})
+const money = (value) =>
+  value.toLocaleString('th-TH', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
   })
-
-  const grand = summary.reduce((acc, s) => ({
-    elec:      acc.elec      + s.elec,
-    water:     acc.water     + s.water,
-    elecCost:  acc.elecCost  + s.elecCost,
-    waterCost: acc.waterCost + s.waterCost,
-    rent:      acc.rent      + s.rent,
-    extra:     acc.extra     + s.extra,
-    total:     acc.total     + s.total,
-  }), { elec: 0, water: 0, elecCost: 0, waterCost: 0, rent: 0, extra: 0, total: 0 })
-
-  const fmt = n => n.toLocaleString('th-TH', { minimumFractionDigits: 2 })
-
+function Field({ label, value, onChange }) {
+  const id = useId()
   return (
-    <div style={{ minHeight: '100vh', background: '#F8FAFB', fontFamily: 'Kanit,sans-serif' }}>
-      <style>{`
-        .calc-main-grid { display: grid; grid-template-columns: minmax(0,1fr) 300px; gap: 24px; align-items: start; }
-        .calc-sticky { position: sticky; top: 76px; }
-        .calc-rate-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .calc-room-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(140px,1fr)); gap: 12px; }
-        .calc-info-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(240px,1fr)); gap: 20px; }
-        .calc-header { padding: 52px 24px 44px; }
-        .calc-seo { padding: 36px; }
-        .calc-cta-short { display: none; }
-        .calc-cta-long { display: inline; }
-        @media (max-width: 700px) {
-          .calc-main-grid { grid-template-columns: 1fr; }
-          .calc-sticky { position: static; }
-          .calc-header { padding: 36px 16px 30px; }
-          .calc-seo { padding: 24px 16px; }
+    <div className="field">
+      <label htmlFor={id}>{label}</label>
+      <input
+        id={id}
+        type="number"
+        inputMode="decimal"
+        min="0"
+        step="0.01"
+        value={value}
+        onChange={(e) =>
+          onChange(
+            e.target.value === '' ? '' : Math.max(0, Number(e.target.value)),
+          )
         }
-        @media (max-width: 480px) {
-          .calc-rate-grid { grid-template-columns: 1fr; }
-          .calc-room-grid { grid-template-columns: repeat(auto-fill,minmax(130px,1fr)); }
-          .calc-cta-long { display: none; }
-          .calc-cta-short { display: inline; }
-        }
-      `}</style>
-
-      {/* Nav */}
-      <nav style={{ background: '#fff', borderBottom: '1px solid rgba(0,184,162,0.12)', padding: '0 16px', position: 'sticky', top: 0, zIndex: 50 }}>
-        <div style={{ maxWidth: 960, margin: '0 auto', height: 60, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
-          <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none', flexShrink: 0 }}>
-            <img src="/2.png" width={36} height={36} alt="HorCare" style={{ objectFit: 'contain' }} />
-            <span style={{ fontFamily: 'Kanit,sans-serif', fontWeight: 700, fontSize: 18 }}>
-              <span style={{ color: '#2DC76D' }}>Hor</span><span style={{ color: '#1565C0' }}>Care</span>
-            </span>
-          </Link>
-          <a href={HORCARE_URL} target="_blank" rel="noopener noreferrer"
-            style={{ fontFamily: 'Kanit,sans-serif', fontWeight: 600, fontSize: 13, color: '#fff', background: 'linear-gradient(135deg,#2DC76D,#00B8A2)', padding: '8px 16px', borderRadius: 100, textDecoration: 'none', flexShrink: 0, whiteSpace: 'nowrap' }}>
-            <span className="calc-cta-long">ใช้ฟรีในระบบ HorCare →</span>
-            <span className="calc-cta-short">ใช้ฟรี →</span>
-          </a>
-        </div>
-      </nav>
-
-      {/* Header */}
-      <div className="calc-header" style={{ background: 'linear-gradient(150deg,#0B1A27,#122338 55%,#0A1F14)', textAlign: 'center' }}>
-        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 7, background: 'rgba(45,199,109,0.13)', border: '1px solid rgba(45,199,109,0.3)', borderRadius: 100, padding: '6px 16px', marginBottom: 20 }}>
-          <span style={{ fontFamily: 'Sarabun,sans-serif', fontSize: 11.5, fontWeight: 600, color: '#2DC76D', letterSpacing: '0.1em', textTransform: 'uppercase' }}>เครื่องคำนวณ • ฟรี 100%</span>
-        </div>
-        <h1 style={{ fontFamily: 'Kanit,sans-serif', fontWeight: 800, fontSize: 'clamp(1.6rem,4vw,2.6rem)', color: '#fff', lineHeight: 1.2, marginBottom: 12 }}>
-          เครื่องคำนวณค่าน้ำค่าไฟหอพัก
-        </h1>
-        <p style={{ fontFamily: 'Sarabun,sans-serif', fontSize: 15.5, color: 'rgba(255,255,255,0.6)', maxWidth: 500, margin: '0 auto', lineHeight: 1.7 }}>
-          คำนวณค่าน้ำ ค่าไฟ และยอดรวมที่เรียกเก็บจากผู้เช่าได้ทันที รองรับหลายห้องพร้อมกัน
-        </p>
-      </div>
-
-      <div style={{ maxWidth: 960, margin: '0 auto', padding: '32px 16px 60px' }}>
-        <div className="calc-main-grid">
-
-          {/* Left — inputs */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-
-            {/* Rate settings */}
-            <div style={{ background: '#fff', borderRadius: 14, padding: '20px', border: '1px solid rgba(0,184,162,0.12)' }}>
-              <h2 style={{ fontFamily: 'Kanit,sans-serif', fontWeight: 600, fontSize: 14, color: '#1A2433', marginBottom: 14, display: 'flex', alignItems: 'center', gap: 8 }}>
-                <Ic d={ICON.settings} size={16} color="#00B8A2" /> ตั้งค่าอัตราค่าน้ำค่าไฟ
-              </h2>
-              <div className="calc-rate-grid">
-                <NumInput
-                  label="อัตราค่าไฟ" unit="บาท/หน่วย"
-                  value={elecRate} onChange={setElecRate}
-                  hint="กกพ. กำหนดไม่เกิน ~8–9 บาท/หน่วย"
-                />
-                <NumInput
-                  label="อัตราค่าน้ำ" unit="บาท/ลบ.ม."
-                  value={waterRate} onChange={setWaterRate}
-                  hint="ค่าน้ำเฉลี่ยหอพักทั่วไป"
-                />
-              </div>
-            </div>
-
-            {/* Room rows */}
-            {rooms.map((r, i) => (
-              <RoomRow key={i} index={i} room={r}
-                onUpdate={r => updateRoom(i, r)}
-                onRemove={() => removeRoom(i)} />
-            ))}
-
-            {/* Add room */}
-            <button onClick={addRoom} style={{
-              width: '100%', padding: '12px', borderRadius: 12,
-              border: '1.5px dashed rgba(0,184,162,0.4)', background: 'rgba(0,184,162,0.04)',
-              fontFamily: 'Kanit,sans-serif', fontWeight: 600, fontSize: 14, color: '#00B8A2',
-              cursor: 'pointer', transition: 'background 0.15s',
-            }}
-              onMouseEnter={e => e.currentTarget.style.background = 'rgba(0,184,162,0.09)'}
-              onMouseLeave={e => e.currentTarget.style.background = 'rgba(0,184,162,0.04)'}>
-              + เพิ่มห้อง ({rooms.length} ห้องที่คำนวณอยู่)
-            </button>
-          </div>
-
-          {/* Right — summary (sticky on desktop, static on mobile) */}
-          <div className="calc-sticky">
-            <div style={{ background: '#fff', borderRadius: 16, padding: '22px', border: '1.5px solid rgba(0,184,162,0.22)', boxShadow: '0 4px 24px rgba(0,184,162,0.1)' }}>
-              <h2 style={{ fontFamily: 'Kanit,sans-serif', fontWeight: 700, fontSize: 15, color: '#1A2433', marginBottom: 14, display: 'flex', alignItems: 'center', gap: 8 }}>
-                <Ic d={ICON.chart} size={16} color="#00B8A2" /> สรุปยอดรวมทุกห้อง
-              </h2>
-
-              <ResultRow label={`ค่าไฟรวม (${grand.elec.toFixed(0)} หน่วย)`}
-                value={`฿${fmt(grand.elecCost)}`} color="#FF9800" />
-              <ResultRow label={`ค่าน้ำรวม (${grand.water.toFixed(0)} ลบ.ม.)`}
-                value={`฿${fmt(grand.waterCost)}`} color="#1E88E5" />
-              <ResultRow label="ค่าเช่ารวม"
-                value={`฿${fmt(grand.rent)}`} />
-              {grand.extra > 0 && (
-                <ResultRow label="ค่าอื่นๆ รวม"
-                  value={`฿${fmt(grand.extra)}`} />
-              )}
-
-              <div style={{ marginTop: 4, paddingTop: 12, borderTop: '2px solid #f0f0f0' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ fontFamily: 'Kanit,sans-serif', fontWeight: 600, fontSize: 15, color: '#1A2433' }}>ยอดรวมทั้งหมด</span>
-                  <span style={{ fontFamily: 'Kanit,sans-serif', fontWeight: 800, fontSize: 26, color: '#2DC76D' }}>฿{fmt(grand.total)}</span>
-                </div>
-                <p style={{ fontFamily: 'Sarabun,sans-serif', fontSize: 11.5, color: '#90A4AE', marginTop: 4 }}>
-                  จาก {rooms.length} ห้อง • ค่าเฉลี่ย ฿{fmt(grand.total / rooms.length)}/ห้อง
-                </p>
-              </div>
-
-              <div style={{ marginTop: 18, paddingTop: 16, borderTop: '1px solid #f5f5f5' }}>
-                <p style={{ fontFamily: 'Sarabun,sans-serif', fontSize: 12.5, color: '#546E7A', lineHeight: 1.7, marginBottom: 12 }}>
-                  คำนวณด้วยมือทุกเดือนเหนื่อยไหม? <strong style={{ color: '#1A2433' }}>HorCare</strong> ทำให้อัตโนมัติ — บันทึกมิเตอร์ ระบบคำนวณและสร้างบิลให้ทันที
-                </p>
-                <a href={HORCARE_URL} target="_blank" rel="noopener noreferrer"
-                  style={{
-                    display: 'block', textAlign: 'center', padding: '11px', borderRadius: 100,
-                    background: 'linear-gradient(135deg,#2DC76D,#00B8A2)', color: '#fff',
-                    fontFamily: 'Kanit,sans-serif', fontWeight: 700, fontSize: 14, textDecoration: 'none',
-                    boxShadow: '0 4px 16px rgba(45,199,109,0.35)',
-                  }}>
-                  ใช้ฟรีใน HorCare →
-                </a>
-              </div>
-            </div>
-
-            {/* Share note */}
-            <div style={{ marginTop: 12, background: 'rgba(21,101,192,0.06)', border: '1px solid rgba(21,101,192,0.15)', borderRadius: 12, padding: '14px 16px' }}>
-              <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
-                <Ic d={ICON.link} size={14} color="#1565C0" style={{ marginTop: 2, flexShrink: 0 }} />
-                <p style={{ fontFamily: 'Sarabun,sans-serif', fontSize: 12, color: '#546E7A', lineHeight: 1.6, margin: 0 }}>
-                  แชร์เครื่องคำนวณนี้ให้เพื่อนเจ้าของหอพัก<br />
-                  <strong style={{ color: '#1565C0' }}>horcare-landing.vercel.app/calculator</strong>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* SEO info section */}
-        <section className="calc-seo" style={{ marginTop: 52, background: '#fff', borderRadius: 16, border: '1px solid rgba(0,184,162,0.1)' }}>
-          <h2 style={{ fontFamily: 'Kanit,sans-serif', fontWeight: 700, fontSize: 'clamp(1.2rem,2vw,1.6rem)', color: '#1A2433', marginBottom: 20 }}>
-            วิธีคำนวณค่าน้ำค่าไฟหอพักอย่างถูกต้อง
-          </h2>
-          <div className="calc-info-grid">
-            {[
-              {
-                icon: ICON.bolt, iconColor: '#FF9800', iconBg: 'rgba(255,152,0,0.1)',
-                title: 'สูตรคำนวณค่าไฟ',
-                body: 'ค่าไฟ = (มิเตอร์ปลาย − มิเตอร์ต้น) × อัตรา ตัวอย่าง: ใช้ 50 หน่วย × 8 บาท = 400 บาท กกพ. กำหนดอัตราสูงสุดสำหรับหอพักไว้ที่ประมาณ 8–9 บาทต่อหน่วย',
-              },
-              {
-                icon: ICON.droplet, iconColor: '#1E88E5', iconBg: 'rgba(30,136,229,0.1)',
-                title: 'สูตรคำนวณค่าน้ำ',
-                body: 'ค่าน้ำ = (มิเตอร์ปลาย − มิเตอร์ต้น) × อัตราต่อ ลบ.ม. ควรอิงตามอัตราการประปาในพื้นที่ บวกค่าบริการได้ไม่เกินที่กฎหมายกำหนด',
-              },
-              {
-                icon: ICON.doc, iconColor: '#1565C0', iconBg: 'rgba(21,101,192,0.08)',
-                title: 'ควรระบุในสัญญา',
-                body: 'ระบุอัตราค่าน้ำค่าไฟในสัญญาเช่าให้ชัดเจน เพื่อป้องกันข้อพิพาท ผู้เช่ามีสิทธิ์ขอดูหลักฐานการอ่านมิเตอร์ ควรถ่ายรูปมิเตอร์ทุกต้นเดือน',
-              },
-              {
-                icon: ICON.wrench, iconColor: '#2DC76D', iconBg: 'rgba(45,199,109,0.1)',
-                title: 'ใช้ระบบช่วยคำนวณ',
-                body: 'HorCare มีระบบบันทึกมิเตอร์พร้อมถ่ายรูปหลักฐาน คำนวณค่าน้ำค่าไฟและสร้างใบแจ้งหนี้อัตโนมัติทุกเดือน ลดข้อผิดพลาดและข้อพิพาทกับผู้เช่า',
-              },
-            ].map(({ icon, iconColor, iconBg, title, body }) => (
-              <div key={title}>
-                <div style={{ width: 40, height: 40, borderRadius: 10, background: iconBg, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 12 }}>
-                  <Ic d={icon} size={20} color={iconColor} />
-                </div>
-                <h3 style={{ fontFamily: 'Kanit,sans-serif', fontWeight: 600, fontSize: 15, color: '#1A2433', marginBottom: 8 }}>{title}</h3>
-                <p style={{ fontFamily: 'Sarabun,sans-serif', fontSize: 13.5, color: '#546E7A', lineHeight: 1.75, margin: 0 }}>{body}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-      </div>
+      />
     </div>
+  )
+}
+export default function Calculator() {
+  const [elecRate, setElecRate] = useState(8)
+  const [waterRate, setWaterRate] = useState(18)
+  const [rooms, setRooms] = useState([initialRoom(1)])
+  const summaries = rooms.map((r) => {
+    const electricity =
+      Math.max(0, Number(r.elecCurr) - Number(r.elecPrev)) * Number(elecRate)
+    const water =
+      Math.max(0, Number(r.waterCurr) - Number(r.waterPrev)) * Number(waterRate)
+    return {
+      electricity,
+      water,
+      rent: Number(r.rent),
+      extra: Number(r.extra),
+      total: electricity + water + Number(r.rent) + Number(r.extra),
+      invalid:
+        Number(r.elecCurr) < Number(r.elecPrev) ||
+        Number(r.waterCurr) < Number(r.waterPrev),
+    }
+  })
+  const total = summaries.reduce(
+    (a, r) => ({
+      electricity: a.electricity + r.electricity,
+      water: a.water + r.water,
+      rent: a.rent + r.rent,
+      extra: a.extra + r.extra,
+      total: a.total + r.total,
+    }),
+    { electricity: 0, water: 0, rent: 0, extra: 0, total: 0 },
+  )
+  const invalid = summaries.some((r) => r.invalid)
+  function update(id, key, value) {
+    setRooms(rooms.map((r) => (r.id === id ? { ...r, [key]: value } : r)))
+  }
+  return (
+    <>
+      <Navbar />
+      <main id="main">
+        <div className="container page-intro">
+          <nav className="breadcrumb" aria-label="เส้นทางนำทาง">
+            <Link to="/">หน้าแรก</Link>
+            <span>/</span>
+            <span>เครื่องคำนวณ</span>
+          </nav>
+          <h1>บิลนี้ เท่าไหร่ดี?</h1>
+          <p>
+            คำนวณค่าน้ำ ค่าไฟ และค่าเช่าของแต่ละห้อง
+            <br />
+            ปรับอัตราเองได้ ใช้ฟรี ไม่ต้องสมัคร
+          </p>
+        </div>
+        <div className="container calculator-layout">
+          <div>
+            <section className="calc-panel">
+              <h2>ตั้งค่าอัตราต่อหน่วย</h2>
+              <div className="calc-input-grid">
+                <Field
+                  label="ค่าไฟ (บาท / หน่วย)"
+                  value={elecRate}
+                  onChange={setElecRate}
+                />
+                <Field
+                  label="ค่าน้ำ (บาท / หน่วย)"
+                  value={waterRate}
+                  onChange={setWaterRate}
+                />
+              </div>
+              <p className="calc-note">
+                อัตราเริ่มต้นเป็นเพียงตัวอย่าง
+                โปรดใส่อัตราที่ใช้จริงและตรวจสอบข้อกำหนดที่เกี่ยวข้องกับทรัพย์สินของคุณ
+              </p>
+            </section>
+            {rooms.map((r, i) => (
+              <section className="calc-panel" key={r.id}>
+                <div className="room-header">
+                  <h2>ห้องที่ {i + 1}</h2>
+                  {rooms.length > 1 && (
+                    <button
+                      className="remove-room"
+                      aria-label={'ลบห้องที่ ' + (i + 1)}
+                      onClick={() =>
+                        setRooms(rooms.filter((x) => x.id !== r.id))
+                      }
+                    >
+                      ลบห้อง
+                    </button>
+                  )}
+                </div>
+                <div className="calc-input-grid">
+                  {[
+                    ['elecPrev', 'เลขมิเตอร์ไฟก่อนหน้า'],
+                    ['elecCurr', 'เลขมิเตอร์ไฟล่าสุด'],
+                    ['waterPrev', 'เลขมิเตอร์น้ำก่อนหน้า'],
+                    ['waterCurr', 'เลขมิเตอร์น้ำล่าสุด'],
+                    ['rent', 'ค่าเช่า (บาท)'],
+                    ['extra', 'ค่าใช้จ่ายอื่น (บาท)'],
+                  ].map(([key, label]) => (
+                    <Field
+                      key={key}
+                      label={label}
+                      value={r[key]}
+                      onChange={(v) => update(r.id, key, v)}
+                    />
+                  ))}
+                </div>
+                {summaries[i].invalid && (
+                  <p className="field-error" role="alert">
+                    เลขมิเตอร์ล่าสุดต้องไม่น้อยกว่าเลขก่อนหน้า
+                    กรุณาตรวจสอบอีกครั้ง
+                  </p>
+                )}
+                <div className="room-total">
+                  <span>รวมของห้องนี้</span>
+                  <strong>
+                    {summaries[i].invalid
+                      ? 'ตรวจสอบเลขมิเตอร์'
+                      : '฿' + money(summaries[i].total)}
+                  </strong>
+                </div>
+              </section>
+            ))}
+            <button
+              className="button outline"
+              onClick={() =>
+                setRooms([
+                  ...rooms,
+                  initialRoom(Math.max(...rooms.map((r) => r.id)) + 1),
+                ])
+              }
+            >
+              เพิ่มห้อง
+            </button>
+            <p className="calc-note">
+              เครื่องมือนี้ใช้ประมาณยอดเท่านั้น
+              ข้อมูลที่กรอกไม่ได้ถูกส่งไปยังเซิร์ฟเวอร์
+            </p>
+          </div>
+          <aside className="calc-summary" aria-live="polite">
+            <h2>สรุป {rooms.length} ห้อง</h2>
+            <dl>
+              {[
+                ['ค่าเช่า', total.rent],
+                ['ค่าไฟ', total.electricity],
+                ['ค่าน้ำ', total.water],
+                ['ค่าใช้จ่ายอื่น', total.extra],
+              ].map(([label, value]) => (
+                <div key={label}>
+                  <dt>{label}</dt>
+                  <dd>฿{money(value)}</dd>
+                </div>
+              ))}
+            </dl>
+            <div className="grand-total">
+              <span>ยอดรวมทั้งหมด</span>
+              <strong>
+                {invalid ? 'ตรวจสอบเลขมิเตอร์' : '฿' + money(total.total)}
+              </strong>
+            </div>
+            <p>
+              อยากออกบิลจากข้อมูลผู้เช่าได้เลย? ให้ HorCare
+              ช่วยดูแลงานประจำเดือน
+            </p>
+            <a className="button accent" href={HORCARE_URL}>
+              เริ่มใช้งานฟรี <Ic d="M7 17 17 7M7 7h10v10" size={17} />
+            </a>
+          </aside>
+        </div>
+      </main>
+      <Footer />
+    </>
   )
 }

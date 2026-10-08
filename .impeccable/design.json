@@ -1,0 +1,381 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-08T07:39:55.441Z",
+  "title": "Design System: HorCare",
+  "extensions": {
+    "colorMeta": {
+      "page": {
+        "role": "neutral",
+        "displayName": "Sky paper",
+        "tonalRamp": [
+          "oklch(15% 0.0085 247.91)",
+          "oklch(26% 0.0085 247.91)",
+          "oklch(38% 0.0085 247.91)",
+          "oklch(49% 0.0085 247.91)",
+          "oklch(61% 0.0085 247.91)",
+          "oklch(72% 0.0085 247.91)",
+          "oklch(84% 0.0085 247.91)",
+          "oklch(95% 0.0085 247.91)"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "White paper",
+        "tonalRamp": [
+          "oklch(15% 0.0000 89.88)",
+          "oklch(26% 0.0000 89.88)",
+          "oklch(38% 0.0000 89.88)",
+          "oklch(49% 0.0000 89.88)",
+          "oklch(61% 0.0000 89.88)",
+          "oklch(72% 0.0000 89.88)",
+          "oklch(84% 0.0000 89.88)",
+          "oklch(95% 0.0000 89.88)"
+        ]
+      },
+      "navy": {
+        "role": "primary",
+        "displayName": "Navy ink",
+        "tonalRamp": [
+          "oklch(15% 0.0802 252.16)",
+          "oklch(26% 0.0802 252.16)",
+          "oklch(38% 0.0802 252.16)",
+          "oklch(49% 0.0802 252.16)",
+          "oklch(61% 0.0802 252.16)",
+          "oklch(72% 0.0802 252.16)",
+          "oklch(84% 0.0802 252.16)",
+          "oklch(95% 0.0802 252.16)"
+        ]
+      },
+      "green": {
+        "role": "secondary",
+        "displayName": "Brand green",
+        "tonalRamp": [
+          "oklch(15% 0.1164 158.86)",
+          "oklch(26% 0.1164 158.86)",
+          "oklch(38% 0.1164 158.86)",
+          "oklch(49% 0.1164 158.86)",
+          "oklch(61% 0.1164 158.86)",
+          "oklch(72% 0.1164 158.86)",
+          "oklch(84% 0.1164 158.86)",
+          "oklch(95% 0.1164 158.86)"
+        ]
+      },
+      "orange": {
+        "role": "primary",
+        "displayName": "Action orange",
+        "tonalRamp": [
+          "oklch(15% 0.1590 70.51)",
+          "oklch(26% 0.1590 70.51)",
+          "oklch(38% 0.1590 70.51)",
+          "oklch(49% 0.1590 70.51)",
+          "oklch(61% 0.1590 70.51)",
+          "oklch(72% 0.1590 70.51)",
+          "oklch(84% 0.1590 70.51)",
+          "oklch(95% 0.1590 70.51)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted blue",
+        "tonalRamp": [
+          "oklch(15% 0.0489 243.65)",
+          "oklch(26% 0.0489 243.65)",
+          "oklch(38% 0.0489 243.65)",
+          "oklch(49% 0.0489 243.65)",
+          "oklch(61% 0.0489 243.65)",
+          "oklch(72% 0.0489 243.65)",
+          "oklch(84% 0.0489 243.65)",
+          "oklch(95% 0.0489 243.65)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Divider blue",
+        "tonalRamp": [
+          "oklch(15% 0.0161 239.12)",
+          "oklch(26% 0.0161 239.12)",
+          "oklch(38% 0.0161 239.12)",
+          "oklch(49% 0.0161 239.12)",
+          "oklch(61% 0.0161 239.12)",
+          "oklch(72% 0.0161 239.12)",
+          "oklch(84% 0.0161 239.12)",
+          "oklch(95% 0.0161 239.12)"
+        ]
+      },
+      "sky-soft": {
+        "role": "neutral",
+        "displayName": "Soft sky",
+        "tonalRamp": [
+          "oklch(15% 0.0193 240.73)",
+          "oklch(26% 0.0193 240.73)",
+          "oklch(38% 0.0193 240.73)",
+          "oklch(49% 0.0193 240.73)",
+          "oklch(61% 0.0193 240.73)",
+          "oklch(72% 0.0193 240.73)",
+          "oklch(84% 0.0193 240.73)",
+          "oklch(95% 0.0193 240.73)"
+        ]
+      },
+      "orange-soft": {
+        "role": "secondary",
+        "displayName": "Soft orange",
+        "tonalRamp": [
+          "oklch(15% 0.0310 75.22)",
+          "oklch(26% 0.0310 75.22)",
+          "oklch(38% 0.0310 75.22)",
+          "oklch(49% 0.0310 75.22)",
+          "oklch(61% 0.0310 75.22)",
+          "oklch(72% 0.0310 75.22)",
+          "oklch(84% 0.0310 75.22)",
+          "oklch(95% 0.0310 75.22)"
+        ]
+      },
+      "sky": {
+        "role": "primary",
+        "displayName": "Sky blue",
+        "tonalRamp": [
+          "oklch(15% 0.1365 242.77)",
+          "oklch(26% 0.1365 242.77)",
+          "oklch(38% 0.1365 242.77)",
+          "oklch(49% 0.1365 242.77)",
+          "oklch(61% 0.1365 242.77)",
+          "oklch(72% 0.1365 242.77)",
+          "oklch(84% 0.1365 242.77)",
+          "oklch(95% 0.1365 242.77)"
+        ]
+      },
+      "green-soft": {
+        "role": "secondary",
+        "displayName": "Soft green",
+        "tonalRamp": [
+          "oklch(15% 0.0356 162.33)",
+          "oklch(26% 0.0356 162.33)",
+          "oklch(38% 0.0356 162.33)",
+          "oklch(49% 0.0356 162.33)",
+          "oklch(61% 0.0356 162.33)",
+          "oklch(72% 0.0356 162.33)",
+          "oklch(84% 0.0356 162.33)",
+          "oklch(95% 0.0356 162.33)"
+        ]
+      },
+      "primary-hover": {
+        "role": "primary",
+        "displayName": "Primary orange hover",
+        "tonalRamp": [
+          "oklch(15% 0.1577 66.05)",
+          "oklch(26% 0.1577 66.05)",
+          "oklch(38% 0.1577 66.05)",
+          "oklch(49% 0.1577 66.05)",
+          "oklch(61% 0.1577 66.05)",
+          "oklch(72% 0.1577 66.05)",
+          "oklch(84% 0.1577 66.05)",
+          "oklch(95% 0.1577 66.05)"
+        ]
+      },
+      "accent-hover": {
+        "role": "primary",
+        "displayName": "Accent orange hover",
+        "tonalRamp": [
+          "oklch(15% 0.1399 74.40)",
+          "oklch(26% 0.1399 74.40)",
+          "oklch(38% 0.1399 74.40)",
+          "oklch(49% 0.1399 74.40)",
+          "oklch(61% 0.1399 74.40)",
+          "oklch(72% 0.1399 74.40)",
+          "oklch(84% 0.1399 74.40)",
+          "oklch(95% 0.1399 74.40)"
+        ]
+      },
+      "focus": {
+        "role": "primary",
+        "displayName": "Focus blue",
+        "tonalRamp": [
+          "oklch(15% 0.1487 248.59)",
+          "oklch(26% 0.1487 248.59)",
+          "oklch(38% 0.1487 248.59)",
+          "oklch(49% 0.1487 248.59)",
+          "oklch(61% 0.1487 248.59)",
+          "oklch(72% 0.1487 248.59)",
+          "oklch(84% 0.1487 248.59)",
+          "oklch(95% 0.1487 248.59)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Hero display",
+        "purpose": "Thai hero outcome statement."
+      },
+      "headline": {
+        "displayName": "Section headline",
+        "purpose": "Top-level section introductions."
+      },
+      "title": {
+        "displayName": "Feature title",
+        "purpose": "Feature demonstration headings."
+      },
+      "body": {
+        "displayName": "Thai explanation",
+        "purpose": "Hero explanatory copy; reading pages use related line-height variants."
+      },
+      "label": {
+        "displayName": "Action label",
+        "purpose": "Buttons and primary actions."
+      }
+    },
+    "shadows": [
+      {
+        "name": "dashboard-ambient",
+        "value": "0 12px 32px #173c6310",
+        "purpose": "White demonstration on a sky-blue frame."
+      },
+      {
+        "name": "invoice-paper",
+        "value": "0 14px 28px #173c6312",
+        "purpose": "Rotated sample invoice."
+      },
+      {
+        "name": "mobile-navigation",
+        "value": "0 15px 22px #173c6310",
+        "purpose": "Expanded mobile menu."
+      }
+    ],
+    "motion": [
+      {
+        "name": "button-transition",
+        "value": "background .18s, color .18s, transform .18s",
+        "purpose": "Hover state response."
+      },
+      {
+        "name": "button-lift",
+        "value": "translateY(-2px)",
+        "purpose": "Button hover."
+      },
+      {
+        "name": "dashboard-settle",
+        "value": ".4s ease-out",
+        "purpose": "Desktop heading entrance from translateY(5px) to translateY(0); replay on selection is not guaranteed."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "animation:none!important; transition:none!important; scroll-behavior:auto",
+        "purpose": "Respects prefers-reduced-motion:reduce."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "wide-adjustment",
+        "value": "1100px"
+      },
+      {
+        "name": "compact-desktop",
+        "value": "900px"
+      },
+      {
+        "name": "mobile",
+        "value": "760px"
+      },
+      {
+        "name": "narrow-mobile",
+        "value": "370px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Canonical action with keyboard focus and restrained hover lift.",
+      "html": "<button class=\"ds-button ds-primary\">เริ่มใช้งานฟรี <span aria-hidden=\"true\">↗</span></button>",
+      "css": ".ds-button{display:inline-flex;align-items:center;justify-content:center;gap:16px;min-height:50px;padding:12px 24px;border:0;border-radius:9px;font:500 15px var(--font-display,'Kanit',sans-serif);cursor:pointer;transition:background .18s,color .18s,transform .18s}.ds-button:hover{transform:translateY(-2px)}.ds-button:focus-visible{outline:3px solid #177dcc;outline-offset:5px}@media(prefers-reduced-motion:reduce){.ds-button{transition:none}}.ds-primary{background:var(--orange,#ffab32);color:var(--navy,#173c63)}.ds-primary:hover{background:#ec931c}"
+    },
+    {
+      "name": "Accent Button",
+      "kind": "button",
+      "refersTo": "button-accent",
+      "description": "Canonical action with keyboard focus and restrained hover lift.",
+      "html": "<button class=\"ds-button ds-accent\">เริ่มใช้งานฟรี <span aria-hidden=\"true\">↗</span></button>",
+      "css": ".ds-button{display:inline-flex;align-items:center;justify-content:center;gap:16px;min-height:50px;padding:12px 24px;border:0;border-radius:9px;font:500 15px var(--font-display,'Kanit',sans-serif);cursor:pointer;transition:background .18s,color .18s,transform .18s}.ds-button:hover{transform:translateY(-2px)}.ds-button:focus-visible{outline:3px solid #177dcc;outline-offset:5px}@media(prefers-reduced-motion:reduce){.ds-button{transition:none}}.ds-accent{background:var(--orange,#ffab32);color:var(--navy,#173c63)}.ds-accent:hover{background:#ffbb56}"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Canonical action with keyboard focus and restrained hover lift.",
+      "html": "<button class=\"ds-button ds-outline\">เลือกแพ็กเกจ <span aria-hidden=\"true\">↗</span></button>",
+      "css": ".ds-button{display:inline-flex;align-items:center;justify-content:center;gap:16px;min-height:50px;padding:12px 24px;border:0;border-radius:9px;font:500 15px var(--font-display,'Kanit',sans-serif);cursor:pointer;transition:background .18s,color .18s,transform .18s}.ds-button:hover{transform:translateY(-2px)}.ds-button:focus-visible{outline:3px solid #177dcc;outline-offset:5px}@media(prefers-reduced-motion:reduce){.ds-button{transition:none}}.ds-outline{background:transparent;color:var(--navy,#173c63);border:1px solid #83acd0}.ds-outline:hover{background:var(--sky-soft,#e8f5ff)}"
+    },
+    {
+      "name": "Calculator Field",
+      "kind": "input",
+      "refersTo": "field",
+      "description": "Visible label and numeric entry for the calculator.",
+      "html": "<div class=\"ds-field\"><label for=\"ds-rent\">ค่าเช่า (บาท)</label><input id=\"ds-rent\" type=\"number\" value=\"5000\" min=\"0\"></div>",
+      "css": ".ds-field{font-family:var(--font-body,'Sarabun',sans-serif);color:var(--navy,#173c63)}.ds-field label{display:block;font-size:14px;font-weight:600;margin-bottom:8px}.ds-field input{width:100%;min-height:46px;padding:10px 13px;border:1px solid #c5dbea;border-radius:6px;background:#f8fcff;color:inherit;font:inherit;font-variant-numeric:tabular-nums}.ds-field input:focus{border-color:#187dca}.ds-field input:focus-visible{outline:3px solid #177dcc;outline-offset:5px}"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "description": "Desktop links on page paper.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"เมนูตัวอย่าง\"><a href=\"#features\">แพลตฟอร์ม</a><a href=\"#pricing\">แพ็กเกจ</a><a href=\"#blog\" aria-current=\"page\">บทความ</a></nav>",
+      "css": ".ds-nav{display:flex;flex-wrap:wrap;gap:29px;padding:12px;background:var(--page,#f5faff);font:600 14px var(--font-body,'Sarabun',sans-serif);color:var(--navy,#173c63)}.ds-nav a{padding:12px 0;color:inherit;text-decoration:none}.ds-nav a:hover,.ds-nav a[aria-current]{color:#167ac0}.ds-nav a:focus-visible{outline:3px solid #177dcc;outline-offset:5px}"
+    },
+    {
+      "name": "Sample Label",
+      "kind": "chip",
+      "description": "Noninteractive tag that identifies illustrative data.",
+      "html": "<span class=\"ds-sample\">ข้อมูลตัวอย่าง</span>",
+      "css": ".ds-sample{display:inline-block;color:#526f84;background:#eaf4fc;padding:3px 8px;border-radius:4px;font:12px var(--font-body,'Sarabun',sans-serif)}"
+    },
+    {
+      "name": "Plan Card",
+      "kind": "card",
+      "refersTo": "plan",
+      "description": "Flat white pricing surface with a thin divider border.",
+      "html": "<article class=\"ds-plan\"><h3>Free</h3><p>เริ่มจัดระเบียบงานเช่า</p><strong>฿0</strong></article>",
+      "css": ".ds-plan{padding:35px;border:1px solid var(--line,#dce7ef);border-radius:var(--radius,16px);background:var(--paper,#fff);color:var(--navy,#173c63);font-family:var(--font-body,'Sarabun',sans-serif)}.ds-plan h3{margin:0;font:500 28px var(--font-display,'Kanit',sans-serif)}.ds-plan p{font-size:14px;color:var(--muted,#536f86)}.ds-plan strong{display:block;margin-top:25px;font:500 53px/1.2 var(--font-display,'Kanit',sans-serif);font-variant-numeric:tabular-nums}"
+    },
+    {
+      "name": "FAQ Disclosure",
+      "kind": "custom",
+      "description": "Native disclosure retains keyboard and click behavior without a framework.",
+      "html": "<details class=\"ds-faq\"><summary>เริ่มใช้งานอย่างไร?<span aria-hidden=\"true\">+</span></summary><p>สมัครบัญชี แล้วเพิ่มโครงการและห้องที่ต้องการจัดการ</p></details>",
+      "css": ".ds-faq{border-block:1px solid var(--line,#dce7ef);font-family:var(--font-body,'Sarabun',sans-serif);color:var(--navy,#173c63)}.ds-faq summary{display:flex;justify-content:space-between;gap:20px;list-style:none;font-size:16px;font-weight:600;padding:22px 0;cursor:pointer}.ds-faq summary::-webkit-details-marker{display:none}.ds-faq summary span{font-size:24px;font-weight:400}.ds-faq[open] summary span{transform:rotate(45deg)}.ds-faq summary:focus-visible{outline:3px solid #177dcc;outline-offset:5px}.ds-faq p{padding:0 28px 23px 0;font-size:15px;color:var(--muted,#536f86);line-height:1.9}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Property Club",
+    "overview": "A bright, contemporary owner workspace: pale sky backgrounds, navy ink, green highlights, and orange actions make property management feel approachable. A youthful editorial voice is balanced by familiar Thai labels, visibly organized data, and generous reading space.\n\nThe visual system serves a Property Management Platform across apartments, rental condos, and rental homes. This scope follows the current redesign request; the dormitory-only wording in the legacy PRODUCT.md does not limit new surfaces. Keep its durable commitments to clarity, transparent prices, readable Thai, and a friendly personality.",
+    "keyCharacteristics": [
+      "Pale sky surfaces with navy typography and orange actions.",
+      "Locally hosted Thai display and reading fonts.",
+      "Concrete product examples with explicit sample labels.",
+      "Restrained depth and compact, gently rounded controls."
+    ],
+    "rules": [
+      {
+        "name": "The Ink and Paper Rule",
+        "body": "Keep long text on quiet, high-contrast surfaces; reserve orange for emphasis and action.",
+        "section": "colors"
+      },
+      {
+        "name": "The Thai Reading Rule",
+        "body": "Preserve comfortable Thai line-height and natural word wrapping when changing copy or widths; do not compress body text to preserve a desktop composition.",
+        "section": "typography"
+      }
+    ],
+    "dos": [
+      "**Do** keep Thai explanations readable and allow mobile content to reflow.",
+      "**Do** use explicit text for selected states, status, errors, and sample data.",
+      "**Do** retain visible keyboard focus and reduced-motion behavior.",
+      "**Do** keep real business figures and prices clearly distinguished from examples."
+    ],
+    "donts": [
+      "**Don't** narrow the current Property Management Platform scope to dormitories alone.",
+      "**Don't** introduce a cold banking or government-portal visual identity.",
+      "**Don't** treat compact dashboard metadata as the standard for body text.",
+      "**Don't** add fabricated customer proof or decorative effects that obscure product meaning."
+    ]
+  }
+}
