@@ -4,6 +4,7 @@ import { readFile, stat, mkdir } from 'node:fs/promises'
 import { resolve, extname } from 'node:path'
 import puppeteer from 'puppeteer'
 import { ARTICLES } from '../src/data/articles.js'
+import { localePath } from '../src/i18n/locale.js'
 
 const root = resolve('dist')
 const server = createServer(async (req, res) => {
@@ -33,13 +34,13 @@ try {
   await page.screenshot({path:'artifacts/language/desktop-en.png',fullPage:true})
   const routes=['/','/calculator','/blog',...ARTICLES.map(a=>'/blog/'+a.slug),'/privacy','/terms','/missing-page']
   for (const route of routes) {
-    await page.goto(base+route)
+    await page.goto(base+localePath(route, 'en'))
     await page.waitForFunction(()=>document.documentElement.lang==='en')
     const remaining=await page.$eval('main',e=>e.innerText.split('\n').filter(s=>/[\u0e01-\u0e3a\u0e40-\u0e5b]/.test(s)))
     assert.deepEqual(remaining,[],`Untranslated copy on ${route}`)
     assert.ok(!/[\u0e01-\u0e3a\u0e40-\u0e5b]/.test(await page.title()), `Untranslated title on ${route}`)
   }
-  await page.goto(base+'/calculator')
+  await page.goto(base+'/en/calculator')
   await page.waitForFunction(()=>document.documentElement.lang==='en')
   const inputs=await page.$$('input')
   await inputs[3].click({clickCount:3}); await inputs[3].type('50')
@@ -52,17 +53,17 @@ try {
   for (const width of [1440,1024,820,390,320]) {
     await page.setViewport({width,height:900})
     for (const route of ['/','/calculator','/blog','/privacy','/terms']) {
-      await page.goto(base+route)
+      await page.goto(base+localePath(route, 'en'))
       await page.waitForFunction(()=>document.documentElement.lang==='en')
       assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth <= innerWidth),`Overflow at ${width}: ${route}`)
     }
   }
   await page.setViewport({width:390,height:844})
-  await page.goto(base)
+  await page.goto(base+'/en')
   await page.waitForFunction(()=>document.documentElement.lang==='en')
   await page.screenshot({path:'artifacts/language/mobile-en.png',fullPage:true})
   await page.click('.menu-toggle')
-  await page.click('#main-navigation a[href="/blog"]')
+  await page.click('#main-navigation a[href="/en/blog"]')
   await page.waitForSelector('.blog-filter')
   assert.equal(await page.$eval('.menu-toggle',e=>e.getAttribute('aria-expanded')),'false')
   await page.click('[aria-label="ภาษาไทย"]')

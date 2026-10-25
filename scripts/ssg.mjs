@@ -3,20 +3,12 @@ import react from '@vitejs/plugin-react'
 import { readFileSync, writeFileSync, mkdirSync, rmSync } from 'node:fs'
 import { resolve, dirname } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
-import { ARTICLES } from '../src/data/articles.js'
-import { pageMeta, routeSchema, BASE_URL } from '../src/data/site.js'
+import { pageMeta, routeSchema, BASE_URL, INDEXABLE_ROUTES, languageAlternates } from '../src/data/site.js'
+import { languageOf, contentPath } from '../src/i18n/locale.js'
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const DIST = resolve(ROOT, 'dist')
 const SSR = resolve(ROOT, '.ssr-tmp')
-const routes = [
-  '/',
-  '/calculator',
-  '/blog',
-  ...ARTICLES.map((a) => '/blog/' + a.slug),
-  '/privacy',
-  '/terms',
-  '/404',
-]
+const routes = [...INDEXABLE_ROUTES, '/404', '/en/404']
 const escape = (s) =>
   s.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;')
 await build({
@@ -43,6 +35,9 @@ try {
     )
       throw new Error('Incomplete prerender: ' + path)
     let html = template
+      .replace('<html lang="th">', `<html lang="${languageOf(path)}">`)
+      .replace('property="og:locale" content="th_TH"', `property="og:locale" content="${languageOf(path) === 'en' ? 'en_US' : 'th_TH'}"`)
+      .replace('</head>', (meta.notFound ? '' : languageAlternates(path).map(({ language, href }) => `<link rel="alternate" hreflang="${language}" href="${href}" />`).join('\n')) + '\n</head>')
       .replace('<div id="root"></div>', '<div id="root">' + markup + '</div>')
       .replace(
         /<title>.*?<\/title>/,
@@ -88,7 +83,7 @@ try {
           JSON.stringify(routeSchema(path)).replaceAll('<', '\\u003c') +
           '</script>',
       )
-    if (path.startsWith('/blog/'))
+    if (contentPath(path).startsWith('/blog/'))
       html = html.replace(
         'property="og:type" content="website"',
         'property="og:type" content="article"',
@@ -113,7 +108,7 @@ try {
   const sitemap =
     '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
     routes
-      .filter((p) => p !== '/404')
+      .filter((p) => !pageMeta(p).notFound)
       .map((p) => '  <url><loc>' + BASE_URL + p + '</loc></url>')
       .join('\n') +
     '\n</urlset>\n'

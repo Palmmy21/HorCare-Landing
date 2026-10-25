@@ -1,6 +1,6 @@
 import { useLanguage } from '../i18n/useLanguage.js'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from '../components/LocalizedLink.jsx'
 import { Navbar } from '../components/Navbar.jsx'
 import { Footer } from '../components/Footer.jsx'
 import { Ic, P, HORCARE_URL, LINE_URL } from '../components/shared.jsx'
@@ -299,12 +299,12 @@ export default function Landing() {
         <section className="hero">
           <div className="container">
             <div className="hero-intro">
-              <h1>{' '}{t("อสังหาฯ เติบโตได้")}{' '}<br />{' '}{t("ชีวิตคุณ")}{' '}<span className="highlight-word">{' '}{t("ก็ง่ายขึ้นได้")}{' '}</span>
+              <h1>{t("ระบบจัดการหอพัก")}<br />{t("และอพาร์ทเม้นท์")}<br /><span className="highlight-word">{t("จัดการง่ายขึ้น")}</span>
               </h1>
               <div className="hero-description">
                 <p>
                   <strong>HorCare — Property Management Platform</strong>
-                  <br />{' '}{t("รวมทรัพย์สิน ผู้เช่า สัญญา และงานเก็บเงิน")}{' '}<br className="desktop-break" />{' '}{t("ไว้ในที่เดียว มีเวลาให้ชีวิตมากกว่าเดิม")}{' '}</p>
+                  <br />{' '}{t("HorCare รวมงานหอพัก อพาร์ทเม้นท์ คอนโด และบ้านเช่าไว้ในที่เดียว จัดการผู้เช่า สัญญา ค่าน้ำค่าไฟ และออกบิลผ่าน LINE ตามแพ็กเกจที่เลือก")}{' '}</p>
                 <div className="hero-actions">
                   <a className="button primary" href={HORCARE_URL}>{' '}{t("เริ่มใช้งานฟรี")}{' '}<Ic d={P.arrow} size={18} />
                   </a>

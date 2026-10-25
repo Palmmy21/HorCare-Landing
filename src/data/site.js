@@ -1,7 +1,9 @@
 ﻿import { ARTICLES } from './articles.js'
+import { translate } from '../i18n/translate.js'
+import { contentPath, languageOf, localePath } from '../i18n/locale.js'
 export const BASE_URL = 'https://horcare-landing.vercel.app'
 export const HOME_TITLE =
-  'HorCare | Property Management Platform บริหารอสังหาฯ ให้เช่า'
+  'ระบบจัดการหอพัก อพาร์ทเม้นท์ ฟรี 250 ห้อง | HorCare'
 export const HOME_DESCRIPTION =
   'รวมงานอสังหาฯ ให้เช่าไว้ใน HorCare จัดการห้อง ผู้เช่า สัญญา ออกบิลค่าน้ำค่าไฟ และแจ้งเตือนผ่าน LINE เริ่มใช้ฟรีสูงสุด 250 ห้อง ดูแพ็กเกจและขอเดโมได้เลย'
 export const FAQS = [
@@ -30,7 +32,7 @@ export const FAQS = [
     'เริ่มจากสมัครบัญชี เพิ่มโครงการและห้อง แล้วตั้งค่ารายการค่าเช่า ค่าน้ำ และค่าไฟ หากมีข้อมูลเดิมจำนวนมาก ทักทีมเพื่อปรึกษาวิธีเตรียมข้อมูลและขั้นตอนย้ายที่เหมาะกับโครงการของคุณ',
   ],
 ]
-export function pageMeta(path) {
+function thaiPageMeta(path) {
   path = path.replace(/\/+$/, '') || '/'
   if (path === '/') return { title: HOME_TITLE, description: HOME_DESCRIPTION }
   const pages = {
@@ -61,7 +63,7 @@ export function pageMeta(path) {
         notFound: true,
       }
 }
-export function routeSchema(path) {
+function thaiRouteSchema(path) {
   const base = { '@context': 'https://schema.org' }
   if (path === '/')
     return {
@@ -132,4 +134,42 @@ export function routeSchema(path) {
     url: BASE_URL + path,
     inLanguage: 'th',
   }
+}
+
+export const CONTENT_ROUTES = ['/', '/calculator', '/blog', ...ARTICLES.map(a => '/blog/' + a.slug), '/privacy', '/terms']
+export const INDEXABLE_ROUTES = CONTENT_ROUTES.flatMap(path => [path, localePath(path, 'en')])
+export function pageMeta(path) {
+  return translate(thaiPageMeta(contentPath(path)), languageOf(path))
+}
+export function languageAlternates(path) {
+  return ['th', 'en', 'x-default'].map(language => ({ language, href: BASE_URL + localePath(contentPath(path), language === 'en' ? 'en' : 'th') }))
+}
+export function routeSchema(path) {
+  const language = languageOf(path)
+  const clean = contentPath(path)
+  const url = BASE_URL + localePath(clean, language)
+  const schema = translate(thaiRouteSchema(clean), language)
+  const organization = { '@type': 'Organization', '@id': BASE_URL + '/#organization', name: 'HorCare', url: BASE_URL }
+  const nodes = schema['@graph'] || [{ ...schema, '@context': undefined }]
+  if (clean === '/') {
+    nodes.push({ '@type': 'WebSite', '@id': url + '#website', name: 'HorCare', url, inLanguage: language, publisher: organization })
+  } else {
+    const article = ARTICLES.find(a => clean === '/blog/' + a.slug)
+    if (article) {
+      nodes[0].dateModified = article.modifiedISO || article.dateISO
+      nodes[0].image = BASE_URL + '/og-image.png'
+      nodes[0].mainEntityOfPage = url
+    }
+    const crumbs = [{ name: language === 'en' ? 'Home' : 'หน้าแรก', item: BASE_URL + localePath('/', language) }]
+    if (article) crumbs.push({ name: 'Property Journal', item: BASE_URL + localePath('/blog', language) })
+    crumbs.push({ name: pageMeta(path).title.replace(/ \| HorCare$/, ''), item: url })
+    nodes.push({ '@type': 'BreadcrumbList', itemListElement: crumbs.map((crumb, index) => ({ '@type': 'ListItem', position: index + 1, ...crumb })) })
+  }
+  nodes.forEach(node => {
+    if (['WebPage', 'CollectionPage', 'BlogPosting', 'SoftwareApplication', 'FAQPage'].includes(node['@type'])) {
+      node.inLanguage = language
+      node.url = url
+    }
+  })
+  return { '@context': 'https://schema.org', '@graph': nodes }
 }

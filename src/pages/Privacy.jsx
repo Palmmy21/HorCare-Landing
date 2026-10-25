@@ -1,5 +1,5 @@
 import { useLanguage } from '../i18n/useLanguage.js'
-import { Link } from 'react-router-dom'
+import { Link } from '../components/LocalizedLink.jsx'
 import { Navbar } from '../components/Navbar.jsx'
 import { Footer } from '../components/Footer.jsx'
 const SECTIONS = [

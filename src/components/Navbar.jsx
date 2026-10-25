@@ -1,6 +1,7 @@
 import { useLanguage } from '../i18n/useLanguage.js'
 import { useEffect, useRef, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
+import { Link } from '../components/LocalizedLink.jsx'
 import { Brand } from './Brand.jsx'
 import { Ic, HORCARE_URL } from './shared.jsx'
 export function Navbar() {

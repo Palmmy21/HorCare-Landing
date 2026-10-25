@@ -1,6 +1,6 @@
 import { useLanguage } from '../i18n/useLanguage.js'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from '../components/LocalizedLink.jsx'
 import { Navbar } from '../components/Navbar.jsx'
 import { Footer } from '../components/Footer.jsx'
 import { Ic, P } from '../components/shared.jsx'
@@ -24,7 +24,7 @@ export default function BlogList() {
             <span>{' '}{t("บทความ")}{' '}</span>
           </nav>
           <h1>
-            Property Journal<span className="brand-period">.</span>
+            {t("คู่มือจัดการหอพักและอสังหาฯ ให้เช่า")}<span className="brand-period">.</span>
           </h1>
           <p>{' '}{t("ความรู้สำหรับเจ้าของอสังหาฯ ที่อยากเติบโตอย่างมีระบบ")}{' '}<br />{' '}{t("ตั้งแต่บิลใบแรก ไปจนถึงพอร์ตถัดไป")}{' '}</p>
         </div>

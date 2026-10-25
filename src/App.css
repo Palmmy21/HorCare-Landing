@@ -1868,6 +1868,20 @@ html[lang="en"] .dash-stats span { overflow-wrap: anywhere; }
 }
 
 /* Brand supplied by the owner: sky blue, green, navy and orange. */
+.article-sources,
+.article-related {
+  margin-block: 36px;
+  padding-block: 24px;
+  border-top: 1px solid var(--line);
+}
+.article-sources h2,
+.article-related h2 { font-size: 24px; margin-bottom: 16px; }
+.article-sources ul,
+.article-related ul { padding-inline-start: 24px; }
+.article-sources li,
+.article-related li { margin-block: 12px; }
+.article-sources a,
+.article-related a { color: var(--navy); text-decoration: underline; text-underline-offset: 4px; overflow-wrap: anywhere; }
 .brand-logo {
   width: 44px;
   height: 44px;

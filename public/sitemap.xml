@@ -1,19 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://horcare-landing.vercel.app/</loc></url>
+  <url><loc>https://horcare-landing.vercel.app/en</loc></url>
   <url><loc>https://horcare-landing.vercel.app/calculator</loc></url>
+  <url><loc>https://horcare-landing.vercel.app/en/calculator</loc></url>
   <url><loc>https://horcare-landing.vercel.app/blog</loc></url>
+  <url><loc>https://horcare-landing.vercel.app/en/blog</loc></url>
   <url><loc>https://horcare-landing.vercel.app/blog/property-management-platform-guide</loc></url>
+  <url><loc>https://horcare-landing.vercel.app/en/blog/property-management-platform-guide</loc></url>
   <url><loc>https://horcare-landing.vercel.app/blog/how-dormitory-management-saves-time</loc></url>
+  <url><loc>https://horcare-landing.vercel.app/en/blog/how-dormitory-management-saves-time</loc></url>
   <url><loc>https://horcare-landing.vercel.app/blog/5-ways-increase-dormitory-income</loc></url>
+  <url><loc>https://horcare-landing.vercel.app/en/blog/5-ways-increase-dormitory-income</loc></url>
   <url><loc>https://horcare-landing.vercel.app/blog/rental-contract-guide</loc></url>
+  <url><loc>https://horcare-landing.vercel.app/en/blog/rental-contract-guide</loc></url>
   <url><loc>https://horcare-landing.vercel.app/blog/why-digital-dormitory-management</loc></url>
+  <url><loc>https://horcare-landing.vercel.app/en/blog/why-digital-dormitory-management</loc></url>
   <url><loc>https://horcare-landing.vercel.app/blog/handle-late-rent-payment</loc></url>
+  <url><loc>https://horcare-landing.vercel.app/en/blog/handle-late-rent-payment</loc></url>
   <url><loc>https://horcare-landing.vercel.app/blog/dormitory-act-2558</loc></url>
+  <url><loc>https://horcare-landing.vercel.app/en/blog/dormitory-act-2558</loc></url>
   <url><loc>https://horcare-landing.vercel.app/blog/line-notify-vs-line-oa</loc></url>
+  <url><loc>https://horcare-landing.vercel.app/en/blog/line-notify-vs-line-oa</loc></url>
   <url><loc>https://horcare-landing.vercel.app/blog/calculate-water-electricity-dormitory</loc></url>
+  <url><loc>https://horcare-landing.vercel.app/en/blog/calculate-water-electricity-dormitory</loc></url>
   <url><loc>https://horcare-landing.vercel.app/blog/open-new-dormitory-2026</loc></url>
+  <url><loc>https://horcare-landing.vercel.app/en/blog/open-new-dormitory-2026</loc></url>
   <url><loc>https://horcare-landing.vercel.app/blog/excel-vs-dormitory-software</loc></url>
+  <url><loc>https://horcare-landing.vercel.app/en/blog/excel-vs-dormitory-software</loc></url>
   <url><loc>https://horcare-landing.vercel.app/privacy</loc></url>
+  <url><loc>https://horcare-landing.vercel.app/en/privacy</loc></url>
   <url><loc>https://horcare-landing.vercel.app/terms</loc></url>
+  <url><loc>https://horcare-landing.vercel.app/en/terms</loc></url>
 </urlset>

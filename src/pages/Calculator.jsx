@@ -1,6 +1,6 @@
 import { useLanguage } from '../i18n/useLanguage.js'
 import { useId, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from '../components/LocalizedLink.jsx'
 import { Navbar } from '../components/Navbar.jsx'
 import { Footer } from '../components/Footer.jsx'
 import { Ic, HORCARE_URL } from '../components/shared.jsx'
@@ -85,7 +85,7 @@ export default function Calculator() {
             <span>/</span>
             <span>{' '}{t("เครื่องคำนวณ")}{' '}</span>
           </nav>
-          <h1>{' '}{t("บิลนี้ เท่าไหร่ดี?")}{' '}</h1>
+          <h1>{' '}{t("คำนวณค่าน้ำ ค่าไฟ และค่าเช่าหอพัก")}{' '}</h1>
           <p>{' '}{t("คำนวณค่าน้ำ ค่าไฟ และค่าเช่าของแต่ละห้อง")}{' '}<br />{' '}{t("ปรับอัตราเองได้ ใช้ฟรี ไม่ต้องสมัคร")}{' '}</p>
         </div>
         <div className="container calculator-layout">
@@ -187,6 +187,13 @@ export default function Calculator() {
             </a>
           </aside>
         </div>
+        <section className="container article-related">
+          <h2>{t('อ่านต่อและเครื่องมือที่เกี่ยวข้อง')}</h2>
+          <ul>
+            <li><Link to="/blog/calculate-water-electricity-dormitory">{t('วิธีคำนวณค่าน้ำค่าไฟหอพักจากมิเตอร์ พร้อมตัวอย่างบิล')}</Link></li>
+            <li><Link to="/#pricing">{t('ดูแพ็กเกจระบบจัดการหอพัก')}</Link></li>
+          </ul>
+        </section>
       </main>
       <Footer />
     </>
