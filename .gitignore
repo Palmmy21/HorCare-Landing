@@ -32,3 +32,4 @@ dist-ssr
 # Local design tools and visual QA
 .agents/skills/impeccable/scripts/bin/
 .impeccable/review/
+artifacts/language/

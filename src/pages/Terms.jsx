@@ -1,3 +1,4 @@
+import { useLanguage } from '../i18n/useLanguage.js'
 import { Link } from 'react-router-dom'
 import { Navbar } from '../components/Navbar.jsx'
 import { Footer } from '../components/Footer.jsx'
@@ -70,34 +71,32 @@ const SECTIONS = [
 ]
 
 export default function Terms() {
+  const { t } = useLanguage()
   return (
     <>
       <Navbar />
       <main id="main" className="legal-page">
-        <nav className="breadcrumb" aria-label="เส้นทางนำทาง">
-          <Link to="/">หน้าแรก</Link>
+        <nav className="breadcrumb" aria-label={t("เส้นทางนำทาง")}>
+          <Link to="/">{' '}{t("หน้าแรก")}{' '}</Link>
           <span>/</span>
-          <span>เงื่อนไข</span>
+          <span>{' '}{t("เงื่อนไข")}{' '}</span>
         </nav>
-        <h1>ข้อตกลงในการใช้บริการ HorCare</h1>
-        <p className="legal-date">เนื้อหานโยบายอัปเดตล่าสุด: 1 มิถุนายน 2026</p>
+        <h1>{' '}{t("ข้อตกลงในการใช้บริการ HorCare")}{' '}</h1>
+        <p className="legal-date">{' '}{t("เนื้อหานโยบายอัปเดตล่าสุด: 1 มิถุนายน 2026")}{' '}</p>
         <div className="legal-intro">
-          <p>
-            โปรดอ่านเงื่อนไขนี้อย่างละเอียดก่อนใช้งาน HorCare
-            การใช้งานระบบถือว่าคุณยอมรับข้อตกลงทุกข้อ
-          </p>
+          <p>{' '}{t("โปรดอ่านเงื่อนไขนี้อย่างละเอียดก่อนใช้งาน HorCare การใช้งานระบบถือว่าคุณยอมรับข้อตกลงทุกข้อ")}{' '}</p>
         </div>
         {SECTIONS.map((s, i) => (
           <section key={i}>
-            <h2>{s.title}</h2>
+            <h2>{' '}{t(s.title)}{' '}</h2>
             {s.body.map((p, j) => (
-              <p key={j}>{p}</p>
+              <p key={j}>{' '}{t(p)}{' '}</p>
             ))}
           </section>
         ))}
         <div className="legal-links">
-          <Link to="/">กลับหน้าหลัก</Link>
-          <Link to="/privacy">นโยบายความเป็นส่วนตัว</Link>
+          <Link to="/">{' '}{t("กลับหน้าหลัก")}{' '}</Link>
+          <Link to="/privacy">{' '}{t("นโยบายความเป็นส่วนตัว")}{' '}</Link>
         </div>
       </main>
       <Footer />

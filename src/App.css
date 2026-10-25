@@ -45,6 +45,38 @@
   align-items: center;
   gap: 25px;
 }
+.language-switch {
+  display: flex;
+  flex: none;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+}
+.language-switch button {
+  min-width: 38px;
+  min-height: 38px;
+  padding: 6px;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--navy);
+  font-size: 13px;
+  font-weight: 600;
+}
+.language-switch button:hover { background: var(--sky-soft); }
+.language-switch button[aria-pressed="true"] { background: var(--navy); color: white; }
+html[lang="en"] .hero h1 { line-height: 1.2; }
+html[lang="en"] .hero-intro > *,
+html[lang="en"] .dash-stats > * { min-width: 0; }
+html[lang="en"] .property-tabs { flex-wrap: wrap; }
+html[lang="en"] .dash-stats span { overflow-wrap: anywhere; }
+@media (max-width: 1100px) {
+  .nav-inner { gap: 14px; }
+  .login-link { display: none; }
+}
+@media (max-width: 760px) {
+  .nav-actions .nav-cta { display: none; }
+  .language-switch button { min-height: 38px; }
+}
 .login-link {
   font-size: 14px;
 }

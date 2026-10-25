@@ -1,8 +1,10 @@
-﻿import { useEffect, useRef, useState } from 'react'
+import { useLanguage } from '../i18n/useLanguage.js'
+import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Brand } from './Brand.jsx'
 import { Ic, HORCARE_URL } from './shared.jsx'
 export function Navbar() {
+  const { t, language, setLanguage } = useLanguage()
   const [open, setOpen] = useState(false)
   const toggle = useRef(null)
   const location = useLocation()
@@ -17,22 +19,20 @@ export function Navbar() {
     return () => document.removeEventListener('keydown', close)
   }, [])
   const links = [
-    ['แพลตฟอร์ม', '/#features'],
-    ['เหมาะกับใคร', '/#properties'],
-    ['แพ็กเกจ', '/#pricing'],
-    ['บทความ', '/blog'],
+    [t("แพลตฟอร์ม"), '/#features'],
+    [t("เหมาะกับใคร"), '/#properties'],
+    [t("แพ็กเกจ"), '/#pricing'],
+    [t("บทความ"), '/blog'],
   ]
   return (
     <header className="site-header">
-      <a className="skip-link" href="#main">
-        ข้ามไปเนื้อหา
-      </a>
+      <a className="skip-link" href="#main">{' '}{t("ข้ามไปเนื้อหา")}{' '}</a>
       <div className="container nav-inner">
         <Brand />
         <nav
           className={`nav-links ${open ? 'is-open' : ''}`}
           id="main-navigation"
-          aria-label="เมนูหลัก"
+          aria-label={t("เมนูหลัก")}
         >
           {links.map(([label, to]) => (
             <Link
@@ -41,24 +41,24 @@ export function Navbar() {
               aria-current={location.pathname === to ? 'page' : undefined}
               onClick={() => setOpen(false)}
             >
-              {label}
+              {' '}{t(label)}{' '}
             </Link>
           ))}
-          <a className="mobile-login" href={HORCARE_URL}>
-            เข้าสู่ระบบ
-          </a>
+          <a className="mobile-login" href={HORCARE_URL}>{' '}{t("เข้าสู่ระบบ")}{' '}</a>
+          <a className="mobile-login" href={HORCARE_URL}>{t('เริ่มใช้ฟรี')}</a>
         </nav>
         <div className="nav-actions">
-          <a className="login-link" href={HORCARE_URL}>
-            เข้าสู่ระบบ
-          </a>
-          <a className="button primary nav-cta" href={HORCARE_URL}>
-            เริ่มใช้ฟรี <Ic d="M7 17 17 7M7 7h10v10" size={17} />
+          <div className="language-switch" role="group" aria-label="Language / ภาษา">
+            <button type="button" lang="th" aria-label="ภาษาไทย" aria-pressed={language === 'th'} onClick={() => setLanguage('th')}>TH</button>
+            <button type="button" lang="en" aria-label="English" aria-pressed={language === 'en'} onClick={() => setLanguage('en')}>EN</button>
+          </div>
+          <a className="login-link" href={HORCARE_URL}>{' '}{t("เข้าสู่ระบบ")}{' '}</a>
+          <a className="button primary nav-cta" href={HORCARE_URL}>{' '}{t("เริ่มใช้ฟรี")}{' '}<Ic d="M7 17 17 7M7 7h10v10" size={17} />
           </a>
           <button
             ref={toggle}
             className="menu-toggle"
-            aria-label={open ? 'ปิดเมนู' : 'เปิดเมนู'}
+            aria-label={open ? t("ปิดเมนู") : t("เปิดเมนู")}
             aria-expanded={open}
             aria-controls="main-navigation"
             onClick={() => setOpen(!open)}

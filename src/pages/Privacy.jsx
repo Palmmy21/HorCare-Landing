@@ -1,3 +1,4 @@
+import { useLanguage } from '../i18n/useLanguage.js'
 import { Link } from 'react-router-dom'
 import { Navbar } from '../components/Navbar.jsx'
 import { Footer } from '../components/Footer.jsx'
@@ -55,34 +56,32 @@ const SECTIONS = [
 ]
 
 export default function Privacy() {
+  const { t } = useLanguage()
   return (
     <>
       <Navbar />
       <main id="main" className="legal-page">
-        <nav className="breadcrumb" aria-label="เส้นทางนำทาง">
-          <Link to="/">หน้าแรก</Link>
+        <nav className="breadcrumb" aria-label={t("เส้นทางนำทาง")}>
+          <Link to="/">{' '}{t("หน้าแรก")}{' '}</Link>
           <span>/</span>
-          <span>ความเป็นส่วนตัว</span>
+          <span>{' '}{t("ความเป็นส่วนตัว")}{' '}</span>
         </nav>
-        <h1>HorCare ใส่ใจข้อมูลของคุณ</h1>
-        <p className="legal-date">เนื้อหานโยบายอัปเดตล่าสุด: 1 มิถุนายน 2026</p>
+        <h1>{' '}{t("HorCare ใส่ใจข้อมูลของคุณ")}{' '}</h1>
+        <p className="legal-date">{' '}{t("เนื้อหานโยบายอัปเดตล่าสุด: 1 มิถุนายน 2026")}{' '}</p>
         <div className="legal-intro">
-          <p>
-            เอกสารนี้อธิบายวิธีที่ HorCare เก็บรวบรวม ใช้ และปกป้องข้อมูลของคุณ
-            ตามพระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562 (PDPA)
-          </p>
+          <p>{' '}{t("เอกสารนี้อธิบายวิธีที่ HorCare เก็บรวบรวม ใช้ และปกป้องข้อมูลของคุณ ตามพระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562 (PDPA)")}{' '}</p>
         </div>
         {SECTIONS.map((s, i) => (
           <section key={i}>
-            <h2>{s.title}</h2>
+            <h2>{' '}{t(s.title)}{' '}</h2>
             {s.body.map((p, j) => (
-              <p key={j}>{p}</p>
+              <p key={j}>{' '}{t(p)}{' '}</p>
             ))}
           </section>
         ))}
         <div className="legal-links">
-          <Link to="/">กลับหน้าหลัก</Link>
-          <Link to="/terms">เงื่อนไขการใช้งาน</Link>
+          <Link to="/">{' '}{t("กลับหน้าหลัก")}{' '}</Link>
+          <Link to="/terms">{' '}{t("เงื่อนไขการใช้งาน")}{' '}</Link>
         </div>
       </main>
       <Footer />

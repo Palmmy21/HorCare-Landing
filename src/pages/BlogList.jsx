@@ -1,10 +1,12 @@
-﻿import { useState } from 'react'
+import { useLanguage } from '../i18n/useLanguage.js'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Navbar } from '../components/Navbar.jsx'
 import { Footer } from '../components/Footer.jsx'
 import { Ic, P } from '../components/shared.jsx'
 import { ARTICLES } from '../data/articles.js'
 export default function BlogList() {
+  const { t } = useLanguage()
   const [category, setCategory] = useState('ทั้งหมด')
   const categories = ['ทั้งหมด', ...new Set(ARTICLES.map((a) => a.cat))]
   const articles =
@@ -16,35 +18,30 @@ export default function BlogList() {
       <Navbar />
       <main id="main">
         <div className="container page-intro">
-          <nav className="breadcrumb" aria-label="เส้นทางนำทาง">
-            <Link to="/">หน้าแรก</Link>
+          <nav className="breadcrumb" aria-label={t("เส้นทางนำทาง")}>
+            <Link to="/">{' '}{t("หน้าแรก")}{' '}</Link>
             <span>/</span>
-            <span>บทความ</span>
+            <span>{' '}{t("บทความ")}{' '}</span>
           </nav>
           <h1>
             Property Journal<span className="brand-period">.</span>
           </h1>
-          <p>
-            ความรู้สำหรับเจ้าของอสังหาฯ ที่อยากเติบโตอย่างมีระบบ
-            <br />
-            ตั้งแต่บิลใบแรก ไปจนถึงพอร์ตถัดไป
-          </p>
+          <p>{' '}{t("ความรู้สำหรับเจ้าของอสังหาฯ ที่อยากเติบโตอย่างมีระบบ")}{' '}<br />{' '}{t("ตั้งแต่บิลใบแรก ไปจนถึงพอร์ตถัดไป")}{' '}</p>
         </div>
-        <section className="container blog-index" aria-label="บทความทั้งหมด">
-          <div className="blog-filter" role="group" aria-label="หมวดหมู่บทความ">
+        <section className="container blog-index" aria-label={t("บทความทั้งหมด")}>
+          <div className="blog-filter" role="group" aria-label={t("หมวดหมู่บทความ")}>
             {categories.map((cat) => (
               <button
-                key={cat}
+                key={t(cat)}
                 aria-pressed={category === cat}
                 onClick={() => setCategory(cat)}
               >
-                {cat}
+                {' '}{t(cat)}{' '}
               </button>
             ))}
           </div>
           <p className="sr-only" aria-live="polite">
-            {articles.length} บทความ
-          </p>
+            {articles.length}{' '}{t("บทความ")}{' '}</p>
           <div className="journal-grid">
             {articles.map((a, i) => (
               <Link
@@ -65,12 +62,11 @@ export default function BlogList() {
                   <Ic d={[P.home, P.doc, P.chart][i % 3]} size={64} />
                 </div>
                 <div className="journal-meta">
-                  <span>{a.cat}</span>
-                  <span>อ่าน {a.min} นาที</span>
+                  <span>{' '}{t(a.cat)}{' '}</span>
+                  <span>{' '}{t("อ่าน")}{' '}{a.min}{' '}{t("นาที")}{' '}</span>
                 </div>
-                <h2 style={{ fontSize: 21, lineHeight: 1.65 }}>{a.title}</h2>
-                <span className="journal-read">
-                  อ่านบทความ <Ic d="M7 17 17 7M7 7h10v10" size={17} />
+                <h2 style={{ fontSize: 21, lineHeight: 1.65 }}>{' '}{t(a.title)}{' '}</h2>
+                <span className="journal-read">{' '}{t("อ่านบทความ")}{' '}<Ic d="M7 17 17 7M7 7h10v10" size={17} />
                 </span>
               </Link>
             ))}
