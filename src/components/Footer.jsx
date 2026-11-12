@@ -16,7 +16,8 @@ export function Footer() {
           </div>
           <div>
             <h2>{' '}{t("แพลตฟอร์ม")}{' '}</h2>
-            <Link to="/#features">{' '}{t("ฟีเจอร์ทั้งหมด")}{' '}</Link>
+            <Link to="/#solution">{' '}{t("ฟีเจอร์ทั้งหมด")}{' '}</Link>
+            <Link to="/#getting-started">{t("เริ่มต้นใช้งาน")}</Link>
             <Link to="/#pricing">{' '}{t("แพ็กเกจและราคา")}{' '}</Link>
             <a href={HORCARE_URL}>{' '}{t("เข้าสู่ระบบ")}{' '}</a>
           </div>

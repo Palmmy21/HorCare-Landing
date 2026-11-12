@@ -18,30 +18,30 @@ colors:
   focus: "#177dcc"
 typography:
   display:
-    fontFamily: "Kanit, sans-serif"
+    fontFamily: "Anuphan, sans-serif"
     fontSize: "clamp(37px, 4.15vw, 60px)"
     fontWeight: 500
     lineHeight: 1.43
     letterSpacing: "-0.035em"
   headline:
-    fontFamily: "Kanit, sans-serif"
+    fontFamily: "Anuphan, sans-serif"
     fontSize: "clamp(30px, 3.1vw, 44px)"
     fontWeight: 500
     lineHeight: 1.35
     letterSpacing: "-0.025em"
   title:
-    fontFamily: "Kanit, sans-serif"
+    fontFamily: "Anuphan, sans-serif"
     fontSize: "27px"
     fontWeight: 500
     lineHeight: 1.5
     letterSpacing: "-0.02em"
   body:
-    fontFamily: "Sarabun, sans-serif"
+    fontFamily: "IBM Plex Sans Thai Looped, sans-serif"
     fontSize: "17px"
     fontWeight: 400
     lineHeight: 1.9
   label:
-    fontFamily: "Kanit, sans-serif"
+    fontFamily: "Anuphan, sans-serif"
     fontSize: "15px"
     fontWeight: 500
 rounded:
@@ -145,7 +145,7 @@ The user-pinned palette combines open sky-blue surfaces, confident navy, fresh g
 
 ## Typography
 
-**Display Font:** Kanit, sans-serif. **Body Font:** Sarabun, sans-serif.
+**Display Font:** Anuphan (warm, humanist loopless Thai by Cadson Demak). **Body Font:** IBM Plex Sans Thai Looped (looped, highly legible, trustworthy). The HorCare wordmark alone stays in Kanit 600. The morphing hero word uses Sriracha (marker handwriting, tilted -2deg) for a personal, warm accent. Chosen in Nov 2026 for a warm, trustworthy voice.
 
 Both families are hosted locally as WOFF2 with Thai and Latin subsets in public/fonts; their loading stylesheet is public/fonts/fonts.css. Kanit gives headings and numeric summaries a compact, approachable voice. Sarabun carries Thai explanations and reading content.
 
@@ -216,3 +216,7 @@ FAQs use native details/summary, a thin divider, and a plus mark that rotates wh
 - **Don't** introduce a cold banking or government-portal visual identity.
 - **Don't** treat compact dashboard metadata as the standard for body text.
 - **Don't** add fabricated customer proof or decorative effects that obscure product meaning.
+
+## Motion (Nov 2026)
+
+Warm and steady: long exponential ease-outs (`cubic-bezier(0.22, 1, 0.36, 1)`), no overshoot or bounce. Content reveals in both scroll directions (rises when scrolling down, settles from above when scrolling up). Signature moments: the rotating asset word in the hero (synced to the sample dashboard), scattered work gathering into HorCare, and a marquee whose direction follows the reader's scroll. Navigation is a slim glass bar (backdrop blur) that tucks away on scroll down and returns on scroll up. `prefers-reduced-motion` removes all movement and autoplay while keeping every piece of content.

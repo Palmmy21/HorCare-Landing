@@ -1,6 +1,6 @@
-﻿import { mkdirSync, writeFileSync } from 'node:fs'
+import { mkdirSync, writeFileSync } from 'node:fs'
 const url =
-  'https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600&family=Sarabun:wght@400;500;600&display=swap'
+  'https://fonts.googleapis.com/css2?family=Anuphan:wght@400;500;600;700&family=IBM+Plex+Sans+Thai+Looped:wght@400;500;600&family=Kanit:wght@600&family=Sriracha&display=swap'
 const response = await fetch(url, {
   headers: {
     'User-Agent':
@@ -17,7 +17,7 @@ const blocks = [
 if (!blocks.length) throw new Error('Font CSS has no Thai/Latin subsets')
 const assets = new Map()
 let output =
-  '/* Kanit and Sarabun from Google Fonts; SIL Open Font License. */\n'
+  '/* Anuphan, IBM Plex Sans Thai Looped, Kanit (wordmark), and Sriracha (hero word) from Google Fonts; SIL Open Font License. */\n'
 for (const match of blocks) {
   let block = match[2]
   const remote = block.match(/url\(([^)]+)\)/)[1]
@@ -35,7 +35,7 @@ for (const match of blocks) {
   output += block.replace(remote, './' + filename) + '\n'
 }
 writeFileSync('public/fonts/fonts.css', output)
-for (const family of ['kanit', 'sarabun']) {
+for (const family of ['anuphan', 'ibmplexsansthailooped', 'kanit', 'sriracha']) {
   const license = await fetch(
     'https://raw.githubusercontent.com/google/fonts/main/ofl/' +
       family +

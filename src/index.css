@@ -1,7 +1,7 @@
 ﻿@import 'tailwindcss';
 @theme {
-  --font-display: 'Kanit', sans-serif;
-  --font-body: 'Sarabun', sans-serif;
+  --font-display: 'Anuphan', 'Noto Sans Thai', sans-serif;
+  --font-body: 'IBM Plex Sans Thai Looped', 'Noto Sans Thai Looped', sans-serif;
 }
 :root {
   --page: #f5faff;
@@ -16,8 +16,8 @@
   --sky: #3298dc;
   --green-soft: #d5f1e2;
   --radius: 16px;
-  --font-display: 'Kanit', sans-serif;
-  --font-body: 'Sarabun', sans-serif;
+  --font-display: 'Anuphan', 'Noto Sans Thai', sans-serif;
+  --font-body: 'IBM Plex Sans Thai Looped', 'Noto Sans Thai Looped', sans-serif;
 }
 *,
 *::before,

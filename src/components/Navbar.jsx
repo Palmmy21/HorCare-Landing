@@ -7,7 +7,13 @@ import { Ic, HORCARE_URL } from './shared.jsx'
 export function Navbar() {
   const { t, language, setLanguage } = useLanguage()
   const [open, setOpen] = useState(false)
+  const [active, setActive] = useState('')
   const toggle = useRef(null)
+  const header = useRef(null)
+  const openRef = useRef(open)
+  useEffect(() => {
+    openRef.current = open
+  }, [open])
   const location = useLocation()
   useEffect(() => {
     function close(event) {
@@ -20,15 +26,55 @@ export function Navbar() {
     return () => document.removeEventListener('keydown', close)
   }, [])
   const links = [
-    [t("แพลตฟอร์ม"), '/#features'],
-    [t("เหมาะกับใคร"), '/#properties'],
+    [t("ระบบ"), '/#solution'],
+    [t("ลองใช้งาน"), '/#experience'],
+    [t("เริ่มต้นใช้งาน"), '/#getting-started'],
     [t("แพ็กเกจ"), '/#pricing'],
     [t("บทความ"), '/blog'],
   ]
+  // Glass bar: tucks away while reading down, returns the moment you scroll up;
+  // tracks reading progress and the section in view.
+  useEffect(() => {
+    const el = header.current
+    if (!el) return
+    const ids = ['solution', 'experience', 'getting-started', 'pricing']
+    let lastY = window.scrollY
+    let frame = 0
+    const update = () => {
+      frame = 0
+      const y = window.scrollY
+      const max = document.documentElement.scrollHeight - window.innerHeight
+      el.style.setProperty('--scroll', max > 0 ? (y / max).toFixed(4) : '0')
+      el.classList.toggle('is-scrolled', y > 12)
+      if (Math.abs(y - lastY) > 6) {
+        const hide = y > lastY && y > 240 && !openRef.current && !el.contains(document.activeElement)
+        el.classList.toggle('is-tucked', hide)
+        lastY = y
+      }
+      let current = ''
+      for (const id of ids) {
+        const section = document.getElementById(id)
+        if (section && section.getBoundingClientRect().top < window.innerHeight * 0.4) current = id
+      }
+      setActive(current)
+    }
+    const request = () => {
+      if (!frame) frame = requestAnimationFrame(update)
+    }
+    update()
+    window.addEventListener('scroll', request, { passive: true })
+    window.addEventListener('resize', request)
+    return () => {
+      cancelAnimationFrame(frame)
+      window.removeEventListener('scroll', request)
+      window.removeEventListener('resize', request)
+    }
+  }, [location.pathname])
   return (
-    <header className="site-header">
+    <header className="site-header" ref={header}>
       <a className="skip-link" href="#main">{' '}{t("ข้ามไปเนื้อหา")}{' '}</a>
       <div className="container nav-inner">
+        <span className="nav-progress" aria-hidden="true" />
         <Brand />
         <nav
           className={`nav-links ${open ? 'is-open' : ''}`}
@@ -40,6 +86,7 @@ export function Navbar() {
               key={to}
               to={to}
               aria-current={location.pathname === to ? 'page' : undefined}
+              className={to === '/#' + active ? 'is-active' : undefined}
               onClick={() => setOpen(false)}
             >
               {' '}{t(label)}{' '}

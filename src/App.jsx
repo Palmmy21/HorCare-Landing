@@ -14,6 +14,7 @@ import { LanguageProvider } from './i18n/LanguageProvider.jsx'
 import { contentPath } from './i18n/locale.js'
 import { Link } from './components/LocalizedLink.jsx'
 import './App.css'
+import './landing.css'
 
 function RouteEffects() {
   const { language, t } = useLanguage()
