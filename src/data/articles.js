@@ -1,4 +1,5 @@
-export const ARTICLES = [
+import { NEW_ARTICLES } from './articles-more.js'
+const BASE_ARTICLES = [
   {
     "slug": "property-management-platform-guide",
     "cat": "Property Management",
@@ -458,3 +459,6 @@ export const ARTICLES = [
     "modifiedISO": "2026-10-25"
   }
 ]
+
+// Newest first: the landing page shows the first three, so "why HorCare" leads.
+export const ARTICLES = [...NEW_ARTICLES, ...BASE_ARTICLES]

@@ -179,6 +179,7 @@ export function routeSchema(path) {
     const article = ARTICLES.find(a => clean === '/blog/' + a.slug)
     if (article) {
       nodes[0].dateModified = article.modifiedISO || article.dateISO
+      if (article.keywords) nodes[0].keywords = translate(article.keywords, language).join(', ')
       nodes[0].image = BASE_URL + '/og-image.png'
       nodes[0].mainEntityOfPage = url
     }

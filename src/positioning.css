@@ -451,3 +451,10 @@
     justify-content: center;
   }
 }
+
+/* article paragraphs: separate the blocks that "\n\n" splits in articles.js */
+.article-content p + p,
+.article-content p + ol,
+.article-content ol + p {
+  margin-top: 14px;
+}
