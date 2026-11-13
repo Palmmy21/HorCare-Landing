@@ -241,7 +241,7 @@ export default {
   "8. ติดต่อเรา": "8. Contact us",
   "หากมีคำถามเกี่ยวกับนโยบายความเป็นส่วนตัว ติดต่อเราได้ที่ LINE: @127qwwfi หรือผ่านช่องทางติดต่อบนเว็บไซต์ ทีมงานพร้อมตอบภายใน 2 วันทำการ": "For questions about this privacy policy, contact LINE @127qwwfi or use the contact channels on our website. Our team will respond within two business days.",
   "HorCare ใส่ใจข้อมูลของคุณ": "HorCare cares about your data",
-  "เนื้อหานโยบายอัปเดตล่าสุด: 1 มิถุนายน 2026": "Policy last updated: June 1, 2026",
+  "เนื้อหานโยบายอัปเดตล่าสุด: 14 พฤศจิกายน 2026": "Policy last updated: November 14, 2026",
   "เอกสารนี้อธิบายวิธีที่ HorCare เก็บรวบรวม ใช้ และปกป้องข้อมูลของคุณ ตามพระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562 (PDPA)": "This document explains how HorCare collects, uses, and protects your information under Thailand's Personal Data Protection Act B.E. 2562 (2019), or PDPA.",
   "1. การยอมรับเงื่อนไข": "1. Acceptance of terms",
   "การลงทะเบียนหรือใช้งานบริการ HorCare ถือว่าคุณยอมรับเงื่อนไขการใช้งานฉบับนี้ทุกประการ หากคุณไม่เห็นด้วยกับเงื่อนไขใด ๆ กรุณาหยุดการใช้งานทันที": "By registering for or using HorCare, you accept these terms of service in full. If you disagree with any terms, please stop using the service immediately.",

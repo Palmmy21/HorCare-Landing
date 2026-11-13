@@ -1,7 +1,8 @@
 import base from './en.js'
 import landing from './en-landing.js'
+import positioning from './en-positioning.js'
 
-const english = { ...base, ...landing }
+const english = { ...base, ...landing, ...positioning }
 export function translate(value, language) {
   if (language !== 'en') return value
   if (typeof value === 'string') {

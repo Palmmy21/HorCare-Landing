@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom'
 import { Link } from '../components/LocalizedLink.jsx'
 import { Brand } from './Brand.jsx'
 import { Ic, HORCARE_URL } from './shared.jsx'
+import { DEMO_URL } from './landing/links.js'
 export function Navbar() {
   const { t, language, setLanguage } = useLanguage()
   const [open, setOpen] = useState(false)
@@ -26,10 +27,10 @@ export function Navbar() {
     return () => document.removeEventListener('keydown', close)
   }, [])
   const links = [
-    [t("ระบบ"), '/#solution'],
-    [t("ลองใช้งาน"), '/#experience'],
-    [t("เริ่มต้นใช้งาน"), '/#getting-started'],
+    [t("ระบบ"), '/#dormitory'],
+    [t("ย้ายข้อมูล"), '/#import'],
     [t("แพ็กเกจ"), '/#pricing'],
+    [t("ความปลอดภัย"), '/#trust'],
     [t("บทความ"), '/blog'],
   ]
   // Glass bar: tucks away while reading down, returns the moment you scroll up;
@@ -37,7 +38,7 @@ export function Navbar() {
   useEffect(() => {
     const el = header.current
     if (!el) return
-    const ids = ['solution', 'experience', 'getting-started', 'pricing']
+    const ids = ['dormitory', 'import', 'pricing', 'trust']
     let lastY = window.scrollY
     let frame = 0
     const update = () => {
@@ -93,7 +94,8 @@ export function Navbar() {
             </Link>
           ))}
           <a className="mobile-login" href={HORCARE_URL}>{' '}{t("เข้าสู่ระบบ")}{' '}</a>
-          <a className="mobile-login" href={HORCARE_URL}>{t('เริ่มใช้ฟรี')}</a>
+          <a className="mobile-login" href={HORCARE_URL} data-track="start_free">{t('เริ่มใช้ฟรี')}</a>
+          <a className="mobile-login" href={DEMO_URL} target="_blank" rel="noreferrer" data-track="book_demo">{t('จองเดโม')}</a>
         </nav>
         <div className="nav-actions">
           <div className="language-switch" role="group" aria-label="Language / ภาษา">
@@ -101,7 +103,7 @@ export function Navbar() {
             <button type="button" lang="en" aria-label="English" aria-pressed={language === 'en'} onClick={() => setLanguage('en')}>EN</button>
           </div>
           <a className="login-link" href={HORCARE_URL}>{' '}{t("เข้าสู่ระบบ")}{' '}</a>
-          <a className="button primary nav-cta" href={HORCARE_URL}>{' '}{t("เริ่มใช้ฟรี")}{' '}<Ic d="M7 17 17 7M7 7h10v10" size={17} />
+          <a className="button primary nav-cta" href={DEMO_URL} target="_blank" rel="noreferrer" data-track="book_demo">{' '}{t("จองเดโม")}{' '}<Ic d="M7 17 17 7M7 7h10v10" size={17} />
           </a>
           <button
             ref={toggle}

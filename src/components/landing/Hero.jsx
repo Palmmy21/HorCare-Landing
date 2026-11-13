@@ -5,7 +5,8 @@ import { prefersReducedMotion, useReducedMotion, useScrollProgress } from './mot
 import { DEMO_URL } from './links.js'
 
 // One entry per word in the headline; the dashboard follows the same index.
-const assets = [
+// The hero shows only what HorCare is best at (dormitories and apartments); the others stay for reuse.
+const allAssets = [
   {
     word: 'หอพัก',
     tone: '#23895b',
@@ -97,6 +98,7 @@ const assets = [
     rows: [['ยูนิต G-05', '18,000', 'รับชำระแล้ว'], ['บูธ B-12', '6,500', 'รับชำระแล้ว'], ['ยูนิต 2-07', '14,000', 'รอตรวจสอบ']],
   },
 ]
+const assets = allAssets.filter((a) => a.word === 'หอพัก' || a.word === 'อพาร์ตเมนต์')
 
 const ROTATE_MS = 3200
 const MORPH_MS = 1150
@@ -363,29 +365,29 @@ export function Hero() {
       <div className="container">
         <div className="lp-hero-intro">
           <h1 className="lp-h1">
-            <span className="lp-h1-lead">{t('ไม่ว่าคุณจะเป็นเจ้าของ')}</span>
+            <span className="lp-h1-lead">{t('ระบบจัดการ')}</span>
             <MorphWord words={morphWords} index={selected} />
-            <span className="sr-only">{t('หอพัก ตลาด อพาร์ตเมนต์ คอนโด รีสอร์ท หรือพื้นที่เช่า')}</span>
-            <span className="lp-h1-tail">
-              {t('ให้')} <span className="lp-h1-brand">HorCare</span> {t('ดูแลให้คุณ')}
-            </span>
+            <span className="sr-only">{t('หอพักและอพาร์ตเมนต์')}</span>
+            <span className="lp-h1-tail">{t('ที่เก็บเงินได้ครบ ทุกเดือน')}</span>
           </h1>
           <p className="lp-hero-lede">
-            <strong>{t('บริหารอสังหาริมทรัพย์ได้ง่ายขึ้น ในระบบเดียว')}</strong>{' '}
-            {t('ตั้งแต่จัดการผู้เช่า ออกบิล ดูแลทรัพย์สิน ไปจนถึงบริหารทีมงาน ทุกอย่างเชื่อมต่อกันบน HorCare')}
+            <strong>{t('HorCare ทำมาเพื่อหอพักและอพาร์ตเมนต์รายเดือนโดยเฉพาะ')}</strong>{' '}
+            {t('จดมิเตอร์ ออกบิลทั้งตึก ส่งบิลทาง LINE และตรวจสลิปให้ในที่เดียว ใช้ Excel อยู่ก็ย้ายมาได้ ทีมช่วยนำเข้าข้อมูลให้')}
           </p>
           <div className="hero-actions lp-hero-actions">
-            <a className="button primary lp-cta-glow" href={DEMO_URL} target="_blank" rel="noreferrer">
-              {t('ขอ Demo ระบบจริง')}
+            <a className="button primary lp-cta-glow" href={DEMO_URL} target="_blank" rel="noreferrer" data-track="book_demo">
+              <span className="lp-step-badge" aria-hidden="true">1</span>
+              {t('จองเดโมฟรีกับทีม')}
               <Ic d={P.arrow} size={18} />
             </a>
-            <a className="button lp-glass-button" href={HORCARE_URL}>
+            <a className="button lp-glass-button" href={HORCARE_URL} data-track="start_free">
+              <span className="lp-step-badge" aria-hidden="true">2</span>
               {t('เริ่มใช้งานฟรี')}
               <Ic d="M7 17 17 7M7 7h10v10" size={17} />
             </a>
           </div>
           <ul className="lp-hero-fine">
-            {['ฟรีสูงสุด 250 ห้อง', 'ไม่ต้องผูกบัตรเครดิต', 'ทดลอง Pro ฟรี 30 วัน'].map((x) => (
+            {['ฟรีสูงสุด 250 ห้อง', 'ไม่ต้องผูกบัตรเครดิต', 'ทีมช่วยนำเข้าข้อมูล'].map((x) => (
               <li key={x}>
                 <Ic d={P.check} size={15} />
                 {t(x)}
@@ -404,7 +406,7 @@ export function Hero() {
         >
           <div className="portfolio-preview" id="properties">
             <div className="preview-caption">
-              <span>{t('ทุกสินทรัพย์ของคุณ ในมุมมองเดียว')}</span>
+              <span>{t('ภาพรวมหอของคุณ ในมุมมองเดียว')}</span>
               <div className="lp-tabs-wrap">
                 <div className="property-tabs" role="group" aria-label={t('เลือกประเภทอสังหาฯ ตัวอย่าง')}>
                   {assets.map((a, i) => (

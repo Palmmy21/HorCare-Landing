@@ -7,7 +7,9 @@ import { Ic, P, HORCARE_URL, LINE_URL } from '../components/shared.jsx'
 import { ARTICLES } from '../data/articles.js'
 import { FAQS } from '../data/site.js'
 import { Hero } from '../components/landing/Hero.jsx'
-import { AssetMarquee } from '../components/landing/AssetMarquee.jsx'
+import { ProofBand, Specialist } from '../components/landing/Proof.jsx'
+import { ImportService } from '../components/landing/ImportService.jsx'
+import { Trust } from '../components/landing/Trust.jsx'
 import { ProblemToSolution } from '../components/landing/ProblemToSolution.jsx'
 import { Solution } from '../components/landing/Solution.jsx'
 import { Experience } from '../components/landing/Experience.jsx'
@@ -37,7 +39,7 @@ const paidPlans = [
       'อ่านมิเตอร์จากรูปถ่ายด้วย AI',
       'งานแจ้งซ่อม สต็อก ทรัพย์สิน และค่าใช้จ่าย',
       'ผู้ช่วย AI "น้องแคร์"',
-      'ทีมงาน HorCare ดูแลเซ็ตอัพให้',
+      'ทีม HorCare ช่วยนำเข้าข้อมูลและเซ็ตอัพให้',
       'Priority Support ผ่าน LINE ตลอด 24 ชม.',
     ],
   },
@@ -76,10 +78,10 @@ function Pricing() {
           <p>{t('ทุกราคาอยู่บนหน้านี้ ไม่มีค่าใช้จ่ายแอบแฝง เริ่มฟรีก่อน แล้วค่อยขยับเมื่อธุรกิจพร้อม')}</p>
         </div>
         <div className="billing-toggle" role="group" aria-label={t('รอบการชำระเงิน')}>
-          <button type="button" aria-pressed={!annual} onClick={() => setAnnual(false)}>
+          <button type="button" aria-pressed={!annual} onClick={() => setAnnual(false)} data-track="pricing_monthly">
             {t('รายเดือน')}
           </button>
-          <button type="button" aria-pressed={annual} onClick={() => setAnnual(true)}>
+          <button type="button" aria-pressed={annual} onClick={() => setAnnual(true)} data-track="pricing_yearly">
             {t('รายปี')} <span>{t('ประหยัด 38%')}</span>
           </button>
         </div>
@@ -91,12 +93,12 @@ function Pricing() {
               {t('฿0')} <span>{t('/ ตลอดชีพ')}</span>
             </div>
             <p className="plan-capacity">{t('สูงสุด 250 ห้อง')}</p>
-            <a className="button outline" href={HORCARE_URL}>
+            <a className="button outline" href={HORCARE_URL} data-track="plan_free">
               {t('เริ่มใช้งานฟรี')}
               <Ic d={P.arrow} size={18} />
             </a>
             <ul>
-              {['จัดการห้องและข้อมูลผู้เช่า', 'ออกบิลและใบแจ้งหนี้', 'บันทึกมิเตอร์น้ำและไฟ', 'สร้างสัญญาเช่าออนไลน์', 'พิมพ์ใบเสร็จรับเงิน'].map((x) => (
+              {['จัดการห้องและข้อมูลผู้เช่า', 'นำเข้าห้องจากเทมเพลต Excel', 'ออกบิลและใบแจ้งหนี้', 'บันทึกมิเตอร์น้ำและไฟ', 'สร้างสัญญาเช่าออนไลน์', 'พิมพ์ใบเสร็จรับเงิน'].map((x) => (
                 <li key={x}>
                   <Ic d={P.check} size={17} /> {t(x)}
                 </li>
@@ -126,6 +128,7 @@ function Pricing() {
                 href={lineAsk(t('สนใจแพ็กเกจ ') + plan.name + ' ' + (annual ? t('รายปี ') + plan.yearly + t(' บาท') : t('รายเดือน ') + plan.monthly + t(' บาท')))}
                 target="_blank"
                 rel="noreferrer"
+                data-track={'plan_' + plan.key}
               >
                 {t('เลือก') + ' ' + plan.name}
                 <Ic d={P.arrow} size={18} />
@@ -146,7 +149,7 @@ function Pricing() {
             <b>{t('ยังไม่แน่ใจ? ทดลอง HorCare Pro ฟรี 30 วัน')}</b>
             <span>{t('ใช้ได้ทุกฟีเจอร์ ครบ 30 วันแล้วบัญชีกลับเป็นแพ็กเกจฟรีเอง ไม่มีการตัดเงินอัตโนมัติ')}</span>
           </div>
-          <a className="button primary" href={HORCARE_URL}>
+          <a className="button primary" href={HORCARE_URL} data-track="start_trial">
             {t('เริ่มทดลองใช้')}
             <Ic d={P.arrow} size={18} />
           </a>
@@ -174,13 +177,16 @@ export default function Landing() {
       <Navbar />
       <main id="main" className="lp">
         <Hero />
-        <AssetMarquee />
+        <ProofBand />
+        <Specialist />
         <ProblemToSolution />
         <Solution />
+        <ImportService />
         <Experience />
         <Flexibility />
         <GettingStarted />
         <Pricing />
+        <Trust />
 
         <section className="section faq-section" id="faq">
           <div className="container faq-layout">
@@ -254,21 +260,34 @@ export default function Landing() {
           <div className="container contact-inner lp-final-inner">
             <div>
               <h2>
-                {t('เห็นระบบจริง')}
+                {t('เริ่มได้ใน 2 ขั้น')}
                 <br />
-                <span>{t('ก่อนตัดสินใจ')}</span>
+                <span>{t('ไม่ต้องเสียเงินสักบาท')}</span>
               </h2>
-              <p>{t('สัมผัสประสบการณ์ HorCare ผ่านการ Demo กับทีมงาน แล้วดูว่าธุรกิจของคุณจะทำงานต่างไปจากเดิมอย่างไร')}</p>
-              <div className="hero-actions">
-                <a className="button accent" href={DEMO_URL} target="_blank" rel="noreferrer">
-                  {t('ขอ Demo ผ่าน LINE')}
-                  <Ic d={P.arrow} size={18} />
-                </a>
-                <a className="button light-outline" href={HORCARE_URL}>
-                  {t('เริ่มใช้งานฟรี')}
-                  <Ic d={OUT} size={17} />
-                </a>
-              </div>
+              <ol className="lp-funnel">
+                <li>
+                  <span className="lp-funnel-num">1</span>
+                  <div>
+                    <b>{t('จองเดโมกับทีม')}</b>
+                    <p>{t('บอกจำนวนห้องและวันที่สะดวกทาง LINE ทีมพาดูระบบจริงกับข้อมูลแบบหอของคุณ และวางแผนย้ายข้อมูลให้')}</p>
+                    <a className="button accent" href={DEMO_URL} target="_blank" rel="noreferrer" data-track="book_demo">
+                      {t('จองเดโมผ่าน LINE')}
+                      <Ic d={P.arrow} size={18} />
+                    </a>
+                  </div>
+                </li>
+                <li>
+                  <span className="lp-funnel-num">2</span>
+                  <div>
+                    <b>{t('เริ่มใช้งานจริง')}</b>
+                    <p>{t('สมัครฟรี นำเข้าห้องจาก Excel หรือให้ทีมช่วยลงข้อมูล แล้วออกบิลเดือนแรกได้ทันที')}</p>
+                    <a className="button light-outline" href={HORCARE_URL} data-track="start_free">
+                      {t('เริ่มใช้งานฟรี')}
+                      <Ic d={OUT} size={17} />
+                    </a>
+                  </div>
+                </li>
+              </ol>
               <small>{t('ฟรีสูงสุด 250 ห้อง · ไม่ต้องผูกบัตรเครดิต · LINE @127qwwfi')}</small>
             </div>
             <p className="contact-word lp-final-word" aria-hidden="true">

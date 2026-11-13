@@ -13,8 +13,11 @@ import { pageMeta, routeSchema, languageAlternates, BASE_URL } from './data/site
 import { LanguageProvider } from './i18n/LanguageProvider.jsx'
 import { contentPath } from './i18n/locale.js'
 import { Link } from './components/LocalizedLink.jsx'
+import { CookieConsent } from './components/CookieConsent.jsx'
+import { watchPage, trackPageView } from './lib/analytics.js'
 import './App.css'
 import './landing.css'
+import './positioning.css'
 
 function RouteEffects() {
   const { language, t } = useLanguage()
@@ -68,6 +71,12 @@ function RouteEffects() {
         meta.notFound ? 'noindex, follow' : 'index, follow',
       )
   }, [pathname, language, t])
+  // Visitor analytics: only reports once the visitor has accepted cookies (see lib/analytics.js).
+  useEffect(() => {
+    const stop = watchPage()
+    trackPageView()
+    return stop
+  }, [pathname])
   useEffect(() => {
     if (hash)
       requestAnimationFrame(() =>
@@ -106,6 +115,7 @@ function AppRoutes() {
         <Route path="/blog/:slug" element={<BlogPost />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <CookieConsent />
     </>
   )
 }

@@ -2,8 +2,12 @@ import { useLanguage } from '../i18n/useLanguage.js'
 import { Link } from '../components/LocalizedLink.jsx'
 import { Brand } from './Brand.jsx'
 import { Ic, HORCARE_URL, LINE_URL } from './shared.jsx'
+import { DEMO_URL } from './landing/links.js'
+import { COMPANY } from '../data/company.js'
+import { openConsentSettings } from '../lib/analytics.js'
 export function Footer() {
   const { t } = useLanguage()
+  const legal = [COMPANY.taxId && t('เลขประจำตัวผู้เสียภาษี') + ' ' + COMPANY.taxId, COMPANY.address].filter(Boolean)
   return (
     <footer className="site-footer">
       <div className="container">
@@ -32,14 +36,22 @@ export function Footer() {
             <a href={LINE_URL} target="_blank" rel="noreferrer">
               LINE @127qwwfi <Ic d="M7 17 17 7M7 7h10v10" size={15} />
             </a>
-            <Link to="/#contact">{' '}{t("ขอเดโมกับทีม HorCare")}{' '}</Link>
-            <span className="footer-note">{' '}{t("สำหรับเจ้าของอสังหาฯ ยุคใหม่")}{' '}</span>
+            {COMPANY.phone && <a href={'tel:' + COMPANY.phone.replace(/[^\d+]/g, '')}>{COMPANY.phone}</a>}
+            {COMPANY.email && <a href={'mailto:' + COMPANY.email}>{COMPANY.email}</a>}
+            <a href={DEMO_URL} target="_blank" rel="noreferrer" data-track="book_demo">{t('จองเดโมกับทีม HorCare')}</a>
+            <Link to="/#trust">{t('ความปลอดภัยของข้อมูล')}</Link>
+            <span className="footer-note">{' '}{t("ระบบจัดการหอพักและอพาร์ตเมนต์")}{' '}</span>
           </div>
         </div>
         <div className="footer-bottom">
-          <span>© 2026 HorCare. All rights reserved.</span>
+          <span>
+            © 2026 {COMPANY.legalName || 'HorCare'}. All rights reserved.
+            {legal.length > 0 && <small className="footer-legal">{legal.join(' · ')}</small>}
+          </span>
           <div>
             <Link to="/privacy">{' '}{t("ความเป็นส่วนตัว")}{' '}</Link>
+            <Link to="/privacy#cookies">{t('นโยบายคุกกี้')}</Link>
+            <button type="button" className="footer-cookie" onClick={openConsentSettings}>{t('ตั้งค่าคุกกี้')}</button>
             <Link to="/terms">{' '}{t("เงื่อนไขการใช้งาน")}{' '}</Link>
             <span>Made for your next chapter.</span>
           </div>
